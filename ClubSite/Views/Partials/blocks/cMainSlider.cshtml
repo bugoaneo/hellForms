@@ -1,0 +1,100 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CMainSlider>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+@{
+    var settings = (BlockSettings?)ViewData["settings"];
+    var index = 1;
+
+    var blockIndex = (int?)ViewData["blockIndex"] ?? -1;
+
+    if (Model.RenderUnderHeader && blockIndex == 0 && settings != null)
+    {
+        Context.Items.Add("headerOnTopOfContentFlag", settings.AlternateColor);
+    }
+}
+
+@if (Model.Banners != null && Model.Banners.Any())
+{
+    <section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+        <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+            <div class="mainSlider swiper mySwiper swiper-container banner @(Model.Banners.Count() == 1 ? " _static" : string.Empty)">
+                <div class="swiper-wrapper">
+                    @foreach (var banner in Model.Banners)
+                    {
+                        var slide = (ContentModels.SlideWtext)banner.Content;
+                        var dimLevel = !string.IsNullOrEmpty(slide.DimImageLevel) ? Convert.ToDecimal(slide.DimImageLevel.Trim('%')) / 100 : 0;
+
+                        var backgroundImage = slide.Image != null ? slide.Image.Url() : String.Empty;
+                        var mobileBackground = slide.ImageMobile != null ? slide.ImageMobile.Url() : String.Empty;
+                        var bannerBkStyle = string.Empty;
+
+                        if(backgroundImage.Length > 0){
+                            if(mobileBackground.Length > 0)
+                            {
+                                bannerBkStyle = $"--desktop: url('{backgroundImage}'); --mobile: url('{mobileBackground}')";
+                            }else
+                            {
+                                bannerBkStyle = $"background-image: url('{backgroundImage}')";
+                            }
+                        }
+
+                        <div class="mainSlider__item swiper-slide@(slide.AlternateColor ? " _altColor" : string.Empty)@(Model.RenderUnderHeader ? " mainSlider_under_header" : string.Empty)@(slide.AlignCenter ? " mainSlider_content_center" : string.Empty)"
+                        style="@Html.Raw(bannerBkStyle)" 
+                        @Html.Raw(mobileBackground.Length > 0 ? $"data-mobileImg=\"{mobileBackground}\"" : String.Empty)
+                             data-idx="@(index++)">
+                            @if (dimLevel > 0)
+                            {
+                                <div class="mainSlider__overlay" style="opacity: @dimLevel.ToString().Replace(',','.')"></div>
+                            }
+
+                            <div class="block__content">
+                                @{
+                                    RenderSlideText(slide);
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                @if (Model.Banners.Count() > 1)
+                {
+                    <div class="mainSlider__arrows arrowBlock" @Html.Raw(Model.Delay > 0 ? " data-delay=\"" + Math.Max(Model.Delay, 2000) + "\"" : string.Empty)>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+
+                    <div class="swiper-pagination mainSlider__pagination"></div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+@{
+    void RenderSlideText(SlideWtext slide)
+    {
+        <div class="mainSlider__container">
+            <div class="mainSlider__title">@Html.Raw(slide.Title)</div>
+            <div class="mainSlider__description">
+                @Html.Raw(slide.Text)
+            </div>
+            @{
+                RenderTopSlideActions(slide);
+            }
+        </div>
+    }
+
+    void RenderTopSlideActions(SlideWtext slide)
+    {
+        if (slide.Actions.Any())
+        {
+            <div class="mainSlider__buttons">
+                @foreach (var action in slide.Actions)
+                {
+                    <a href="@action.Url" class="mainSlider__button btn">@action.Name</a>
+                }
+            </div>
+        }
+    }
+}
+
+

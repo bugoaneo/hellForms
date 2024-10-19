@@ -1,0 +1,26 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CWriteToUs>
+
+@{
+    var settings = (BlockSettings?)ViewData["settings"];
+    var button = Model.ChatButton;
+}
+
+@await Html.PartialAsync("partRenderAnchor", settings)
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+        <div class="writeToUs @(Model.ContentCenter ? "writeToUs_contentCenter" : string.Empty)">
+
+            @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
+            <div class="text">
+                @Model.Content
+            </div>
+
+            @if (button != null)
+            {
+                <div class="writeToUs__action">
+                    <a href="@button.Url" target="@button.Target" class="btn">@button.Name</a>
+            </div>
+            }
+        </div>
+    </div>
+</section>

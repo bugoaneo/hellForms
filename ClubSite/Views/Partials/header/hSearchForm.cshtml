@@ -1,0 +1,27 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HSearchForm>
+@{
+    var idStr = "searchKey"+Model.Key.ToString("N");
+    var content = (IPublishedContent)ViewData["page"];
+    var searchPage = content.Root().FirstChildOfType("searchPage");
+    if (searchPage != null)
+    {
+        <div class="@Model.ContentType.Alias text">
+                <div class="hSearch">
+                    <form class="hSearch__form" action="@searchPage.Url()" method="get">
+                    <!--<label for="@idStr" class="hSearch__btn">
+                        <input id="@idStr" type="submit" value="Поиск" />
+                    </label>-->
+                    <button type="submit" class="hSearch__btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 19 18">
+                            <path fill="#258AC1" fill-rule="evenodd" d="M2.564 8a6 6 0 0 1 6-5.999 6 6 0 1 1-6 6Zm6-7.999a8 8 0 1 0 5.026 14.223c.04.177.13.345.267.482l3 3a1 1 0 0 0 1.415-1.414l-3-3a.995.995 0 0 0-.483-.267A8 8 0 0 0 8.564.002Z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <label for="@idStr" class="hSearch__label">
+                        <input type="text" name="title" id="@idStr" value="@(Context.Request.Query["title"])" autocomplete="off" placeholder="Поиск">
+                    </label>
+                    
+                    </form>
+                </div>
+        </div>
+    }
+}

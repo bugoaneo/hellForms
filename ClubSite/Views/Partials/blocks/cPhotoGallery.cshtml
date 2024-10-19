@@ -1,0 +1,137 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CPhotoGallery>
+@{
+    var settings = (BlockSettings?)ViewData["settings"];
+
+    var imageProportions = new Tuple<int, int>(0,0);
+
+    switch (Model.Proportions)
+    {
+        case "Квадрат 1:1": imageProportions = new Tuple<int, int>(1024, 1024); break;
+        case "Ландшафтная 4:3": imageProportions = new Tuple<int, int>(1024, 768); break;
+        case "Ландшафтная 2:1": imageProportions = new Tuple<int, int>(1024, 512); break;
+        case "Ландшафтная 16:9": imageProportions = new Tuple<int, int>(1024, 576); break;
+        case "Портретная 9:16": imageProportions = new Tuple<int, int>(576, 1024); break;
+        default: imageProportions = new Tuple<int, int>(1024, 576); break;
+    }
+
+
+}
+
+@await Html.PartialAsync("partRenderAnchor", settings)
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+        @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
+        @switch (Model.Layout)
+        {
+            case "Линейка":
+                RenderAsLinear(imageProportions);
+                break;
+
+            case "Плитка":
+                RenderAsTiles(imageProportions);
+                break;
+
+            default:
+                RenderAsTiles(imageProportions);
+                break;
+        }
+    </div>
+</section>
+
+@{
+    void RenderAsLinear(Tuple<int, int> proportions)
+    {
+        <div class="linearSlider swiper mySwiper swiper-container linear @(Model.AllowEnlargeImage ? "popup-gallery":string.Empty)">
+            <div class="swiper-wrapper">
+                @{
+                    var list = getImages(Model.Images);
+                    foreach (var i in list)
+                    {
+                        RenderGalleryImage(i, proportions);
+                    }
+                }
+            </div>
+
+            @if (Model.Images?.Count() > 1)
+            {
+                <div class="linear_arrows arrowBlock" @Html.Raw(Model.Delay > 0 ? " data-delay=\"" + Math.Max(Model.Delay, 2000) + "\"" : string.Empty)>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+
+                <div class="swiper-pagination linear_pagination"></div>
+            }
+        </div>
+    }
+
+    void RenderAsTiles(Tuple<int, int> res)
+    {
+        <div class="tiles gallery_tiles @(Model.AllowEnlargeImage ? "popup-gallery":string.Empty)">
+            @{
+                var list = getImages(Model.Images);
+                foreach (var i in list)
+                {
+                    RenderTileItem(i, res);
+                }
+            }
+        </div>
+    }
+
+    List<IPublishedContent> getImages(IEnumerable<IPublishedContent> items)
+    {
+        List<IPublishedContent> res = new List<IPublishedContent>();
+        foreach (var galleryItem in items)
+        {
+            if (galleryItem.ContentType.Alias == "Folder")
+            {
+                res.AddRange(getImages(galleryItem.Children));
+            }
+            else
+            {
+                res.Add(galleryItem);
+            }
+        }
+        return res;
+    }
+
+    void RenderTileItem(IPublishedContent item, Tuple<int, int> proportions)
+    {
+        var w = proportions.Item1;
+        var h = proportions.Item2;
+        var cropUrl = item.GetCropUrl(width: w, height: h);
+        var altImg = item.Value("altImg");
+        <div class="tile">
+            @if (Model.AllowEnlargeImage)
+            {
+                <a href="@(item.Url())">
+                    <img src="@cropUrl" loading="lazy" alt="@(altImg?.ToString() != string.Empty ? altImg : item.Name)">
+                </a>
+            }
+            else
+            {
+                <img src="@cropUrl" loading="lazy" alt="@(altImg?.ToString() != string.Empty ? altImg : item.Name)">
+            }
+        </div>
+    }
+
+    void RenderGalleryImage(IPublishedContent item, Tuple<int, int> proportions)
+    {
+        var w = proportions.Item1;
+        var h = proportions.Item2;
+        var cropUrl = item.GetCropUrl(width: w, height: h);
+        var altImg = item.Value("altImg");
+
+        <div class="swiper-slide linearSlider__item">
+            @if (Model.AllowEnlargeImage)
+            {
+                <a href="@(item.Url())">
+                    <img src="@cropUrl" class="linearSlider__image" alt="@(altImg?.ToString() != string.Empty ? altImg : item.Name)">
+                </a>
+            }
+            else
+            {
+                <img src="@cropUrl" class="linearSlider__image" alt="@(altImg?.ToString() != string.Empty ? altImg : item.Name)">
+            }
+        </div>
+    }
+}

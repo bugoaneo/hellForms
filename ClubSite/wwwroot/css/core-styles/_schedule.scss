@@ -1,0 +1,30 @@
+.schedule {
+    border: 1px solid #dddee3; 
+    transition: max-height .7s;
+    -webkit-transition: max-height .7s;
+
+    &__button {
+        .btn__icon {
+            transition: .3s;
+            -webkit-transition: .3s;
+        }
+
+        & ~ .schedule {
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        &.schedule_open {
+            & ~ .schedule {
+                max-height: 3000px;
+                transition: max-height 1s;
+                -webkit-transition: max-height 1s;
+            }
+
+            .btn__icon {
+                transform: rotate(180deg);
+                -webkit-transform: rotate(180deg);
+            }
+        }
+    }
+}

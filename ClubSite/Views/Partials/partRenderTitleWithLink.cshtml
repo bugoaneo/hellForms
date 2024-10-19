@@ -1,0 +1,2 @@
+﻿@model dynamic
+<h2>@Html.Raw(Model.Title) @if(Model.Link != null){<a href="@Model.Link.Url" target="@(Model.Link?.Target)" class="btn-link btn_show-all">@Model.Link.Name</a>}</h2>

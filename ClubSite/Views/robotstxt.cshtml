@@ -1,0 +1,7 @@
+﻿@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@inherits UmbracoViewPage
+@{
+	Layout = null;
+	var text = Model.Value("textRobots");
+}
+@Html.Raw(text)

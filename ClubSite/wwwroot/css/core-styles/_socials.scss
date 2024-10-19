@@ -1,0 +1,39 @@
+.hSocials {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 5px;
+  min-width: 2.2em;
+  flex-shrink: 0;
+}
+
+.hSocials__icon svg {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+.hSocials__icon {
+  width: 1.5em;
+  height: 1.5em;
+  display: inline-block;
+  text-align: center;
+  margin: 3px;
+  transition: .3s cubic-bezier(0.39, 0.575, 0.565, 1);
+  -webkit-transition: .3s cubic-bezier(0.39, 0.575, 0.565, 1);
+
+  &:hover {
+    transform: scale(1.2) translateY(-2px);
+  }
+
+  .cls-1 {
+    width: 100%;
+    height: 100%;
+  }
+
+  svg {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}

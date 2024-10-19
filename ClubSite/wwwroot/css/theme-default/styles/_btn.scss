@@ -1,0 +1,16 @@
+.btn {
+  color: #fff;
+  background-color: var(--buttonAndLinkColor);
+
+  &:hover {
+    background-color: var(--linkColorHovered);
+  }
+
+  &--link {
+    color: var(--buttonAndLinkColor);
+
+    &:hover {
+      color: var(--linkColorHovered);
+    }
+  }
+}

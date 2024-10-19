@@ -1,0 +1,12 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HBurger>
+@{
+    //SmidgeHelper.RequiresJs(new Smidge.Models.JavaScriptFile(SiteHelpers.GetThemeJsUrl(Model, "")));
+}
+<div class="@Model.ContentType.Alias">
+    <div class="burger" id="menuToggle">
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+        <div class="burger__bottom"></div>
+    </div>
+</div>

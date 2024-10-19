@@ -1,0 +1,89 @@
+﻿@using Umbraco.Cms.Core.Models.Blocks
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    var root = Model.Root();
+    var footerItems = root.Value<BlockListModel>("footer");
+    var wrappable = false;
+    ViewData["page"] = root;
+}
+<footer class="footer">
+    @if (footerItems != null)
+    {
+        @foreach (var blockC in footerItems)
+        {
+            if (blockC.Content.ContentType.Alias.StartsWith("c"))
+            {
+                ViewData["blockIndex"] = 0;//Отдельная нумерация
+                ViewData["settings"] = blockC.Settings;
+                @await Html.PartialAsync("blocks/"+blockC.Content.ContentType.Alias, blockC.Content)
+            }
+        }
+        wrappable = footerItems.Where(x => x.Content.ContentType.Alias == "headerRow").Any();
+
+        <div class="footer__content@(wrappable? " _flex-wrap":string.Empty)">
+            @{
+                foreach (var block in footerItems)
+                {
+                    if (!block.Content.ContentType.Alias.StartsWith("c"))
+                    {
+                        @await Html.PartialAsync("header/"+block.Content.ContentType.Alias, block.Content)
+                    }
+                }
+            }
+            <div class="copyright">@await Html.PartialAsync("partAuthor")</div>
+            @{
+                RenderToMainLink(root.Value<bool>("showNavigateTopButton"));
+            }
+        </div>
+    }
+    @{
+        var feedbackLinks = root.Value<IEnumerable<Umbraco.Cms.Core.Models.Link>>("contactLinks");
+
+        if (feedbackLinks != null && feedbackLinks.Any())
+        {
+            if (feedbackLinks.Count() == 1)
+            {
+                foreach (var link in feedbackLinks)
+                {
+                    <a href="@link.Url" class="feedback-link feedback-link__single @link.Name" target="@link.Target"><span class="@link.Name"></span></a>
+                }
+
+            }
+            else
+            {
+                <div class="feedback-wrapper">
+                    <input type="checkbox" class="t898__btn_input" id="feedback-checkbox">
+                    <label for="feedback-checkbox">
+                        <span class="bg"></span>
+                    </label>
+
+                    @foreach (var link in feedbackLinks)
+                    {
+                        <a href="@link.Url" class="feedback-link @link.Name" target="@link.Target"><span class="@link.Name"></span></a>
+                    }
+                </div>
+            }
+        }
+    }
+</footer>
+
+@{
+    void RenderToMainLink(bool show)
+    {
+        if (show)
+        {
+            <div class="footer__iconText goTop">
+
+                <a href="@(Model.Level == 1 ? "#top" : Model.Root().Url())" class="iconText _link" title="Наверх">
+
+                    <div class="iconText__icon"></div>
+                    <div class="iconText__text">
+                        @(Model.Level == 1 ? "Наверх" : "На главную")
+                    </div>
+                </a>
+            </div>
+        }
+
+    }
+}
+

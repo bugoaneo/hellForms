@@ -1,0 +1,31 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{;
+    @*Modern browsers (SVG)*@
+    var faviconNB = (IPublishedContent)Model.Value("faviconNB", fallback: Fallback.ToAncestors);
+
+    @*Safari (SVG)*@
+    var faviconSafari = (IPublishedContent)Model.Value("faviconSafari", fallback: Fallback.ToAncestors);
+
+    @*IOS (PNG)*@
+    var faviconIOS = (IPublishedContent)Model.Value<Image>("faviconIOS", fallback: Fallback.ToAncestors);
+
+    @*IE + old browsers (ICO)*@
+    var faviconIE = (IPublishedContent)Model.Value("faviconIE", fallback: Fallback.ToAncestors);
+}
+
+@if (faviconNB != null)
+{
+    <link rel="icon" href="@faviconNB.Url()">
+}
+@if (faviconSafari != null)
+{
+    <link rel="mask-icon" type="image/svg+xml" href="@faviconSafari.Url()" color="#000000">
+}
+@if (faviconIOS != null)
+{
+    <link rel="apple-touch-icon" type="image/png" href="@faviconIOS.Url()">
+}
+@if (faviconIE != null)
+{
+    <link rel="shortcut icon" type="image/x-icon" href="@faviconIE.Url()">
+}

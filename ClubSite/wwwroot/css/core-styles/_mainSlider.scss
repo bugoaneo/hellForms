@@ -1,0 +1,121 @@
+.mainSlider {
+    &__item {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-top: 50%;
+        background-size: cover;
+        background-position: center center;
+
+        & > .block__content {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+    }
+
+    &__container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 30px 0;
+
+        .mainSlider_content_center & {
+            align-items: center;
+            text-align: center;
+        }
+    }
+
+    &__title {
+        font-weight: bold;
+        margin-bottom: 20px;
+        @include adaptiv-font(48, 26);
+    }
+
+    &__description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 7;
+        overflow: hidden;
+        @include adaptiv-font(23, 16);
+    }
+
+    &__buttons {
+        margin-top: 24px;
+    }
+
+    &__button {
+        margin-right: 10px;
+        margin-bottom: 10px;
+        @include adaptiv-font(23, 16);
+    }
+
+    &__overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: #000000;
+        opacity: 0;
+    }
+
+    @include resp(1280, 9999) {
+        ._full & .mainSlider__item:not(.mainSlider_under_header) {
+            padding-top: calc(45% - 5vw);
+        }
+    }
+
+    @include resp($size-md, 9999) {
+        &__container {
+            max-width: 75%;
+            padding-left: 80px;
+
+            .mainSlider_content_center & {
+                padding-left: 0;
+                margin: 0 auto;
+            }
+        }
+
+        ._full &__container {
+            padding-left: 0;
+        }
+
+        &__pagination {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 999;
+            padding: 7px 0;
+
+            .swiper-pagination-bullet {
+                width: 20px;
+                height: 4px;
+                border-radius: initial;
+            }
+        }
+    }
+
+    @include resp(480, $size-sm-end) {
+        &__item {
+            padding-top: 80%;
+        }
+    }
+
+    @include resp(0, $size-sm-end) {
+        &__arrows {
+            display: none;
+        }
+    }
+
+    @include resp(0, 479) {
+        &__item {
+            padding-top: 140%;
+        }
+    }
+}

@@ -1,0 +1,81 @@
+﻿@using ClubSite.src.Models;
+@using Examine;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.PublishedCache;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inject IExamineManager examineManager
+@inject ITagQuery tagQuery
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@{
+	Layout = "_master.cshtml";
+	ViewData["page"] = Model;
+	SmidgeHelper.RequiresJs(new Smidge.Models.JavaScriptFile("~/scripts/catalog.js"));
+	var pageSize = 3;
+	var title = Context.Request.Query["title"];
+    var catalog = Model.Root().FirstChildOfType("catalog");
+	//var resultSearch = SiteHelpers.SearchProduct(examineManager, Umbraco, new SearchProductReq
+	//		{
+ //               ParentId = catalog.Id,
+	//			CurrentCount = 0,
+	//			PageSize = pageSize,
+	//			Title = title
+	//		});
+}
+
+@functions {
+	public string GetAntiXsrfRequestToken()
+	{
+		return Xsrf.GetAndStoreTokens(Context).RequestToken;
+	}
+}
+
+<section class="block block--catalogHeader" style="--veil: 0;">
+	<div class="block__content">
+		@await Html.PartialAsync("pubBreadcrumbs", Model)
+		<h1>@(Model.Name())</h1>
+	</div>
+</section>
+
+<div class="block__content searchPage">
+    @*<button type="submit">Go</button>*@
+    @*@if (resultSearch.Result != null && resultSearch.Result.Any())
+    {
+        <div class="searchPage__actions">
+            <form class="searchPage__form" action="@Model.Url()" method="get">
+                <label class="searchPage__label" for="@Model.Key">
+                        <input id="@Model.Key" type="text" name="title" value="@(title)" placeholder="Введите поисковый запрос">
+                    </label>
+                <button type="submit" class="searchPage__btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 18">
+                        <path fill="currentColor" fill-rule="evenodd" d="M2.564 8a6 6 0 0 1 6-5.999 6 6 0 1 1-6 6Zm6-7.999a8 8 0 1 0 5.026 14.223c.04.177.13.345.267.482l3 3a1 1 0 0 0 1.415-1.414l-3-3a.995.995 0 0 0-.483-.267A8 8 0 0 0 8.564.002Z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    
+                </form>
+            </div>
+
+            <div class="catalog__products" id="main-block-product-list">
+                @{
+                    foreach (IPublishedContent content in resultSearch.Result)
+                    {
+                        @await Html.PartialAsync("productItem", new List<IPublishedContent>() { content })
+                    }
+                }
+            </div>
+        <div class="block__btn catalogFooter">
+            <input type="hidden" name="totalCount" value="@resultSearch.TotalCount" />
+            <input type="hidden" name="pageSize" value="@pageSize" />
+            <input type="hidden" name="__RequestVerificationToken" value="@GetAntiXsrfRequestToken()" />
+            @if (resultSearch.TotalCount >= pageSize)
+            {
+                <button class="btn" onclick="getMoreProduct(0, @(pageSize), null, 1)" id="btnGetMoreProduct">Загрузить еще</button>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="hSearch__result">По результатам запроса <span class="hSearch__req">"@(title)"</span> ничего не найдено</div>
+    }*@
+</div>

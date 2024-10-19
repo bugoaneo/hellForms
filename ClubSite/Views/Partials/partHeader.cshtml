@@ -1,0 +1,42 @@
+﻿@using Umbraco.Cms.Core.Models.Blocks;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    var root = Model.Root();
+    var headerItems = root.Value<BlockListModel>("header");
+    var mobileHeaderItems = root.Value<BlockListModel>("mobileHeader");
+    var wrappable = false;
+    var cssClass = "header";
+    var headerOnTopOfContentFlag = (bool?)ViewData["headerOnTopOfContentFlag"];
+    if (headerOnTopOfContentFlag != null)
+    {
+        cssClass += " _headerOnTopOfContent";
+    }
+}
+<header class="@cssClass">
+    @if (headerItems != null)
+    {
+        wrappable = headerItems.Where(x => x.Content.ContentType.Alias == "headerRow").Any();
+
+        <div class="header__content _desktop@(wrappable? " _flex-wrap":string.Empty)">
+            @{
+                foreach (var block in headerItems)
+                {
+                    @await Html.PartialAsync("header/"+block.Content.ContentType.Alias, block.Content)
+                }
+            }
+        </div>
+    }
+
+    @if (mobileHeaderItems != null)
+    {
+        <div class="header__content _mobile">
+            @{
+                foreach (var block in mobileHeaderItems)
+                {
+                    @await Html.PartialAsync("header/"+block.Content.ContentType.Alias, block.Content)
+                }
+            }
+        </div>
+        <div class="header__menu _mobile"></div>
+    }
+</header>

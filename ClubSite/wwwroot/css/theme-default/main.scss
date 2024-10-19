@@ -1,0 +1,176 @@
+﻿/* Base breakpoints */
+$size-xs-end: 576;
+
+$size-sm: 576;
+$size-sm-end: 767;
+
+$size-md: 768;
+$size-md-end: 991;
+
+$size-lg: 992;
+$size-lg-end: 1199;
+
+$size-xl: 1200;
+
+$maxWidth: 1820;
+
+@mixin resp($min, $max) {
+    @media screen and (min-width: $min + 'px') and (max-width: $max + 'px') {
+        @content
+    }
+}
+
+@mixin adaptiv-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxW: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxW}));
+}
+
+@mixin center($axis: "both") {
+    position: absolute;
+  
+    @if ($axis == "both") {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  
+    @if $axis == "x" {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  
+    @if $axis == "y" {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  
+  @mixin row($justufy: null, $align: null) {
+    display: flex;
+    flex-wrap: wrap;
+  
+    @if ($justufy == "jst") {
+      justify-content: flex-start;
+    }
+  
+    @if ($justufy == "jend") {
+      justify-content: flex-end;
+    }
+  
+    @if ($justufy == "jc") {
+      justify-content: center;
+    }
+  
+    @if ($justufy == "jsb") {
+      justify-content: space-between;
+    }
+  
+    @if ($justufy == "jsa") {
+      justify-content: space-around;
+    }
+  
+    @if ($align == "ac") {
+      align-items: center;
+    }
+  
+    @if ($align == "as") {
+      align-items: stretch;
+    }
+  
+    @if ($align == "ab") {
+      align-items: baseline;
+    }
+  
+    @if ($align == "ast") {
+      align-items: flex-start;
+    }
+  }
+
+  
+@mixin bp($point) {
+  @media (max-width: $point) {
+    @content;
+  }
+}
+
+@function strip-unit($number) {
+  @if type-of($number) == "number" and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+@function calcFluidFontSize($f-min, $f-max, $w-min, $w-max, $units: px) {
+  $f-min: strip-unit($f-min);
+  $f-max: strip-unit($f-max);
+  $w-min: strip-unit($w-min);
+  $w-max: strip-unit($w-max);
+
+  $k: ($f-max - $f-min)/ ($w-max - $w-min);
+  $b: $f-min - $k * $w-min;
+
+  $b: $b + $units;
+
+  @return calc(#{$k} * 100vw + #{$b});
+}
+
+@mixin fFS($f-min, $f-max, $w-min, $w-max, $fallback: false) {
+  font-size: $f-min;
+
+  @media (min-width: $w-min) {
+    @if ($fallback) {
+      font-size: $fallback;
+    }
+
+    font-size: calcFluidFontSize($f-min, $f-max, $w-min, $w-max, px);
+  }
+
+  @media (min-width: $w-max) {
+    font-size: $f-max;
+  }
+}
+
+@import 'vars.css';
+@import "fonts.generated.css";
+@import 'styles/_btn.scss';
+@import 'styles/_prices.scss';
+@import 'styles/_reviews.scss';
+@import 'styles/_header.scss';
+
+
+html,
+body {
+  scrollbar-gutter: stable;
+}
+
+
+html {
+  font-size: var(--fontSize);
+  font-family:var(--fontFamily), "Ubuntu",  sans-serif;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--textColor);
+}
+
+.text a, .copyright {
+    color: var(--buttonAndLinkColor);
+
+    &:hover {
+        color: var(--linkColorHovered);
+    }
+}
+
+.hSocials__icon .cls-1 {
+    fill: var(--accent);
+}
+
+.prices__item {
+    border-bottom: 1px solid #dddee3;
+}
+
+
+

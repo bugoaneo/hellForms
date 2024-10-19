@@ -1,0 +1,113 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CImageText>
+@{
+    var settings = (BlockSettings)ViewData["settings"];
+    var altImg = Model.Image?.Value("altImg");
+    void RenderImage(string cssClass)
+    {
+        var imgVerticalClass = Model.ImgVertical == "Центр" ? "text_vertical_center" : Model.ImgVertical == "Низ" ? "text_vertical_bottom" : string.Empty;
+        var lazyLoading = (int)ViewData["blockIndex"] == 0 || (int)ViewData["blockIndex"] == 1 ? "eager" : "lazy";
+
+        <div class="@cssClass image @imgVerticalClass">
+            @if (Model.ImageMobile != null)
+            {
+                <picture>
+                    <source media="(max-width: 786px)" srcset="@Model.ImageMobile.Url()" />
+                    <img src="@Model.Image?.Url()" loading="@lazyLoading" alt="@(altImg?.ToString() != string.Empty ? altImg : Model.Image?.Name)" />
+                </picture>
+            }
+            else
+            {
+                //GetCropUrl(width: 1320)
+                <img src="@Model.Image?.Url()" loading="@lazyLoading" alt="@(altImg?.ToString() != string.Empty ? altImg : Model.Image?.Name)" />
+            }
+        </div>
+
+    }
+
+    void RenderText(string cssClass)
+    {
+        var alignclass = Model.TextAlignCenter ? "text_vertical_center" : string.Empty;
+        <div class="@cssClass text @alignclass">
+            @Model.Contents
+        </div>
+    }
+
+    void RenderLayoutIL()
+    {
+        RenderImage("tb-grid-md-6");
+        RenderText("tb-grid-md-6");
+    }
+
+    void RenderLayoutIR()
+    {
+        RenderText("tb-grid-md-6");
+        RenderImage("tb-grid-md-6");
+    }
+
+    void RenderLayoutILW()
+    {
+        RenderImage("tb-grid-md-4");
+        RenderText("tb-grid-md-8");
+    }
+
+    void RenderLayoutIRW()
+    {
+        RenderText("tb-grid-md-8");
+        RenderImage("tb-grid-md-4");
+    }
+
+    void RenderLayoutILI()
+    {
+        RenderText("tb-grid-md-4");
+        RenderImage("tb-grid-md-8");
+    }
+
+    void RenderLayoutIRI()
+    {
+        RenderImage("tb-grid-md-8");
+        RenderText("tb-grid-md-4");
+    }
+    void RenderLayoutIT()
+    {
+        RenderImage("tb-grid-md-12");
+        RenderText("tb-grid-md-12");
+    }
+
+}
+@await Html.PartialAsync("partRenderAnchor", settings)
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+        @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
+        <div class="tb-grid tb-grid-colgap-20">
+            @{
+                switch (Model.Layout)
+                {
+                    case "Картинка справа":
+                        RenderLayoutIR();
+                        break;
+                    case "Картинка слева":
+                        RenderLayoutIL();
+                        break;
+                    case "Картинка слева широкий текст":
+                        RenderLayoutILW();
+                        break;
+                    case "Картинка справа широкий текст":
+                        RenderLayoutIRW();
+                        break;
+                    case "Широкая картинка слева":
+                        RenderLayoutIRI();
+                        break;
+                    case "Широкая картинка справа":
+                        RenderLayoutILI();
+                        break;
+                    case "Картинка над текстом":
+                        RenderLayoutIT();
+                        break;
+                    default:
+                        RenderLayoutIT();
+                        break;
+                }
+            }
+        </div>
+    </div>
+</section>

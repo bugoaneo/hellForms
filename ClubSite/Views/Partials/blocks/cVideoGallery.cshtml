@@ -1,0 +1,72 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CVideoGallery>
+@{
+    var settings = (BlockSettings?)ViewData["settings"];
+    int blockIndex = (int)(ViewData["blockIndex"] ?? 0);
+    var lazyLoading = blockIndex <= 1 ? "eager" : "lazy";
+
+
+    string countInRowClass = string.Empty;
+    string videoProportionsClass = string.Empty;
+
+    switch (Model.AspectRatio)
+    {
+        case "16:9":
+        videoProportionsClass = "_prop_16-9";
+        break;
+        case "4:3":
+        videoProportionsClass = "_prop_3-4";
+        break;
+        case "9:16":
+        videoProportionsClass = "_prop_9-16";
+        break;
+        default:
+        videoProportionsClass = "_prop_1-1";
+        break;
+
+    };
+
+    switch (Model.VideoInRow)
+    {
+        case "1":
+        countInRowClass = "_inRow_1";
+        break;
+        case "2":
+        countInRowClass = "_inRow_2";
+        break;
+        default:
+        countInRowClass = "_inRow_3";
+        break;
+    };
+}
+@await Html.PartialAsync("partRenderAnchor", settings)
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+        @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
+        @if (Model.GalleryContents != null && Model.GalleryContents.Any())
+        {
+            <div class="video-collection">
+                @foreach (var item in Model.GalleryContents)
+                {
+                    var videoTyped = (VideoBlock)item.Content;
+                    <div class="video-collection__item @countInRowClass">
+                        <div class="video-collection__video @videoProportionsClass">@Html.Raw(videoTyped.HtmlCode)</div>
+                        @if (videoTyped.OverlayImage != null)
+                        {
+                            var altImg = videoTyped.OverlayImage.Value("altImg");
+                            <div class="video-collection__pic">
+                                <img class="video-collection__img" src="@videoTyped.OverlayImage.Url()" alt="@(altImg?.ToString() != string.Empty ? altImg : videoTyped.OverlayImage.Name)" loading="@lazyLoading">
+                                <div class="video-collection__btn"></div>
+                            </div>
+                        }
+                        @if (videoTyped.Text != null)
+                        {
+                            <div class="video-collection__text text">
+                                @videoTyped.Text
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>

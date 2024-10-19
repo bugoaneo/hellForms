@@ -1,0 +1,32 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CFormRequest>
+@{
+    var settings = (BlockSettings?)ViewData["settings"];
+
+    //SiteHelpers.PushFileToBundle(Context, new Smidge.Models.JavaScriptFile("~/scripts/lib/jquery/jquery.validate.js"));
+    //SiteHelpers.PushFileToBundle(Context, new Smidge.Models.JavaScriptFile("~/scripts/lib/jquery/jquery.validate.unobtrusive.js"));
+    //SiteHelpers.PushFileToBundle(Context, new Smidge.Models.JavaScriptFile("~/scripts/lib/jquery/jquery.unobtrusive-ajax.js"));
+    //SiteHelpers.PushFileToBundle(Context, new Smidge.Models.JavaScriptFile("~/scripts/customform.js"));
+
+
+}
+@await Html.PartialAsync("partRenderAnchor", settings)
+<section @BlockHelpers.GetBlockOuterAttributes("cForm block", settings)>
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+        <div class="cForm__header">
+            @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
+            <div class="block__subtitle">@Model.Subtitle</div>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.Contents.ToString()))
+        {
+         <div class="cForm__contents text">@Model.Contents</div> 
+        }
+      
+        <div class="cForm__form">
+            @if (Model.HasValue("formTemplate")){@await Html.PartialAsync("partRenderCustomForm", Model, new ViewDataDictionary(ViewData){{"UmbracoHelper", Umbraco}})}
+        </div>
+        @if (!string.IsNullOrEmpty(Model.FormNotes.ToString()))
+        {
+            <div class="cForm__notes">@Model.FormNotes</div>
+        }
+    </div>
+</section>

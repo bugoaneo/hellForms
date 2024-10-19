@@ -1,0 +1,46 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/core.css",
+    "inputFile": "wwwroot/css/core.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/glide/glide.core.css",
+    "inputFile": "wwwroot/css/glide/glide.core.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/glide/glide.theme.css",
+    "inputFile": "wwwroot/css/glide/glide.theme.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/theme-dress-change/main.css",
+    "inputFile": "wwwroot/css/theme-dress-change/main.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/theme-dress-change/fonts.css",
+    "inputFile": "wwwroot/css/theme-dress-change/fonts.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/theme-dress-change/_fonts.css",
+    "inputFile": "wwwroot/css/theme-dress-change/_fonts.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/theme-default/main.css",
+    "inputFile": "wwwroot/css/theme-default/main.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/theme-assorti/main.css",
+    "inputFile": "wwwroot/css/theme-assorti/main.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/theme-ottenkileta/main.css",
+    "inputFile": "wwwroot/css/theme-ottenkileta/main.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/theme-airdancemoscow/main.css",
+    "inputFile": "wwwroot/css/theme-airdancemoscow/main.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/theme-dat/main.css",
+    "inputFile": "wwwroot/css/theme-dat/main.scss"
+  }
+]

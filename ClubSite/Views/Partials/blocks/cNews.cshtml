@@ -1,0 +1,112 @@
+﻿@using Examine;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<CNews>
+@inject IExamineManager examineManager
+@{
+    var settings = (BlockSettings?)ViewData["settings"];
+    var numberOfItemsToShow = Math.Max(Model.MaxItemsToShow, 1);
+    var currentPage = (IPublishedContent?)ViewData["page"];
+
+    var news = new HashSet<NewsItem>();
+    var newsStream = new List<NewsStorage>();
+
+    // TODO: кэшировать результат. Новости будут редко меняться, нет смысла перевычислять каждый раз
+    if (Model.NewsSource != null)
+    {
+        foreach (var item in Model.NewsSource)
+        {
+            switch (item.ContentType.Alias)
+            {
+                case "newsItem":
+                    news.Add((NewsItem)item);
+                    break;
+                case "newsStorage":
+                    newsStream.Add((NewsStorage)item);
+                    break;
+            }
+        }
+    }
+    if (Model.NewsSource == null && Model.PinnedNews == null) // Если не выбраны разделы, ищем все новости на текущем сайта
+    {
+        int page = 1;
+        int pageSize = 9;
+
+        var root = currentPage?.AncestorOrSelf(1);
+        if (root != null && UmbracoContext != null)
+        {
+            var AllNews = SiteHelpers.GetLastNNews(root, pageSize, UmbracoContext, examineManager).ToList();
+            if (AllNews != null && AllNews.Any())
+            {
+                foreach (var newsItem in AllNews)
+                {
+                    news.Add((NewsItem)newsItem);
+                }
+            }
+        }
+    }
+
+    if (UmbracoContext != null)
+    {
+        foreach (var newsStorage in newsStream)
+        {
+            foreach (var item in SiteHelpers.GetLastNNews(newsStorage, numberOfItemsToShow, UmbracoContext, examineManager))
+            {
+                news.Add((NewsItem)item);
+            }
+        }
+    }
+
+    var newsToShow = news.OrderByDescending(x => x.NewsDate).Take(numberOfItemsToShow).ToList();
+
+    var pinnedNews = Model.PinnedNews;
+    var pinnedNewsCount = 0;
+    if (pinnedNews != null && pinnedNews.Any())
+    {
+        var pinnedNewsList = new List<NewsItem>();
+        foreach (var attachItem in pinnedNews)
+        {
+            var newsItem = attachItem as NewsItem;
+            if (newsItem != null)
+            {
+                pinnedNewsList.Add(newsItem);
+            }
+        }
+        if (pinnedNewsList != null && pinnedNewsList.Any())
+        {
+            var tmpList = pinnedNewsList.Concat(newsToShow).Take(numberOfItemsToShow).ToList();
+            newsToShow = tmpList;
+            pinnedNewsCount = pinnedNewsList.Count();
+        }
+    }
+}
+
+@await Html.PartialAsync("partRenderAnchor", settings)
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+        @await Html.PartialAsync("partRenderTitleWithLink", new TitleWithLink{Title = Model.Title, Link = Model.LinkToNewsSection})
+
+        @if (newsToShow.Any())
+        {
+            var newsCounter = 0;
+            <div class="news tb-grid tb-grid-gap-20">
+
+                @foreach (var item in newsToShow)
+                {
+                    if (newsCounter < pinnedNewsCount) { RenderNewsItem(item, true); }
+                    else { RenderNewsItem(item, false); }
+                    newsCounter++;
+                }
+            </div>
+            <div class="news__footer"><a href="@Model?.LinkToNewsSection?.Url" class="btn btn--show-all">Все новости</a></div>
+        }
+
+
+    </div>
+</section>
+
+@{
+    async void RenderNewsItem(NewsItem item, bool isItemPinned)
+    {
+        ViewData["isPinned"] = isItemPinned;
+        @await Html.PartialAsync("partRenderNewsItem", item)
+    }
+}

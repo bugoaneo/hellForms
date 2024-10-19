@@ -1,0 +1,43 @@
+﻿@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Core.Models.Blocks;
+
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<List<IPublishedContent>>
+
+@{
+
+	foreach (IPublishedContent content in Model)
+	{
+		<div class="newsItem pinned tb-grid-md-4">
+			@if (content.Value<MediaWithCrops>("image") != null)
+			{
+
+				<div class="newsItem__image">
+					<a href="@(content.Url())">
+						<img src="@(content.Value<MediaWithCrops>("image")?.Url())">
+					</a>
+				</div>
+			}
+			else
+			{
+				<div class="newsItem__image">
+					<a href="@(content.Url())">
+						<img src="/css/img/lorempic.jpg">
+					</a>
+				</div>
+			}
+			<div class="newsItem__text">
+				<div class="newsItem__date">@(content.Value<DateTime>("newsDate").ToString("D"))</div>
+				<div class="newsItem__title">@(content.Value<string>("title"))</div>
+				@if (content.Value<string>("brief") != null)
+				{
+					<div class="newsItem__brief">@Html.Raw(content.Value<string>("brief"))</div>
+				}
+				<div class="newsItem__footer">
+					<a class="btn btn--arrow newsItem__readmore" href="@(content.Url())">Подробнее</a>
+				</div>
+			</div>
+		</div>
+
+	}
+}
+

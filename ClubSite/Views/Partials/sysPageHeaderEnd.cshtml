@@ -1,0 +1,6 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{var metaContents = Model.Value("metaExtended", fallback: Fallback.ToAncestors);}
+@if (!string.IsNullOrEmpty(metaContents as string))
+{
+    @Html.Raw(metaContents)
+}

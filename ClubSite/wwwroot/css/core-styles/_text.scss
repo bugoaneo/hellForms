@@ -1,0 +1,29 @@
+﻿.text {
+  /*@include adaptiv-font(16, 15);*/
+  /* Модификаторы для внутренних блоков */
+  &_vertical_center {
+    align-self: center;
+  }
+
+  &_vertical_bottom {
+    align-self: end;
+  }
+
+  @media screen and (max-width: 768px) {
+    .block &:not(:last-child) {
+      margin-bottom: 25px;
+    }
+  }
+
+  table {
+    tr {
+      border-top: solid 1px #dadce0;
+    }
+
+    td {
+      padding: 2rem 2rem 2rem 0;
+    }
+
+    border-bottom: solid 1px #dadce0;
+  }
+}

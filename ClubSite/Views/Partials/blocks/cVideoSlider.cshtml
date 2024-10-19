@@ -1,0 +1,99 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CVideoSlider>
+@{
+    var settings = (BlockSettings?)ViewData["settings"];
+
+}
+
+@await Html.PartialAsync("partRenderAnchor", settings)
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+        @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
+        @if (Model.HasValue("content"))
+        {
+            <div class="videoSlider__content text">
+                @Model.Content
+            </div>
+        }
+        @if(Model.SlideList !=null && Model.SlideList.Any())
+        {
+            <div class="videoSlider__body">
+                <div class="swiper mySwiper swiper-container videoSlider popup-gallery">
+                    <div class="swiper-wrapper videoSlider__list">
+                        @{
+                            foreach(var slide in Model.SlideList)
+                            {
+                                var videoItem = (VideoSlide)slide.Content;
+                                <div class="swiper-slide videoSlider__item">                                
+                                    @if (videoItem.HasValue("projectDate"))
+                                    {
+                                       <div class="videoSlider__date">
+                                        @(videoItem.Value<DateTime>("projectDate").ToString("d"))
+                                    </div> 
+                                    }
+
+                                    <div class="videoSlider__content">
+                                        @if (videoItem.Cover != null)
+                                        {
+                                            var altImg = videoItem.Cover.Value("altImg");
+                                            <a class="videoSlider__item-link" href="@(videoItem.MediaLink)">
+                                                <img class="videoSlider__cover" src="@videoItem.Cover.Url()" alt="@(altImg.ToString() != string.Empty ? altImg : videoItem.Cover.Name)">
+                                            </a>
+                                        }
+
+                                        <div class="videoSlider__item-info">
+                                            @if (!string.IsNullOrEmpty(videoItem.Title))
+                                            {
+                                                <h3 class="videoSlider__item-title">@videoItem.Title</h3>
+                                            }
+                                            @if (videoItem.HasValue("projectDate"))
+                                            {
+                                                <div class="videoSlider__date mobile">
+                                                    @(videoItem.Value<DateTime>("projectDate").ToString("d"))
+                                                </div>
+                                            }
+                                            @if (videoItem.HasValue("description"))
+                                            {
+                                                <div class="videoSlider__item-descr">@videoItem.Description</div>
+                                            }
+                                            @if (!string.IsNullOrEmpty(videoItem.BtnText))
+                                            {
+                                                <a class="btn btn--slider" href="@(videoItem.MediaLink)">@videoItem.BtnText</a>
+                                            }
+                                        </div>
+                                    
+                                    </div>
+                                   
+                                </div>
+                            }
+                        }
+                    </div>
+                    @if (Model.SlideList?.Count() > 1)
+                    {
+                        <div class="videoSlider__slider-arrows">
+                            <div class="videoSlider__arrow swiper-button-prev"></div>
+                            <div class="videoSlider__arrow swiper-button-next"></div>
+                        </div>
+
+                        <div class="swiper-pagination videoSlider__pagination"></div>
+                    }
+                </div>
+            </div>
+        }
+        @if (Model.Btn != null)
+        {
+           <div class="videoSlider__footer">
+            <a class="btn" href="@Model.Btn.Url" target="@Model.Btn.Target">@Model?.Btn?.Name</a> 
+            </div> 
+        }
+        
+    </div>
+</section>
+
+@*@{
+    void RenderVideoSlide(IPublishedContent slide)
+    {
+        <div class="swiper-slide">
+        
+        </div>
+    }
+}*@

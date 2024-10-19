@@ -1,0 +1,76 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HMultiLevelMenu>
+@{
+    var currentNode = (IPublishedContent)ViewData["page"];
+}
+
+<div class="@Model.ContentType.Alias">
+    @if (Model.Links.Any())
+    {
+        <ul class="navigation">
+            @foreach (var menuItem in Model.Links)
+            {
+                var menuItemNode = Umbraco.Content(menuItem.Udi);
+                if (menuItemNode != null)
+                {
+                    var showChildten = menuItemNode.Value<bool>("isShowChildrens");
+                    var hideDesktop = menuItemNode.Value<bool>("hideFromMenuDesktop");
+                    if (menuItemNode.Children.Any() && showChildten)
+                    {
+                        <li class="navigation__item _drop">
+                            <a class="navigation__link" href="@menuItem.Url" target="@menuItem.Target">
+                                @Html.Raw(menuItem.Name)
+                            </a>
+                            <div class="_drop__wrapp">
+                                <ul class="_drop__list">
+                                    @{
+                                        RenderLevel(menuItemNode);
+                                    }
+                                </ul>
+
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="navigation__item  @(hideDesktop?" _mobile":string.Empty)">
+                            <a class="navigation__link" href="@menuItem.Url" target="@menuItem.Target">
+                                @Html.Raw(menuItem.Name)
+                            </a>
+                        </li>
+                    }
+                }
+            }
+        </ul>
+    }
+</div>
+
+@{
+    void RenderLevel(IPublishedContent item)
+    {
+        <li class="hideOnDesk"><a href="@item.Url()">Перейти в раздел @item.Name</a></li>
+        @foreach (var node in item.Children)
+        {
+            var showChildten = node.Value<bool>("isShowChildrens");
+            if (node.Children.Any() && showChildten)
+            {
+                <li class="inner-drop">
+                    <a href="@node.Url()">@node.Name</a>
+                    <ul>
+                        @{
+                            RenderLevel(node);
+                        }
+                    </ul>
+
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@node.Url()">@node.Name</a>
+                </li>
+            }
+
+        }
+
+    }
+}

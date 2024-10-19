@@ -1,0 +1,4 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.BlockSettings>
+@if (Model != null && Model.HasValue("anchor")){
+    <a id="@Model.Anchor" class="anchor"></a>
+}

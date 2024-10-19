@@ -1,0 +1,99 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CAdvantages>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+
+
+@{
+    var settings = (BlockSettings)ViewData["settings"];
+    var layout = Model.Layout;
+    var advantages = Model.Advantages;
+    var lazyLoading = (int)ViewData["blockIndex"] == 0 || (int)ViewData["blockIndex"] == 1 ? "eager" : "lazy";
+
+    @if (Model.HasValue("advantagesContent"))
+    {
+        <div class="advantageCollection__advantages-content text">
+            @Model.Advantages
+        </div>
+    }
+}
+@await Html.PartialAsync("partRenderAnchor", settings)
+
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block" + ((int)ViewData["blockIndex"] == 0 ? " _first" : string.Empty), settings)>
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+        @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
+        @switch (layout)
+        {
+
+            case "Стандартный": RenderStandartAdvantages(); break;
+            case "Линейка": RenderLiniarAdvantages(); break;
+            default: RenderStandartAdvantages(); break;
+        }
+    </div>
+</section>
+
+@{
+    void RenderStandartAdvantages()
+    {
+        <div class="advantageCollection">
+            @foreach (var item in advantages)
+            {
+                var advantagesItem = (UniImageTitleWsub)(item.Content);
+                var altImg = advantagesItem.Image?.Value("altImg");
+                <div class="advantageCollection__item @(Model.BigText ? "_big" : string.Empty)">
+                    <div class="advantageCollection__icon">
+                            @if (advantagesItem.Image != null)
+                            {
+                                <img src="@advantagesItem.Image.Url()" loading="@lazyLoading" alt="@(altImg?.ToString() != string.Empty ? altImg : advantagesItem.Image?.Name)">
+                            }
+                    </div>
+                    @if (!string.IsNullOrEmpty(advantagesItem.Title))
+                    {
+                        <div class="advantageCollection__title">@advantagesItem.Title</div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(advantagesItem.SubTitle))
+                    {
+                        <div class="advantageCollection__text ">
+                            @Html.Raw(advantagesItem.SubTitle)
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+    void RenderLiniarAdvantages()
+    {
+        <div class="advantageCollection">
+            @foreach (var item in advantages)
+            {
+                var advantagesItem = (UniImageTitleWsub)(item.Content);
+                var altImg = advantagesItem.Image?.Value("altImg");
+                <div class="advantageCollection__item advantageCollection__item--inline @(Model.BigText ? "_big" : string.Empty)">
+                    <div class="advantageCollection__icon">
+                            @if (advantagesItem.Image != null)
+                            {
+                            <img src="@advantagesItem.Image.Url()" loading="@lazyLoading" alt="@(altImg?.ToString() != string.Empty ? altImg : advantagesItem.Image?.Name)">
+                            }
+                        </div>
+                    <div class="advantageCollection__body">
+                            @if (!string.IsNullOrEmpty(advantagesItem.Title))
+                            {
+                            <div class="advantageCollection__title">@advantagesItem.Title</div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(advantagesItem.SubTitle))
+                            {
+                            <div class="advantageCollection__text ">
+                                    @Html.Raw(advantagesItem.SubTitle)
+                                </div>
+                            }
+                        </div>    
+                </div>
+            }
+        </div>
+    }
+}
+
+
+
+
+

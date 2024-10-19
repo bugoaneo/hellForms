@@ -1,0 +1,9 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HLine>
+<div class="@Model.ContentType.Alias">
+    @if (Model.HasValue("contents"))
+    {
+        @Model.Contents
+    }else{
+        <text> </text>
+    }
+</div>

@@ -1,0 +1,83 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    string metaKeywords = String.Empty;
+    string metaDescription = String.Empty;
+    string title = String.Empty;
+    var rootNode = Model.Root();
+
+    title = Context.Items["title"] as string ?? string.Empty;
+    if (string.IsNullOrEmpty(title)) { title = Model.Value<string>("metaTitle", defaultValue: string.Empty) ?? string.Empty; }
+    if (string.IsNullOrEmpty(title)) { title = Model.Value<string>("title", defaultValue: string.Empty) ?? string.Empty; }
+    if (string.IsNullOrEmpty(title)) { title = Model.Name; }
+    var currentPageFullUrl = Model.Url(mode: UrlMode.Absolute);
+    var rootUrl = new Uri(currentPageFullUrl).GetLeftPart(UriPartial.Authority);
+    var siteName = rootNode.Value<string>("siteName");
+    if (!string.IsNullOrEmpty(siteName))
+    {
+        title += " - " + siteName;
+    }
+
+    <title>@Html.Raw(title.StripHtml())</title>
+
+    if (Model.HasValue("metaKeywords"))
+    {
+        metaKeywords = Model.Value<string>("metaKeywords", defaultValue: string.Empty) ?? string.Empty;
+    }
+
+    if (Model.HasValue("metaDescription"))
+    {
+        metaDescription = Model.Value<string>("metaDescription", defaultValue: string.Empty) ?? string.Empty;
+    }
+
+    if (metaKeywords.Length > 0)
+    {
+    <meta name="keywords" content="@metaKeywords" />
+    }
+
+    if (metaDescription.Length > 0)
+    {
+        <meta name="description" content="@metaDescription" />
+    }
+
+    #region open graph
+    //http://ogp.me/
+    ///TODO: еще метатеги https://vc.ru/p/aggregators-expensive
+    var ogDefaultObject = Model.Id != rootNode.Id ? (SocialRepostSettings?)rootNode.Value<IEnumerable<Umbraco.Cms.Core.Models.Blocks.BlockListItem>>("socInfo")?.FirstOrDefault()?.Content : null;
+    var ogObject = (SocialRepostSettings?)Model.Value<IEnumerable<Umbraco.Cms.Core.Models.Blocks.BlockListItem>>("socInfo")?.FirstOrDefault()?.Content;
+
+    var socSiteName = ogObject?.OgSitename;
+    if(string.IsNullOrEmpty(socSiteName) && ogDefaultObject != null){ socSiteName = ogDefaultObject.OgSitename; }
+    if(string.IsNullOrEmpty(socSiteName)){ socSiteName = rootNode.Value<string>("siteName"); }
+    if(socSiteName == null) { socSiteName = string.Empty; }
+
+    Dictionary<string, string> ogMeta = new Dictionary<string, string>();
+    ogMeta["og:type"] = "website";
+
+    ogMeta["og:locale"] = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+
+    ogMeta["og:site_name"] = socSiteName;
+
+    ogMeta["og:url"] = currentPageFullUrl;
+
+    ogMeta["og:title"] = ogObject?.OgTitle ?? title;
+
+    ogMeta["og:description"] = ogObject?.OgDescription ?? metaDescription ?? string.Empty;
+
+    Umbraco.Cms.Core.Models.MediaWithCrops? pageImage;
+    pageImage = ogObject?.OgImage ?? ogDefaultObject?.OgImage;
+
+    if (pageImage != null)
+    {
+    ogMeta["og:image"] = rootUrl + pageImage.Url();
+    ogMeta["og:image:width"] = pageImage.Value<string>("umbracoWidth") ?? string.Empty;
+    ogMeta["og:image:height"] = pageImage.Value<string>("umbracoHeight") ?? string.Empty;
+    }
+
+    foreach (var metaItem in ogMeta.Where(x => !string.IsNullOrEmpty(x.Value)))
+    {
+        <meta property="@metaItem.Key" content="@Html.Raw(metaItem.Value)" />
+    }
+
+    #endregion
+}

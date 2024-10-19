@@ -1,0 +1,62 @@
+﻿/* Base breakpoints */
+@import 'vars.css';
+@import "fonts.generated.css";
+.btn {
+  color: #fff;
+  background-color: var(--buttonAndLinkColor);
+}
+.btn:hover {
+  background-color: var(--linkColorHovered);
+}
+.btn--link {
+  color: var(--buttonAndLinkColor);
+}
+.btn--link:hover {
+  color: var(--linkColorHovered);
+}
+
+.price__onSale {
+  background-color: var(--accent);
+}
+
+.review a:hover {
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 768px) and (max-width: 9999px) {
+  .header._headerOnTopOfContent {
+    color: #ffffff;
+  }
+}
+
+html,
+body {
+  scrollbar-gutter: stable;
+}
+
+html {
+  font-size: var(--fontSize);
+  font-family: var(--fontFamily), "Ubuntu", sans-serif;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--textColor);
+}
+
+.text a, .copyright {
+  color: var(--buttonAndLinkColor);
+}
+.text a:hover, .copyright:hover {
+  color: var(--linkColorHovered);
+}
+
+.hSocials__icon .cls-1 {
+  fill: var(--accent);
+}
+
+.prices__item {
+  border-bottom: 1px solid #dddee3;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8,%7B%22version%22:3,%22sourceRoot%22:%22%22,%22sources%22:%5B%22file:///D:/umbracoPJ/BaseSite/ClubSite/wwwroot/css/theme-default/main.scss%22,%22file:///D:/umbracoPJ/BaseSite/ClubSite/wwwroot/css/theme-default/styles/_btn.scss%22,%22file:///D:/umbracoPJ/BaseSite/ClubSite/wwwroot/css/theme-default/styles/_prices.scss%22,%22file:///D:/umbracoPJ/BaseSite/ClubSite/wwwroot/css/theme-default/styles/_reviews.scss%22,%22file:///D:/umbracoPJ/BaseSite/ClubSite/wwwroot/css/theme-default/styles/_header.scss%22%5D,%22names%22:%5B%5D,%22mappings%22:%22AAAC;AAsIO;AACA;ACvIR;EACE;EACA;;AAEA;EACE;;AAGF;EACE;;AAEA;EACE;;;ACXF;EACI;;;ACAA;EAAS;;;AHeb;EIfI;IACI;;;;AJ2IZ;AAAA;EAEE;;;AAIF;EACE;EACA;;;AAGF;EACI;EACA;;;AAGJ;EACI;;AAEA;EACI;;;AAIR;EACI;;;AAGJ;EACI%22%7D */

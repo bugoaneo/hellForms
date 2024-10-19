@@ -1,0 +1,11 @@
+﻿@inherits Umbraco.Cms.Web.Common.Macros.PartialViewMacroPage
+@using Umbraco.Cms.Core
+@inject IPublishedContentQuery PublishedContentQuery
+@{
+    var link = Model?.MacroParameters["link"];
+    if (link != null)
+    {
+        var linkTarget = PublishedContentQuery.Content(link);
+        <a href="@(linkTarget?.Url())" class="btn">@(Model?.MacroParameters["caption"])</a>
+    }
+}

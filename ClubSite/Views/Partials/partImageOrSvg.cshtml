@@ -1,0 +1,18 @@
+﻿@model IPublishedContent
+@{
+    if (Model != null)
+    {
+        if (Model.ContentType.Alias == "umbracoMediaVectorGraphics")
+        {
+            var path = SiteHelpers.MapPath(Model.Url().TrimStart("/"));
+            if (System.IO.File.Exists(path))
+            {
+                @Html.Raw(System.IO.File.ReadAllText(path))
+            }
+        }
+        else
+        {
+            <img width="48" src="@Model.Url()" alt="@Model.Name" />
+        }
+    }
+}

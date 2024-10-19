@@ -1,0 +1,19 @@
+{
+	propertyEditors: [
+		{
+			alias: "SportPriority.ThemeSelect",
+			name: "Выбор темы оформления сайта",
+			icon: "icon-paint-roller",
+			group: "Rich Content",
+			editor: {
+				view: "~/App_Plugins/ThemeSelect/themeSelect.html",
+				valueType: "JSON"
+			}
+		}
+	]
+	,
+	javascript: [
+		'~/App_Plugins/ThemeSelect/themeSelect.controller.js',
+		"~/App_Plugins/ThemeSelect/themeSelect.resources.js"
+	]
+}

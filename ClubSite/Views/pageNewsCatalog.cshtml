@@ -1,0 +1,71 @@
+﻿@using Examine
+@using Umbraco.Cms.Web.Common.PublishedModels
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inject IExamineManager examineManager
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@{
+	Layout = "_master.cshtml";
+	SmidgeHelper.RequiresJs(new Smidge.Models.JavaScriptFile("~/scripts/news.js"));
+	var pageSize = 9;
+}
+
+@functions {
+	public string GetAntiXsrfRequestToken()
+	{
+		return Xsrf.GetAndStoreTokens(Context).RequestToken;
+	}
+}
+
+<div>
+	@{
+		var contentBlocks = Model.Value<Umbraco.Cms.Core.Models.Blocks.BlockListModel>("contentBlocks")!;
+		if (contentBlocks != null)
+		{
+			var index = 0;
+			ViewData["page"] = Model;
+			foreach (var block in contentBlocks)
+			{
+				ViewData["blockIndex"] = index++;
+				ViewData["settings"] = block.Settings;
+				@await Html.PartialAsync("blocks/"+block.Content.ContentType.Alias, block.Content)
+			}
+		}
+	}
+
+	@{
+		var resultSearch = SiteHelpers.SearchNews(examineManager, Umbraco, new ClubSite.SearchNewsReq
+			{
+				ParentId = Model.Id,
+				CurrentCount = 0,
+				PageSize = pageSize
+			});
+		if (resultSearch.Result != null && resultSearch.Result.Any())
+		{
+			<div class="cNews block">
+				<div class="block__content">
+					<div class="news tb-grid tb-grid-gap-20" id="main-block-news-list">
+						@{
+							foreach (IPublishedContent content in resultSearch.Result)
+							{
+								@await Html.PartialAsync("newsItem", new List<IPublishedContent>() { content })
+							}
+						}
+					</div>
+					<div class="block__btn">
+
+						<input type="hidden" name="totalCount" value="@resultSearch.TotalCount" />
+						<input type="hidden" name="pageSize" value="@pageSize" />
+						<input type="hidden" name="__RequestVerificationToken" value="@GetAntiXsrfRequestToken()" />
+
+						@if (resultSearch.TotalCount > pageSize)
+						{
+							<button class="btn" onclick="getMoreNews(@(Model.Id), @(pageSize))" id="btnGetMoreNews">Загрузить еще</button>
+						}
+
+
+					</div>
+				</div>
+			</div>
+		}
+	}
+</div>

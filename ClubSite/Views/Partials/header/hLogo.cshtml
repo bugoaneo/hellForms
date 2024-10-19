@@ -1,0 +1,12 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HLogo>
+@{
+    var content = (IPublishedContent)ViewData["page"];
+}
+
+@if (Model.Image != null)
+{
+<a href="@content.Root().Url()" class="@Model.ContentType.Alias">
+  <img src="@Model.Image.Url()" alt="@Model.Image.Name">
+</a>
+}
+

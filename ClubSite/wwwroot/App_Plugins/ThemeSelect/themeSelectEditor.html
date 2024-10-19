@@ -1,0 +1,50 @@
+﻿<style>
+    .sp__theme_copy select, .sp__theme_copy input {
+        width: 100%;
+    }
+</style>
+
+<div ng-controller="ThemeSelect as theme">
+    <umb-editor-view>
+        <umb-editor-header name="model.title"
+                           name-locked="true"
+                           hide-alias="true"
+                           hide-icon="true"
+                           hide-description="true">
+        </umb-editor-header>
+        <umb-editor-container>
+            <umb-box class="sp__theme_copy">
+                <umb-box-content>
+                    <div class="umb-control-group">
+                        <label for="theme">Исходная тема</label>
+                        <div>
+                            <select id="theme" ng-model="theme.data.websiteBaseTheme">
+                                <option ng-repeat="th in theme.data.allThemes" value="{{th}}">{{th}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="umb-control-group">
+                        <label for="theme">Название новой темы</label>
+                        <div>
+                            <input type="text" ng-model="theme.data.newThemeName" id="newNameTheme" />
+                        </div>
+                    </div>
+                </umb-box-content>
+            </umb-box>
+        </umb-editor-container>
+        <umb-editor-footer>
+            <umb-editor-footer-content-right>
+                <umb-button type="button"
+                            button-style="link"
+                            label-key="general_close"
+                            action="theme.close()">
+                </umb-button>
+                <umb-button type="button"
+                            button-style="action"
+                            label-key="general_copy"
+                            action="theme.submit(model)">
+                </umb-button>
+            </umb-editor-footer-content-right>
+        </umb-editor-footer>
+    </umb-editor-view>
+</div>

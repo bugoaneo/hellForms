@@ -1,0 +1,69 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HNavigationWithCatalog>
+@{
+    var currentNode = (IPublishedContent)ViewData["page"];
+}
+<div class="@Model.ContentType.Alias">
+    @if (Model.Links.Any())
+    {
+        <ul class="navigation">
+            @if (Model.DynamicMenuItem != null && Model.DynamicMenuItem.Udi != null)
+            {
+                var dynamicMenuItemNode = Umbraco.Content(Model.DynamicMenuItem.Udi);
+                if (dynamicMenuItemNode != null) {
+                    <li class="navigation__point _dynamic">
+                        <span class="_dynamic-wrapper">
+                            <a class="navigation__item" href="@Model.DynamicMenuItem.Url">@Model.DynamicMenuItem.Name</a> <span class="navigation__counter"></span>
+                        </span>
+                        
+                        @if (dynamicMenuItemNode.Children.Any())
+                        {
+                            <div class="navigation__wrapper">
+                                <ul class="navigation__dropdown">
+                                    @foreach (var childItem in dynamicMenuItemNode.Children.Where(x => x.IsVisible()))
+                                    {
+                                        var isActive = currentNode != null && childItem != null && childItem.IsAncestorOrSelf(currentNode) && (childItem.Level > 1 || currentNode.Level == 1) && childItem.Url().IndexOf('#') == -1;
+                                        if (childItem != null)
+                                        {
+                                            <li class="navigation__dropdown-point">
+                                                <a class="navigation__item@(isActive ? " active" : string.Empty)" href="@childItem.Url()" target="@childItem?.Value("target")">
+                                                    @Html.Raw(childItem.Name)
+                                                    @*<span class="navigation__icon">
+                                                        @if (childItem.HasValue("navImage")){
+                                                            @await Html.PartialAsync("partImageOrSvg", childItem.Value<IPublishedContent>("navImage"))
+                                                        }
+                                                    </span>*@
+                                                    @*<span class="navigation__label">@Html.Raw(childItem.Name)</span>*@
+                                                </a>
+                                                
+                                                    @if (childItem.HasValue("navImage")){
+                                                    var img = childItem.Value<IPublishedContent>("navImage");                                                    
+                                                    <div class="navigation__pic"><img src="@img.Url()" /></div>
+                                                    }
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                                
+                            </div>
+                            
+                        }
+                </li>
+                }
+            }
+            @foreach (var menuItem in Model.Links)
+            {
+                var menuItemNode = Umbraco.Content(menuItem.Udi);
+                if (menuItemNode != null)
+                {
+                    var hideDesktop = menuItemNode.Value<bool>("hideFromMenuDesktop");
+                    var isActive = currentNode != null && menuItemNode != null && menuItemNode.IsAncestorOrSelf(currentNode) && (menuItemNode.Level > 1 || currentNode.Level == 1) && menuItem.Url.IndexOf('#') == -1;
+                    <li class="navigation__point @(hideDesktop?" _mobile":string.Empty)">
+                        <a class="navigation__item@(isActive ? " active" : string.Empty)" href="@menuItem.Url" target="@menuItem.Target">
+                        @Html.Raw(menuItem.Name)
+                    </a>
+                </li>
+                }
+            }
+        </ul>
+    }
+</div>

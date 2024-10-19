@@ -1,0 +1,53 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CTiles>
+@{
+    var settings = (BlockSettings?)ViewData["settings"];
+    var index = 1;
+
+    var blockIndex = (int?)ViewData["blockIndex"] ?? -1;
+
+    var renderOptionClass = Model.Layout == "2 в ряд" ? "_twoInRow" : Model.Layout == "4 в ряд" ? "_fourInRow" : "_threeInRow";
+}
+@await Html.PartialAsync("partRenderAnchor", settings)
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+        @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
+        @if (Model.HasValue("contents"))
+        {
+            <div class="block__description text">
+                @Html.Raw(Model.Contents)
+            </div>
+        }
+        <div class="tiles @(renderOptionClass)">
+            @foreach (var item in Model.Tiles)
+            {
+                RenderItem((Umbraco.Cms.Web.Common.PublishedModels.UniImageTitleWsub)item.Content);
+            }
+        </div>
+    </div>
+</section>
+
+@{
+    void RenderItem(Umbraco.Cms.Web.Common.PublishedModels.UniImageTitleWsub item)
+    {
+        var altImg = item.Image?.Value("altImg");
+        <a href="@(item.ButtonLink?.Url)" class="tile__item tile">
+            <img src="@(item.Image?.Url())" class="tile__img" alt="@(altImg.ToString() != string.Empty ? altImg : item.Image?.Name)">
+            @if (!string.IsNullOrEmpty(item.Title) || !string.IsNullOrEmpty(item.SubTitle))
+            {<div class="tile__info">
+                @if (!string.IsNullOrEmpty(item.Title))
+                {
+                    <h4 class="tile__title">@item.Title</h4>
+                }
+                @if (!string.IsNullOrEmpty(item.SubTitle))
+                {
+                  <div class="tile__subtitle">
+                    @item.SubTitle
+                </div>  
+                }                
+            </div> 
+                
+            }
+                     
+        </a>
+    }
+}

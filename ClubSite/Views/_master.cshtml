@@ -1,0 +1,70 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    Layout = null;
+SmidgeHelper.RequiresJs(new Smidge.Models.JavaScriptFile("~/scripts/lib/jquery/jquery-3.6.3.min.js"));
+
+    SmidgeHelper.RequiresJs(new Smidge.Models.JavaScriptFile("~/scripts/lib/jquery/jquery.validate.js"));
+    SmidgeHelper.RequiresJs(new Smidge.Models.JavaScriptFile("~/scripts/lib/jquery/jquery.validate.unobtrusive.js"));
+    SmidgeHelper.RequiresJs(new Smidge.Models.JavaScriptFile("~/scripts/lib/jquery/jquery.unobtrusive-ajax.js"));
+    SmidgeHelper.RequiresJs(new Smidge.Models.JavaScriptFile("~/scripts/lib/jquery/additional-methods.js"));
+    SmidgeHelper.RequiresJs(new Smidge.Models.JavaScriptFile("~/scripts/customform.js"));
+
+    SmidgeHelper.RequiresJs(new Smidge.Models.JavaScriptFile("~/scripts/lib/swiper/swiper-bundle.min.js"));
+    SmidgeHelper.RequiresCss(new Smidge.Models.CssFile("~/css/lib/swiper/swiper-bundle.min.css"));
+    SmidgeHelper.RequiresJs(new Smidge.Models.JavaScriptFile("~/scripts/lib/magnific-popup/magnific-popup.min.js"));
+    SmidgeHelper.RequiresCss(new Smidge.Models.CssFile("~/css/lib/magnific-popup/magnific-popup.min.css"));
+
+    SmidgeHelper.RequiresCss(new Smidge.Models.CssFile("~/css/core.css"));
+    
+    SmidgeHelper.RequiresJs(new Smidge.Models.JavaScriptFile("~/scripts/core.js"));   
+
+
+#if DEBUG
+    var debugMode = true;
+    #else
+    bool debugMode = false;
+#endif
+
+    var headerOnTopOfContentFlag = (bool?)Context.Items["headerOnTopOfContentFlag"];
+    var root = Model.Root();
+    //var isCursorShow = root.Value<bool>("showFansyCursor");
+}
+<!DOCTYPE html>
+<html lang=ru>
+<head>
+    @Html.Partial("sysThemeSelector")
+    <meta charset="utf-8">
+    @await Umbraco.RenderMacroAsync("sysPageMetaInfo")
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+    @await Html.PartialAsync("sysPageFavicon")
+
+    <!-- Chrome, Firefox OS and Opera-->
+    <meta name="theme-color" content="#000">
+    <!-- Windows Phone-->
+    <meta name="msapplication-navbutton-color" content="#000">
+    <!-- iOS Safari-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#000">
+    <link rel="preload" href="~/css/theme-default/fonts/Ubuntu/ubuntu-v20-cyrillic_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    @await SmidgeHelper.CssHereAsync(debug:debugMode)
+
+    @await Html.PartialAsync("sysPageHeaderEnd")
+</head>
+
+<body class="">
+
+    @await Html.PartialAsync("partHeader", Model, new ViewDataDictionary(ViewData){ {"headerOnTopOfContentFlag", headerOnTopOfContentFlag}})
+    <main class="wrapper">
+        @RenderBody()
+    </main>
+    @await Html.PartialAsync("partFooter")
+
+ @*    <div id="inlinePopup" class="wg-gridList_popup mfp-hide mfp-with-anim">
+        <h2></h2><p></p>
+    </div> *@
+
+    @await SmidgeHelper.JsHereAsync(debug: debugMode)
+    @await SiteHelpers.RenderThemeBundle(Context, SmidgeHelper, Model.Id.ToString(), debugMode)
+</body>
+</html>

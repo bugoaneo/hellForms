@@ -1,0 +1,26 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HSimpleNavigation>
+@{
+    var currentNode = (IPublishedContent)ViewData["page"];
+}
+    <div class="@Model.ContentType.Alias">
+        @if (Model.Links.Any())
+        {
+            <nav class="navigation">
+                @foreach (var menuItem in Model.Links)
+                    {                 
+                        var menuItemNode = Umbraco.Content(menuItem.Udi);                
+                        var hideClass = "";
+                        if(menuItemNode != null)
+                        {
+                            var isHideDesktop = menuItemNode.Value<bool>("hideFromMenuDesktop");
+                            hideClass = (isHideDesktop ? "hideDesktop" : string.Empty);
+                        }
+                        var isActive = currentNode != null && menuItemNode != null && menuItemNode.IsAncestorOrSelf(currentNode) && (menuItemNode.Level > 1 || currentNode.Level == 1) && menuItem.Url.IndexOf('#') == -1;
+
+                        <a class="navigation__item  @(isActive ? "current" : string.Empty) @hideClass" href="@menuItem.Url" target="@menuItem.Target">
+                            @Html.Raw(menuItem.Name)
+                        </a>
+                    }
+            </nav>
+        }
+    </div>

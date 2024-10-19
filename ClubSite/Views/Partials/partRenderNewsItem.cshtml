@@ -1,0 +1,38 @@
+﻿@model NewsItem
+
+@{
+    var imageUrl = Model.Image?.Url();
+    var title = string.IsNullOrEmpty(Model.Title) ? Model.Name : Model.Title;
+    //title = SiteHelpers.GetTitle(Model, Model.Value<DateTime>("newsDate"), title, "cityInTitle", "dateInTitleOn");
+    bool isPinned = (bool?)ViewData["isPinned"] == true;
+var altImg = Model.Image?.Value("altImg");
+}
+
+<div class="newsItem@(isPinned? " pinned": string.Empty) tb-grid-md-4">
+    @if (!string.IsNullOrEmpty(imageUrl))
+    {
+        <div class="newsItem__image">
+            <a href="@Model.Url()"><img src="@imageUrl" alt="@(Model.Image?.Name)" alt="@(altImg?.ToString() != string.Empty ? altImg : Model.Image?.Name)"></a>
+        </div>
+    }
+    else
+    {
+        <div class="newsItem__image">
+            <a href="@Model.Url()">
+                <img src="/css/img/lorempic.jpg">
+            </a>
+        </div>
+    }
+    <div class="newsItem__text">
+        <div class="newsItem__date">@Model.NewsDate.ToString("d")</div>
+        <div class="newsItem__title"><a href="@Model.Url()">@title</a></div>
+        <div class="newsItem__brief text">
+            @Html.Raw(Model.Brief)
+        </div>
+        <div class="newsItem__link">
+            <a class="btn btn--arrow" href="@Model.Url()">Подробнее</a>
+        </div>
+
+    </div>
+
+</div>

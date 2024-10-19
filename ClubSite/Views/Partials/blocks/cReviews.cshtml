@@ -1,0 +1,238 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CReviews>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+
+@{
+
+    var settings = (BlockSettings)ViewData["settings"];
+
+    var page = (IPublishedContent)ViewData["page"];
+
+
+    //DefaultImageUrl = SiteHelpers.GetDefaultImagePath(page, CropNameSmall);
+
+    //ProgramDetailsPage = page.FirstChild(x => x.ContentType.Alias == "programDetailsPage");
+
+    //if (ProgramDetailsPage == null) { PopupMode = true; }
+}
+
+@await Html.PartialAsync("partRenderAnchor", settings)
+
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+        @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
+        @switch (Model.LayoutVariants)
+        {
+                    case "Список": RenderStandartReviews(); break;
+                case "Слайдер линейка": RenderReviewsAsLinear(); break;
+            case "Одиночный слайдер": RenderReviewsSingleSlider(); break;
+        default: RenderStandartReviews(); break;
+        }
+    </div>
+</section>
+
+@{
+    void RenderStandartReviews()
+    {
+        <div class="reviews">
+            @foreach (var review in Model.ReviewsList)
+            {
+                var reviewsItem = (ContentModels.Review)review.Content;
+                var altImg = reviewsItem.Image?.Value("altImg");
+                <div class="reviews__item">
+                    <div class="review">
+                        <div class="review__icon">
+                            @if (reviewsItem.Image != null)
+                            {
+                                <img src="@reviewsItem.Image.Url()" loading="lazy" alt="@(altImg?.ToString() != string.Empty ? altImg : reviewsItem.Image.Name)">
+                            }
+                        </div>
+                        @if (!string.IsNullOrEmpty(reviewsItem.Title))
+                        {
+                            <div class="review__title">@reviewsItem.Title</div>
+                        }
+                        @if (!string.IsNullOrEmpty(reviewsItem.SubTitle))
+                        {
+                            <div class="review__subtitle">
+                                @Html.Raw(reviewsItem.SubTitle)
+                            </div>
+                        }
+                        @if (reviewsItem.HasValue("text"))
+                        {
+                            <span class="review-quote">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#574582">
+                                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                                </svg>
+                            </span>
+                            <div class="review__text text">@Html.Raw(reviewsItem.Text)</div>
+                        }
+                    </div>
+                </div>
+
+            }
+        </div>
+    }
+
+    void RenderReviewsAsLinear()
+    {
+        if (Model.ReviewsList.Any())
+        {
+            <div class="reviews-linear">
+                <div class="swiper-container swiper mySwiper cardGallery">
+                    <div class="swiper-wrapper">
+                        @foreach (var review in Model.ReviewsList)
+                        {
+                            var reviewsItem = (ContentModels.Review)review.Content;
+                            var itemGuid = Guid.NewGuid().ToString().Replace("-", "").ToLower();
+
+                            <div class="swiper-slide reviews__item">
+                                <div class="review">
+                                    @if (reviewsItem.Image != null)
+                                    {
+                                        var altImg = reviewsItem.Image.Value("altImg");
+
+                                        <div class="reviews-item__icon">
+                                            <img src="@reviewsItem.Image.GetCropUrl(width: 240, height: 240)" loading="lazy" alt="@(altImg?.ToString() != string.Empty ? altImg : reviewsItem.Image.Name)">
+                                        </div>
+                                    }
+                                    @if (!string.IsNullOrEmpty(reviewsItem.Title))
+                                    {
+                                        <div class="review__title">@reviewsItem.Title</div>
+                                    }
+                                    @if (!string.IsNullOrEmpty(reviewsItem.SubTitle))
+                                    {
+                                        <div class="review__subtitle">
+                                            @Html.Raw(reviewsItem.SubTitle)
+                                        </div>
+                                    }
+                                    @if (reviewsItem.HasValue("text"))
+                                    {
+                                        <span class="review-quote">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#574582">
+                                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                                            </svg>
+                                        </span>
+
+                                        <div class="review__text text">@Html.Raw(reviewsItem.Text)</div>
+                                        <a href="#reviewDetail_@itemGuid" class="review-details-link popup-inline" data-effect="mfp-move-horizontal">Читать полностью</a>
+                                    }
+
+                                    @{
+                                        RenderPopupInfo(reviewsItem, itemGuid);
+                                    }
+                                </div>
+
+                            </div>
+
+                        }
+                    </div>
+
+                    @if (Model.ReviewsList.Count() > 1)
+                    {
+                        <div class="linear_arrows arrowBlock" @Html.Raw(Model.Delay > 0 ? " data-delay=\"" + Math.Max(Model.Delay, 2000) + "\"" : string.Empty)>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+
+                        <div class="swiper-pagination linear_pagination"></div>
+                    }
+                </div>
+            </div>
+        }
+    }
+
+    void RenderReviewsSingleSlider()
+    {
+        if (Model.ReviewsList.Any())
+        {
+            <div class="reviews-slider__wrapper">
+                <div class="reviews-slider swiper-container swiper mySwiper banner @(Model.ReviewsList.Count() == 1 ? "_static" : string.Empty)">
+                    <div class="swiper-wrapper">
+                        @foreach (var review in Model.ReviewsList)
+                        {
+                            var reviewsItem = (ContentModels.Review)review.Content;
+
+                            <div class="swiper-slide reviews-slider__item">
+                                <div class="reviews-item__box">
+                                    @if (reviewsItem.Image != null)
+                                    {
+                                        var altImg = reviewsItem.Image.Value("altImg");
+                                        <div class="reviews-item__icon">
+                                            <img src="@reviewsItem.Image.GetCropUrl(width: 625, height: 625)" loading="lazy" alt="@(altImg?.ToString() != string.Empty ? altImg : reviewsItem.Image.Name)">
+                                        </div>
+                                    }
+                                    <div class="reviews-item__content">
+                                        @if (!string.IsNullOrEmpty(reviewsItem.Title))
+                                        {
+                                            <div class="review__title">@reviewsItem.Title</div>
+                                        }
+                                        @if (!string.IsNullOrEmpty(reviewsItem.SubTitle))
+                                        {
+                                            <div class="review__subtitle">
+                                                @Html.Raw(reviewsItem.SubTitle)
+                                            </div>
+                                        }
+                                        @if (reviewsItem.HasValue("text"))
+                                        {
+                                            <span class="review-quote">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#574582">
+                                                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                                                </svg>
+                                            </span>
+                                            <div class="review__text text">@Html.Raw(reviewsItem.Text)</div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    @if (Model.ReviewsList.Count() > 1)
+                    {
+                        <div class="programs__arrows arrowBlock" @Html.Raw(Model.Delay > 0 ? " data-delay=\"" + Math.Max(Model.Delay, 2000) + "\"" : string.Empty)>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+
+                        <div class="swiper-pagination programs__pagination"></div>
+                    }
+                </div>
+            </div>
+        }
+    }
+
+    void RenderPopupInfo(Review review, string itemId)
+    {
+        <div id="reviewDetail_@itemId" class="review__popup wg-gridList_popup mfp-hide mfp-with-anim">
+            @if (review.Image != null)
+            {
+                var altImg = review.Image.Value("altImg");
+                <div class="reviews-item__icon card-popup-img wg-gridList_popup-img">
+                    <img src="@review.Image.GetCropUrl(width: 625, height: 625)" loading="lazy" alt="@(altImg?.ToString() != string.Empty ? altImg : review.Image.Name)">
+                </div>
+            }
+
+            <div class="text">
+                @if (!string.IsNullOrEmpty(review.Title))
+                {
+                    <div class="review__title">@review.Title</div>
+                }
+
+                @if (!string.IsNullOrEmpty(review.SubTitle))
+                {
+                    <div class="review__subtitle">
+                        @Html.Raw(review.SubTitle)
+                    </div>
+                }
+                @if (review.HasValue("text"))
+                {
+                    <span class="review-quote">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#574582">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                        </svg>
+                    </span>
+
+                    <div class="review__text text">@Html.Raw(review.Text)</div>
+                }
+            </div>
+        </div>
+    }
+}

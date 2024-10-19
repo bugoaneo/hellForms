@@ -1,0 +1,40 @@
+﻿@import 'vars.css';
+
+body {
+    background-color: var(--bodyBackground);
+    color: var(--bodyColor);
+}
+
+.block {
+    border: solid 1px #DE572F;
+}
+
+.block__content, .header__content, .footer__content {
+    border: solid 1px #AA344C;
+}
+
+footer {
+    border: solid 1px #71B566;
+}
+
+header {
+    border: solid 1px #71B566;
+}
+
+.text {
+    background-color: #84DE2F;
+}
+
+
+.hSocials__icon .cls-1 {
+    fill: #DE572F;
+}
+
+
+.headerRow {
+    border: dashed 1px #ff6a00;
+}
+
+a:hover {
+    color: red;
+}

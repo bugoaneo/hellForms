@@ -1,0 +1,32 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    
+    IEnumerable<IPublishedContent> selection = Model.Ancestors().ToArray().OrderBy(x => x.Level);
+    if (selection.Count() > 0)
+    {
+        var currentName = Context.Items["title"] != null ? (string?)Context.Items["title"] : Model.Name;
+        <div class="breadcrumbs">
+            @foreach (var item in selection)
+            {
+                var hideInBreadCrambs = item.Value<bool>("hideInBreadCrambs");
+                if(item.Level == 1)
+                {
+                    @* можно иконку с домиком показать и/или текстом - можно регулировать стилями. По умолчанию иконка спрятана *@
+                    <a class="breadcrumbs__item root" href="@item.Url()"><i class="gg-home"></i><span>Главная</span></a>
+                }
+                else{
+                    if (!hideInBreadCrambs)
+                    {
+                        <a class="breadcrumbs__item" href="@item.Url()">@item.Name</a>
+                    }
+                    
+                }
+
+            }
+            <span class="breadcrumbs__item breadcrumbs__item--current">@currentName</span>
+        </div>
+
+    }
+
+}

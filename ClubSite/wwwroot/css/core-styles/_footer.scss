@@ -1,0 +1,19 @@
+.footer {
+    &__content {
+        flex-wrap: wrap;
+    }
+
+    .navigation {
+        &__item {
+            padding-left: 0;
+        }
+    }
+
+    .copyright {
+        width: 100%;
+        text-align: center;
+        font-size: 12px;
+        opacity: 0.8;
+        padding: 10px 0;
+    }
+}

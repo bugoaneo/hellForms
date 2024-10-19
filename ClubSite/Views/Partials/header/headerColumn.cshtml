@@ -1,0 +1,15 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HeaderColumn>
+@{
+    var items = Model.ColumnBlocks;
+}
+
+<div class="@Model.ContentType.Alias">
+    @if (items != null)
+    {
+        var index = 0;
+        foreach (var block in items)
+        {
+            @await Html.PartialAsync("header/"+block.Content.ContentType.Alias, block.Content)
+        }
+    }
+</div>

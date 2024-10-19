@@ -1,0 +1,36 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CTextAndScript>
+
+@{
+
+    var settings = (BlockSettings?)ViewData["settings"];
+}
+
+@await Html.PartialAsync("partRenderAnchor", settings)
+
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+
+        <div class="block__row tb-grid">
+            @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
+            <div class="block__content tb-grid-12 tb-grid-md-6 tb-grid-lg-5">
+                <div class="text">@Model.Contents</div>
+
+            </div>
+            <div class="block__actions tb-grid-12 tb-grid-md-6 tb-grid-lg-7">
+                @if (Model.Image != null)
+                {
+                    <img src="@Model.Image.Url()" alt="@Model.Image.Name" />
+                }
+                else if (Model.CustomScript != null && !string.IsNullOrEmpty(Model.CustomScript))
+                {
+                    @Html.Raw(Model.CustomScript)
+                }
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>

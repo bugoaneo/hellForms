@@ -1,0 +1,7 @@
+.header {
+    @include resp ($size-md, 9999) {
+        &._headerOnTopOfContent {
+            color: #ffffff;
+        }
+    }
+}

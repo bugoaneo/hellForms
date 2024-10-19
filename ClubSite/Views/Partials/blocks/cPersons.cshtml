@@ -1,0 +1,82 @@
+﻿@using Umbraco.Cms.Core.PublishedCache;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CPersons>
+@inject ITagQuery tagQuery
+@{
+
+    var settings = (BlockSettings?)ViewData["settings"];
+    var page = (IPublishedContent?)ViewData["page"];
+    var personInfoNode = Model.PersonCatalog ?? page;
+    var personList = personInfoNode?.Children.Where(x => x.IsVisible() && x.ContentType.Alias == "person").OrderBy(x => x.SortOrder);
+
+}
+@await Html.PartialAsync("partRenderAnchor", settings)
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+        @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
+        @if (Model.HasValue("description"))
+        {
+            <div ckass="persons__description">
+                @Model.Description
+            </div>
+        }
+        @if (personList != null && personList.Any())
+        {
+            <div class="tb-grid tb-grid-colgap-20 persons__list">
+                 
+                        @foreach (var item in personList)
+                        {
+                            var person = (Person)item;
+
+                        <div class="tb-grid-md-4 persons__item">
+                                @{
+                                    RenderPersonInfo(person, item);
+                                }
+                        </div>
+                        }
+            
+            </div>
+        }
+        <div class="persons__footer">
+            @if (Model.HasValue("btn"))
+            {
+                <a class="btn" href="@Model.Btn?.Url" target="@(Model.Btn?.Target)">@Model.Btn?.Name</a>
+            }
+        </div>
+    </div>
+</section>
+
+@{
+    void RenderPersonInfo(Person item, IPublishedContent pc)
+    {
+        @if (item.Image != null)
+        {
+            var altImg = item.Image?.Value("altImg");
+            <div class="persons__media">
+                <a href="@(pc.Url())"><img src="@item.Image?.Url()" alt="@(altImg != null ? altImg : item.Image?.Name)" /></a>
+
+            </div>
+        }
+        else
+        {
+            <div class="persons__media">
+                <a href="@(pc.Url())"><img src="/css/img/lorempic.jpg" alt="@item.Name" /></a>
+
+            </div>
+        }
+        <div class="persons__info">
+            <h3 class="persons__name"><a href="@(pc.Url())">@item.Name</a></h3>
+            @if (item.HasValue("personSpecialty"))
+            {
+                <div class="persons__specialty">@item.PersonSpecialty</div>
+            }
+            @if (item.HasValue("presonContacts"))
+            {
+                <div class="presons__contacts">@item.PresonContacts</div>
+            }
+        </div>
+
+        <div class="persons__actions">
+            <a class="btn btn--arrow persons__btn" href="@(pc.Url())">Подробнее</a>
+        </div>
+    }
+}

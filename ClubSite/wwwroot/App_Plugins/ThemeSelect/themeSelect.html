@@ -1,0 +1,28 @@
+﻿<style type="text/css">
+    .sp__theme span {
+        margin-right: 10px;
+        margin-bottom: 10px;
+        display: inline-block;
+        margin-left: 15px;
+        margin-top: 7px;
+        float: left;
+    }
+    .sp__theme select {
+        float: left;
+    }
+    .sp__theme .link {
+        float: left;
+        width: 100%;
+        margin-top: 9px;
+        margin-bottom: 25px;
+    }
+
+</style>
+<div ng-controller="SportPriority.ThemeSelect as theme" class="sp__theme">
+    <div class="sp-theme__options">
+        <select ng-model="model.value.websiteBaseTheme">
+            <option ng-repeat="th in allThemes" value="{{th}}">{{th}}</option>
+        </select>
+    </div>
+    <div class="link"><a href="#" ng-click="openEditor()" prevent-default>Создать копию темы</a></div>
+</div>

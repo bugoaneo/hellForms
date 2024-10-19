@@ -1,0 +1,10 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HButtons>
+@if(Model.HasValue("links")){
+
+    <div class="@Model.ContentType.Alias">
+        @foreach(var button in Model.Links)
+        {
+            <a href="@button.Url" target="@button.Target" class="btn btn--small">@Html.Raw(button.Name)</a> 
+        }
+    </div>
+}

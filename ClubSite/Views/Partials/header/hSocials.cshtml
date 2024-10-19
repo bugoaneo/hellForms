@@ -1,0 +1,26 @@
+﻿@* Этот паршиал надо кэшировать *@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HSocials>
+@if (Model.HasValue("links"))
+{
+    <div class="@Model.ContentType.Alias">
+        @foreach (var button in Model.Links)
+        {
+            if (button.Name.StartsWith("_")) /* тогда это соцсеть - включаем сюда иконку. */
+            {
+                var filePath = SiteHelpers.MapPath("css/img/" + button.Name + ".svg");
+                if (System.IO.File.Exists(filePath))
+                {
+                    <a href="@button.Url" target="@button.Target" class="@(Model.ContentType.Alias)__icon @button.Name">@Html.Raw(System.IO.File.ReadAllText(filePath))</a>
+                }
+                else
+                {
+                    <a href="@button.Url" target="@button.Target" class="@(Model.ContentType.Alias)__class @button.Name">&nbsp;</a>
+                }
+            }
+            else
+            {
+                <a href="@button.Url" target="@button.Target">@Html.Raw(button.Name)</a>
+            }
+        }
+    </div>
+}
