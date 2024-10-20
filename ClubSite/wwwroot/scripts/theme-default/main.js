@@ -31,4 +31,21 @@
         });
     }
 
+
+    if ($(".hellForm__tabs").length > 0) {
+        $(".tab__body").hide();
+        $(".tab__body:first").show();
+        $(".tabs__control:first").addClass("current");
+        $(".tabs__control").click(function () {
+            $(".tab__body").hide();
+            var activeTab = $(this).attr("data-rel");
+            $("#" + activeTab).fadeIn();
+
+            $(".tabs__control").removeClass("current");
+            $(this).addClass("current");
+           
+        })
+
+    }
+
 })();

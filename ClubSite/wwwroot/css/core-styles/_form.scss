@@ -2,19 +2,19 @@
 input, textarea {
   display: block;
   padding: 0.5em;
-  border: 1px solid var(--buttonAndLinkColor);
+  border: 1px solid var(--accent);
   border-radius: 0.2em;
   outline: none;
   font-family: inherit;
 }
 
 
-  input:not([type="checkbox"]),
-  textarea {
-    width: 100%;
-    font-family: inherit;
-    font-size: inherit;
-  }
+input:not([type="checkbox"]):not([type="radio"]),
+textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+}
 
 textarea {
   resize: none;
@@ -37,10 +37,19 @@ label:not(.input-checkbox__label) {
 
 .input-checkbox__label {
   display: block;
+  flex: 0 1 calc(100% - 2em);
 
   a {
-    color: var(--buttonAndLinkColor);
+    color: var(--accent);
   }
+}
+
+.input-row {
+@include row(jsb, ast);
+}
+
+.input-row__label {
+  flex:0 1 calc(100% - 2em);
 }
 
 .custom-form__actions {
@@ -84,4 +93,39 @@ label:not(.input-checkbox__label) {
 
 .cFormRequest__content + .cFormRequest__form {
   margin-top: 2em;
+}
+
+/*select-wrapper*/
+
+.select-wrapper {
+  position: relative;
+  border-radius: 0.4em;
+
+  select {
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: block;
+    width: 100%;
+    padding: 0.9em 1em;
+    border-radius: 0.45em;
+  border: 1px solid var(--accent);
+  background: var(--background);
+    outline: none;
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    transform: translateY(-50%) rotate(135deg);
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid var(--textColor);
+    border-right: 1px solid var(--textColor);
+  }
 }

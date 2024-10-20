@@ -1,4 +1,14 @@
 ﻿@using Umbraco.Extensions
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
 
-<h2 style="padding: 20px">@Model.Content.Value("headline")</h2>
+<h3 class="form-caption">
+    @Model.Content.Value("headline")
+
+    @if (Model.Content.HasValue("headerHint"))
+    {
+        <i class="hintIcon">?</i>
+        <span class="hintBody text">
+            @Model.Content.Value("headerHint")
+        </span>
+    }
+</h3>

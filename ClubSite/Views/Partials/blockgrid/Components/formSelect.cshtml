@@ -1,0 +1,23 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using Umbraco.Extensions
+@using Umbraco.Cms.Core.Models.Blocks
+
+@{
+    var options = Model.Content.Value<Umbraco.Cms.Core.Models.Blocks.BlockListModel>("selectOptions");
+}
+
+<div class="form-group  @Model.Content.Value("cssClass")">
+    @if (!Model.Content.Value<bool>("hideLabel") && Model.Content.HasValue("propertyName"))
+    {
+        <label for="@Model.Content.Value("propertyAlias")">@Model.Content.Value("propertyName")</label>
+    }
+    <div class="select-wrapper">
+        <select name="@Model.Content.Value("propertyAlias")" id="@Model.Content.Value("propertyAlias")">
+            @foreach (var item in options)
+            {
+                var option = (UniTextString)item.Content;
+                <option value="@option.TextStiring">@Html.Raw(option.TextStiring)</option>
+            }
+        </select>
+    </div>
+</div>

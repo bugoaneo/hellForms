@@ -1,0 +1,18 @@
+﻿@using Umbraco.Extensions
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+
+<div class="formLabel" id="@Model.Content.Value("labelID")">
+    <div class="formLabel__caption">@Html.Raw(Model.Content.Value("labelText"))
+    
+    @if (Model.Content.HasValue("labelHint")){
+            <i class="hintIcon">?</i>
+            <div class="hintBody">@Model.Content.Value("labelHint")</div>
+    }
+    </div>
+
+    @if (Model.Content.HasValue("labelNotise"))
+    {
+        <div class="formLabel__notice">@Model.Content.Value("labelNotise")</div>
+    }
+
+</div>

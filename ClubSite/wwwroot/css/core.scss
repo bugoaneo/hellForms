@@ -131,6 +131,7 @@ $maxWidth: 1820;
     font-size: $f-max;
   }
 }
+
 @import 'core-styles/_reset.scss';
 @import 'core-styles/_tb-grid.scss';
 @import 'core-styles/_header-footer.scss';
@@ -186,6 +187,7 @@ body {
 .wrapper {
   flex: 1 1 auto;
 }
+
 .text {
   line-height: 1.45;
 
@@ -197,22 +199,29 @@ body {
 }
 
 h1 {
+  @include fFS(25px, 42px, 320px, 1420px, 30px);
   margin: 0 0 24px;
-  @include adaptiv-font(32, 21);
 }
 
 h2 {
+  @include fFS(20px, 32px, 320px, 1420px, 30px);
   margin: 0 0 24px;
-  @include adaptiv-font(32, 21);
 }
 
 h3 {
+  @include fFS(18px, 22px, 320px, 1420px, 30px);
   margin: 0 0 20px;
 }
 
 h4 {
+  @include fFS(16px, 18px, 320px, 1420px, 30px);
   margin: 0 0 16px;
-  @include adaptiv-font(22, 18);
+}
+
+h1, h2, h3, h4 {
+  &:only-child {
+    margin-bottom: 0;
+  }
 }
 
 ._flex-wrap {
@@ -276,13 +285,11 @@ h4 {
 ._hideFromDisplay {
   display: none;
 }
-/*._verticalCenter {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}*/
+
 .block__content, .header__content, .footer__content {
   position: relative;
+  max-width: 1320px;
+   min-width: 360px;
   width: 100%;
   margin: 0px auto;
   padding-left: 20px;
@@ -301,24 +308,6 @@ h4 {
   }
 }
 
-
-@include resp ($size-xl, 1440) {
-  .header__content, .footer__content {
-    max-width: 1140px;
-  }
-}
-
-@include resp (1441, 9999) {
-  .header__content, .footer__content {
-    max-width: 1320px;
-  }
-}
-
-@include resp (1441, 9999) {
-  .block__content {
-    max-width: 1140px;
-  }
-}
 
 
 /* модификаторы */
@@ -377,10 +366,6 @@ h4 {
     background: var(--buttonAndLinkColor);
     transform: scale(1.2);
   }
-}
-
-.gg-home {
-  display: none;
 }
 
 /*Скрываем стрелки на главном слайдере*/

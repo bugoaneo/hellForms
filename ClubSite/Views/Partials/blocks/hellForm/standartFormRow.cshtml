@@ -1,0 +1,36 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.StandartFormRow>
+@using Umbraco.Cms.Core.Models.Blocks
+@{
+    var grid = Model.Value<BlockGridModel>("formRowItem");
+    const int TITLE_AREA = 0;
+    const int CONTENT_AREA = 1;
+
+}
+<section class="block block--form" style=" --veil:0%;">
+    <div class="block__content">
+        <div class="formRows">
+            @if (grid != null && grid.Any())
+            {
+                foreach (var formRow in grid)
+                {
+                    var contentArea = formRow?.Areas.ElementAt(CONTENT_AREA);
+
+                    <div class="form-row tb-grid tb-grid-colgap-20 tb-grid-rowgap-10" id="@formRow?.Content.Value("rowID")">
+                        @await Html.GetBlockGridItemAreaHtmlAsync(formRow.Areas.ElementAt(TITLE_AREA))
+
+                        @if (contentArea != null && contentArea.Any())
+                        {
+                            @foreach (var item in contentArea)
+                            {
+                                <div class="tb-grid-md-@item.ColumnSpan">
+                                    @await Html.PartialAsync("blockgrid/Components/" + item.Content.ContentType.Alias, item)
+                                </div>
+                            }
+                        }
+
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>

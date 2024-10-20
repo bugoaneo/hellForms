@@ -1,0 +1,68 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using Umbraco.Extensions
+@using Umbraco.Cms.Core.Models.Blocks
+@{
+    var fieldTyped = Model.Content.Value("propertyType");
+    var inputsList = Model.Content.Value<Umbraco.Cms.Core.Models.Blocks.BlockListModel>("inputsList");
+
+
+    @if (inputsList != null && inputsList.Any())
+    {
+        switch (fieldTyped)
+        {
+            case "Список чекбоксов":
+                RenderCheckboxes();
+                break;
+            case "Список радио-кнопок":
+                RenderRadioButtons();
+                break;
+            default:
+                <div>Не выбран тип инпута</div>
+                break;
+        }
+
+    }
+    void RenderCheckbox(InputListElem elem)
+    {
+        var id = "form-" + elem.PropertyAlias;
+        <div class="form-group input-row">
+
+            <input type="checkbox" class="input-row__body" id="@id" name="@elem.PropertyAlias" @(elem.Selected ? "checked" : string.Empty)>
+            <label class="input-row__label" for="@id">
+                <span class="input-row__text">@Html.Raw(elem.PropertyName)</span>
+            </label>
+        </div>
+    }
+    void RenderRadioButton(InputListElem elem)
+    {
+        var id = "form-" + elem.PropertyAlias;
+        <div class="form-group input-row">
+            <input type="radio" class="input-row__body" id="@id" name="@Model.Content.Value("propertyAlias")" @(elem.Selected ? "checked" : string.Empty)>
+            <label class="input-row__label" for="@id">
+                <span class="input-row__text">@Html.Raw(elem.PropertyName)</span>
+            </label>
+        </div>
+    }
+
+    void RenderCheckboxes()
+    {
+        <div class="form-list @Model.Content.Value("cssClass")" name="@Model.Content.Value("propertyAlias")" id="@Model.Content.Value("propertyAlias")">
+            @foreach (var item in inputsList)
+            {
+                var input = (InputListElem)item.Content;
+                RenderCheckbox(input);
+            }
+        </div>
+    }
+
+    void RenderRadioButtons()
+    {
+        <div class="form-list @Model.Content.Value("cssClass")" name="@Model.Content.Value("propertyAlias")" id="@Model.Content.Value("propertyAlias")">
+            @foreach (var item in inputsList)
+            {
+                var input = (InputListElem)item.Content;
+                RenderRadioButton(input);
+            }
+        </div>
+    }
+}

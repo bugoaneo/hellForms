@@ -25,7 +25,7 @@
 
   .hLogo {
     display: flex;
-    flex-shrink: 0;
+  flex: 0 0 100px;
 
     img {
       display: block;

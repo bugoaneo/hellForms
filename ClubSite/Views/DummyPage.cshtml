@@ -1,0 +1,17 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = "_master.cshtml";
+	var contentBlocks = Model.Value<Umbraco.Cms.Core.Models.Blocks.BlockListModel>("formPageConstructor")!;
+	if (contentBlocks != null)
+	{
+		var index = 0;
+		ViewData["page"] = Model;
+		foreach (var block in contentBlocks)
+		{
+			ViewData["blockIndex"] = index++;
+			ViewData["settings"] = block.Settings;
+			@await Html.PartialAsync("blocks/hellForm/" + block.Content.ContentType.Alias, block.Content)
+		}
+	}
+}

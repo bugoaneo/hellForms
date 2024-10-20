@@ -1,0 +1,36 @@
+﻿@using Umbraco.Cms.Core.Models.Blocks
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.GeneratedFormRow>
+
+@{
+    var grid = (Model.Value<BlockGridModel>("formRowTemplate"))?.First();
+    const int TITLE_AREA = 0;
+    const int CONTENT_AREA = 1;
+    var contentArea = grid?.Areas.ElementAt(CONTENT_AREA);
+}
+
+<section class="block block--form" style=" --veil:0%;">
+    <div class="block__content">
+        @await Html.GetBlockGridItemAreaHtmlAsync(grid?.Areas.ElementAt(TITLE_AREA))
+        <div class="generatedRow">
+            @*Генерим эту строку*@
+            <div class="form-row tb-grid tb-grid-colgap-20 tb-grid-rowgap-10" id="@grid?.Content.Value("rowID")">
+                @if (contentArea != null && contentArea.Any())
+                {
+                    foreach (var item in contentArea)
+                    {
+                        <div class="tb-grid-md-@item.ColumnSpan">
+                            @await Html.PartialAsync("blockgrid/Components/" + item.Content.ContentType.Alias, item)
+                        </div>
+                    }
+                }
+
+            </div>
+            @*Показываем кнопку, если строк > 1*@
+            <button type="button" class="btn btn--link js-removeRow">Удалить</button>
+
+        </div>
+        <div class="form-action">
+            <button type="button" class="btn btn--link js-addRow">@(Model.HasValue("btnText") ? Model.BtnText : "Добавить еще строку")</button>
+        </div>
+    </div>
+</section>

@@ -15,79 +15,79 @@ $size-xl: 1200;
 $maxWidth: 1820;
 
 @mixin resp($min, $max) {
-    @media screen and (min-width: $min + 'px') and (max-width: $max + 'px') {
-        @content
-    }
+  @media screen and (min-width: $min + 'px') and (max-width: $max + 'px') {
+    @content
+  }
 }
 
 @mixin adaptiv-font($pcSize, $mobSize) {
-    $addSize: $pcSize - $mobSize;
-    $maxW: $maxWidth - 320;
-    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxW}));
+  $addSize: $pcSize - $mobSize;
+  $maxW: $maxWidth - 320;
+  font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxW}));
 }
 
 @mixin center($axis: "both") {
-    position: absolute;
-  
-    @if ($axis == "both") {
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  
-    @if $axis == "x" {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  
-    @if $axis == "y" {
-      top: 50%;
-      transform: translateY(-50%);
-    }
-  }
-  
-  @mixin row($justufy: null, $align: null) {
-    display: flex;
-    flex-wrap: wrap;
-  
-    @if ($justufy == "jst") {
-      justify-content: flex-start;
-    }
-  
-    @if ($justufy == "jend") {
-      justify-content: flex-end;
-    }
-  
-    @if ($justufy == "jc") {
-      justify-content: center;
-    }
-  
-    @if ($justufy == "jsb") {
-      justify-content: space-between;
-    }
-  
-    @if ($justufy == "jsa") {
-      justify-content: space-around;
-    }
-  
-    @if ($align == "ac") {
-      align-items: center;
-    }
-  
-    @if ($align == "as") {
-      align-items: stretch;
-    }
-  
-    @if ($align == "ab") {
-      align-items: baseline;
-    }
-  
-    @if ($align == "ast") {
-      align-items: flex-start;
-    }
+  position: absolute;
+
+  @if ($axis == "both") {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
-  
+  @if $axis == "x" {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @if $axis == "y" {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+@mixin row($justufy: null, $align: null) {
+  display: flex;
+  flex-wrap: wrap;
+
+  @if ($justufy == "jst") {
+    justify-content: flex-start;
+  }
+
+  @if ($justufy == "jend") {
+    justify-content: flex-end;
+  }
+
+  @if ($justufy == "jc") {
+    justify-content: center;
+  }
+
+  @if ($justufy == "jsb") {
+    justify-content: space-between;
+  }
+
+  @if ($justufy == "jsa") {
+    justify-content: space-around;
+  }
+
+  @if ($align == "ac") {
+    align-items: center;
+  }
+
+  @if ($align == "as") {
+    align-items: stretch;
+  }
+
+  @if ($align == "ab") {
+    align-items: baseline;
+  }
+
+  @if ($align == "ast") {
+    align-items: flex-start;
+  }
+}
+
+
 @mixin bp($point) {
   @media (max-width: $point) {
     @content;
@@ -135,8 +135,7 @@ $maxWidth: 1820;
 @import 'vars.css';
 @import "fonts.generated.css";
 @import 'styles/_btn.scss';
-@import 'styles/_prices.scss';
-@import 'styles/_reviews.scss';
+@import 'styles/_tabs.scss';
 @import 'styles/_header.scss';
 
 
@@ -148,29 +147,128 @@ body {
 
 html {
   font-size: var(--fontSize);
-  font-family:var(--fontFamily), "Ubuntu",  sans-serif;
+  font-family: var(--fontFamily), "Ubuntu", sans-serif;
 }
 
 body {
-    background-color: var(--background);
-    color: var(--textColor);
+  background-color: var(--background);
+  color: var(--textColor);
 }
 
 .text a, .copyright {
-    color: var(--buttonAndLinkColor);
+  color: var(--buttonAndLinkColor);
 
-    &:hover {
-        color: var(--linkColorHovered);
-    }
+  &:hover {
+    color: var(--linkColorHovered);
+  }
 }
 
 .hSocials__icon .cls-1 {
-    fill: var(--accent);
+  fill: var(--accent);
 }
 
 .prices__item {
-    border-bottom: 1px solid #dddee3;
+  border-bottom: 1px solid #dddee3;
 }
 
+/*form*/
 
+.block--form {
+  padding: 20px 0;
+  border-top: 1px solid var(--accent);
+}
 
+.form-row {
+  + .form-row {
+    margin-top: 25px;
+  }
+}
+
+.form-group {
+
+  .input {
+    margin-top: auto;
+  }
+}
+
+.form-caption {
+  position: relative;
+  display: inline-block;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.form-label {
+  min-height: 2.5em;
+}
+
+.formLabel__caption {
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.formLabel__notice {
+  font-size: 0.85em;
+  margin-top: 10px;
+}
+
+.block__header
+.block__title {
+  position: relative;
+  display: inline-block;
+}
+
+.hintIcon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  font-style: normal;
+  font-size: 0.75em;
+  text-align: center;
+  color: var(--accent);
+  cursor: pointer;
+
+  &:hover {
+    + .hintBody {
+      display: block;
+    }
+  }
+}
+
+.hintBody {
+  display: none;
+  position: absolute;
+  top: 1.5em;
+  left: 100%;
+  width: 250px;
+  padding: 26px;
+  margin-left: 1em;
+  border-top: 4px solid var(--accent);
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(#ff9f26, 0.4);
+  color: #55555d;
+  font-size: 11px;
+  line-height: 1.64;
+  font-style: italic;
+  letter-spacing: 0.1px;
+  //white-space: pre-line;
+  z-index: 50;
+}
+
+.textareaWrapper {
+  position: relative;
+
+  .textarea-char-counter {
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+    color: #55555d;
+    font-size: 11px;
+    line-height: 1.64;
+    font-style: italic;
+    letter-spacing: 0.1px;
+    user-select: none;
+    pointer-events: none;
+  }
+}

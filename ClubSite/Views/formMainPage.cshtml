@@ -1,0 +1,94 @@
+﻿@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    Layout = "_master.cshtml";
+    var children = Model.Children;
+}
+
+<section class="jambotron block" style=" --veil:0%;">
+    <div class="block__content">
+        @if (Model.HasValue("title"))
+        {
+            <h1>@Html.Raw(Model.Value("title"))</h1>
+
+        }
+        @if (Model.HasValue("description"))
+        {
+            <div class="block__description text">@Model.Value("description")</div>
+        }
+    </div>
+</section>
+
+<section class="hellForm block _noMarginTop" style=" --veil:0%;">
+    <div class="block__content">
+        @if (children != null && children.Any())
+        {
+            var index = 1;            
+            var contentId = 1;
+            <div class="hellForm__tabs tabs">
+                <nav class="tabs__nav">
+                    @foreach (var item in children)
+                    {
+                        <button type="button" class="tabs__control" data-rel="tab@(index)">
+                            @(item.HasValue("title") ? item.Value("title") : item.Name)
+                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 7" width="10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.333" d="m8.334.667 2.556 2.554-2.556 2.556m1.278-2.555H.667" />
+                            </svg>
+
+                        </button>
+                        index++;
+                    }
+                </nav>
+                <div class="tab__list">
+                    @foreach (var tabBody in children)
+                    {
+                        var tabConstructor = tabBody.Value<Umbraco.Cms.Core.Models.Blocks.BlockListModel>("formPageConstructor")!;
+                        <div class="tab__body" id="tab@(contentId)">
+                            @if (tabBody.HasValue("title"))
+                            {
+                                <h3 class="tabs__title">@Html.Raw(tabBody.Value("title"))</h3>
+                            }
+                            @if (tabBody.HasValue("description"))
+                            {
+                                <div class="tabs__description text">@tabBody.Value("description")</div>
+                            }
+                            @if (tabConstructor != null)
+                            {
+                                var counter = 0;
+                                ViewData["page"] = Model;
+                                foreach (var block in tabConstructor)
+                                {
+                                    ViewData["blockIndex"] = counter++;
+                                    ViewData["settings"] = block.Settings;
+                                    @await Html.PartialAsync("blocks/hellForm/" + block.Content.ContentType.Alias, block.Content)
+                                }
+                            }                           
+                        </div>
+                        contentId++;
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<div class="content">
+
+    @{
+        var settings = (BlockSettings?)ViewData["settings"];
+        var contentBlocks = Model.Value<Umbraco.Cms.Core.Models.Blocks.BlockListModel>("contentBlocks")!;
+        if (contentBlocks != null)
+        {
+            var index = 0;
+            ViewData["page"] = Model;
+            foreach (var block in contentBlocks)
+            {
+                ViewData["blockIndex"] = index++;
+                ViewData["settings"] = block.Settings;
+                @await Html.PartialAsync("blocks/" + block.Content.ContentType.Alias, block.Content)
+            }
+        }
+    }
+</div>

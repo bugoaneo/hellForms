@@ -7,10 +7,14 @@
   }
 
   &--link {
-    color: var(--buttonAndLinkColor);
+    padding-left: 0;
+    text-align: initial;
+    color: var(--accent);
+    background-color: transparent;
 
     &:hover {
-      color: var(--linkColorHovered);
+      color: var(--textColor);
+      background-color: transparent;
     }
   }
 }

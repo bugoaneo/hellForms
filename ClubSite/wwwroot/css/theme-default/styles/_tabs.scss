@@ -1,0 +1,33 @@
+﻿/*tabs*/
+.tabs__nav {
+  @include row(jsb, ac);
+  margin-bottom: 1.5em;
+}
+
+.tabs__control {
+  position: relative;
+  padding: 0.5em 1.5em;
+  border-radius: 2em;
+  color: var(--accent);
+
+  .icon {
+    position: relative;
+    transform: scale(0) translateX(0);
+    transition: transform 0.3s 0.1s linear;
+  }
+
+  &.current, &:hover {
+    color: #fff;
+    background-color: var(--accent);
+
+    .icon {
+      transform: scale(1) translateX(0.5em);
+    }
+  }
+
+  &:last-child {
+    .icon {
+      display: none;
+    }
+  }
+}
