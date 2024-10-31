@@ -5,13 +5,13 @@
 	var contentBlocks = Model.Value<Umbraco.Cms.Core.Models.Blocks.BlockListModel>("formPageConstructor")!;
 	if (contentBlocks != null)
 	{
-		var index = 0;
+		var indexBlock = 0;
 		ViewData["page"] = Model;
 		foreach (var block in contentBlocks)
 		{
-			ViewData["blockIndex"] = index++;
+			ViewData["blockIndex"] = indexBlock++;
 			ViewData["settings"] = block.Settings;
-			@await Html.PartialAsync("blocks/hellForm/" + block.Content.ContentType.Alias, block.Content)
+			@await Html.PartialAsync("blocks/advancedForm/" + block.Content.ContentType.Alias, block.Content)
 		}
 	}
 }

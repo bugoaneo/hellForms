@@ -12,7 +12,7 @@
         }
         else
         {
-            <img width="48" src="@Model.Url()" alt="@Model.Name" />
+            <img width="@Model.Value("umbracoWidth")" src="@Model.Url()" alt="@Model.Name" />
         }
     }
 }

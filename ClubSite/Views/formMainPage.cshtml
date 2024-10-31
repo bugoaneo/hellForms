@@ -22,22 +22,19 @@
     </div>
 </section>
 
-<section class="hellForm block _noMarginTop" style=" --veil:0%;">
+<section class="advancedForm block _noMarginTop" style=" --veil:0%;">
     <div class="block__content">
         @if (children != null && children.Any())
         {
             var index = 1;            
             var contentId = 1;
-            <div class="hellForm__tabs tabs">
+            <div class="advancedForm__tabs tabs">
                 <nav class="tabs__nav">
                     @foreach (var item in children)
                     {
                         <button type="button" class="tabs__control" data-rel="tab@(index)">
-                            @(item.HasValue("title") ? item.Value("title") : item.Name)
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 7" width="10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.333" d="m8.334.667 2.556 2.554-2.556 2.556m1.278-2.555H.667" />
-                            </svg>
-
+                            <span class="tabs__control-step">@index</span>
+                            <span class="tab__control-label">@(item.Name)</span>
                         </button>
                         index++;
                     }
@@ -63,7 +60,7 @@
                                 {
                                     ViewData["blockIndex"] = counter++;
                                     ViewData["settings"] = block.Settings;
-                                    @await Html.PartialAsync("blocks/hellForm/" + block.Content.ContentType.Alias, block.Content)
+                                    @await Html.PartialAsync("blocks/advancedForm/" + block.Content.ContentType.Alias, block.Content)
                                 }
                             }                           
                         </div>

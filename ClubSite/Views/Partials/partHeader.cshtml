@@ -21,7 +21,14 @@
             @{
                 foreach (var block in headerItems)
                 {
-                    @await Html.PartialAsync("header/"+block.Content.ContentType.Alias, block.Content)
+                    try
+                    {
+                        @await Html.PartialAsync("header/" + block.Content.ContentType.Alias, block.Content)
+                    }
+                    catch
+                    {
+                        
+                    }
                 }
             }
         </div>
