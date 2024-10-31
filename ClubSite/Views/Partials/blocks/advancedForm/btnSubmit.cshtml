@@ -1,0 +1,11 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.BtnSubmit>
+
+@{
+    var settings = (BlockMinSettings)ViewData["settings"];
+}
+
+<section class="@BlockFormSettings.GetBlockOuterCssClass(@Model.ContentType.Alias + "block block--form", settings)" style=" --veil:0%;">
+    <div class="block__content">       
+     <button type="button" class="btn">@Html.Raw(Model.BtnText)</button>
+    </div>
+</section>

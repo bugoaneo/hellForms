@@ -1,0 +1,108 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.TestAuth>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@{
+    Layout = "_master.cshtml";
+}
+@functions {
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+
+<div class="block formsAuth">
+    <div class="block__content">
+        <div class="formsAuth__item">
+            <h2>Вход в систему</h2>
+            <div id="loginResult"></div>
+            <form id="loginForm tb-grid tb-grid-colgap-20 tb-grid-rowgap-10">
+                <input type="hidden" name="__RequestVerificationToken" value="@GetAntiXsrfRequestToken()" />
+                <div class="form-row">
+                    <label for="username">Имя пользователя</label>
+                    <input type="text" id="username" name="username" required />
+                </div>
+                <div class="form-row">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password" required />
+
+                </div>
+                <div class="form-row">
+                    <button type="submit" class="btn">Войти</button>
+
+                </div>
+            </form>
+
+        </div>
+        <div class="formsAuth__item" style="margin-top: 2em;">
+            <h2>Регистрация</h2>
+            <div id="registerResult"></div>
+            <form id="registerForm tb-grid tb-grid-colgap-20 tb-grid-rowgap-10">
+                <div class="form-row">
+                    <label for="regUsername">Имя пользователя</label>
+                    <input type="text" id="regUsername" name="username" required /> <!-- Здесь должно быть "username" -->
+
+                </div>
+                <div class="form-row">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" name="email" required /> <!-- Здесь должно быть "email" -->
+
+                </div>
+                <div class="form-row">
+                    <label for="regPassword">Пароль</label>
+                    <input type="password" id="regPassword" name="password" required /> <!-- Здесь должно быть "password" -->
+
+                </div>
+
+                <div class="form-row">
+                    <button type="submit" class="btn">Зарегистрироваться</button>
+                    <input type="hidden" name="__RequestVerificationToken" value="@GetAntiXsrfRequestToken()" />
+
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+        var t = $("input[name='__RequestVerificationToken']").val();
+        e.preventDefault();
+        var formData = new FormData(this);
+        fetch('/umbraco/surface/auth/login', {
+            method: 'POST',
+            body: formData,
+            headers:
+            {
+                "RequestVerificationToken": t
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loginResult').innerHTML = data.message;
+            });
+    });
+
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+        var t = $("input[name='__RequestVerificationToken']").val();
+        e.preventDefault();
+        var formData = new FormData(this);
+        fetch('/umbraco/surface/auth/register', {
+            method: 'POST',
+            body: formData,
+            headers:
+            {
+                "RequestVerificationToken": t
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('registerResult').innerHTML = data.message;
+            });
+    });
+</script>

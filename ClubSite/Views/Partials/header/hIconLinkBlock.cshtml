@@ -1,0 +1,15 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HIconLinkBlock>
+
+<div class="@Model.ContentType.Alias">
+    @foreach (var elem in Model.ElemList)
+    {
+        var button = (UniIconLink)elem.Content;
+        <a href="@button.Link?.Url" target="@button.Link?.Target" class="@(Model.ContentType.Alias)__btn btn btn--small @(button.HasValue("additionalClass") ? button.AdditionalClass : string.Empty )">
+            @if (button.HasValue("image"))
+            {
+                <span class="icon"> @await Html.PartialAsync("partImageOrSvg", button.Value<IPublishedContent>("image"))</span>
+            }
+            <span class="label">@Html.Raw(button.Link.Name)</span>
+        </a>
+    }
+</div>

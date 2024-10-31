@@ -1,0 +1,19 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HeaderSection>
+
+@{
+    var settings = (BlockMinSettings)ViewData["settings"];
+}
+
+<section class="@BlockFormSettings.GetBlockOuterCssClass(@Model.ContentType.Alias + "block block--form", settings)" style=" --veil:0%;">
+    <div class="block__content">
+        <div class="block__header">
+            <h2 class="block__title">@Html.Raw(Model.Title)</h2>
+        </div>
+        @if (Model.HasValue("description"))
+        {
+            <div class="block__description text">
+                @Model.Description
+            </div>
+        }
+    </div>
+</section>

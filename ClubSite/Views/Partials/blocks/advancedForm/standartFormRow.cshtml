@@ -1,0 +1,48 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.StandartFormRow>
+@using Umbraco.Cms.Core.Models.Blocks
+@{
+    var settings = (BlockMinSettings)ViewData["settings"];
+    var grid = Model.Value<BlockGridModel>("formRowItem");
+    const int TITLE_AREA = 0;
+    const int CONTENT_AREA = 1;
+    const int HINT_AREA = 2;
+}
+<section class="@BlockFormSettings.GetBlockOuterCssClass(@Model.ContentType.Alias + "block block--form", settings)" style=" --veil:0%;">
+    <div class="block__content">
+        <div class="formRows tb-grid">
+            @if (grid != null && grid.Any())
+            {
+                foreach (var formRow in grid)
+                {
+                    var contentArea = formRow?.Areas.ElementAt(CONTENT_AREA);
+                    //var hintArea = formRow?.Areas.ElementAt(HINT_AREA);
+
+                    <div class="form-row tb-grid tb-grid-colgap-20 tb-grid-rowgap-10  tb-grid-md-@formRow.ColumnSpan">
+                        @await Html.GetBlockGridItemAreaHtmlAsync(formRow.Areas.ElementAt(TITLE_AREA))
+
+                        @if (contentArea != null && contentArea.Any())
+                        {
+                            @foreach (var item in contentArea)
+                            {
+                                <div class="tb-grid-md-@item.ColumnSpan" style="--rowSpan: @item.RowSpan;">
+                                    @await Html.PartialAsync("blockgrid/Components/" + item.Content.ContentType.Alias, item)
+                                </div>
+                            }
+                        }
+
+
+                       @*  @if (hintArea != null && hintArea.Any())
+                        {
+                            foreach (var item in hintArea)
+                            {
+                                <div class="tb-grid-md-@item.ColumnSpan">
+                                    @await Html.PartialAsync("blockgrid/Components/" + item.Content.ContentType.Alias, item)
+                                </div>
+                            }
+                        } *@
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
