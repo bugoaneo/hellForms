@@ -19,37 +19,6 @@
   background-color: transparent;
 }
 
-/*tabs*/
-.tabs__nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5em;
-}
-
-.tabs__control {
-  position: relative;
-  padding: 0.5em 1.5em;
-  border-radius: 2em;
-  color: var(--accent);
-}
-.tabs__control .icon {
-  position: relative;
-  transform: scale(0) translateX(0);
-  transition: transform 0.3s 0.1s linear;
-}
-.tabs__control.current, .tabs__control:hover {
-  color: #fff;
-  background-color: var(--accent);
-}
-.tabs__control.current .icon, .tabs__control:hover .icon {
-  transform: scale(1) translateX(0.5em);
-}
-.tabs__control:last-child .icon {
-  display: none;
-}
-
 @media screen and (min-width: 768px) and (max-width: 9999px) {
   .header._headerOnTopOfContent {
     color: #ffffff;
@@ -86,94 +55,9 @@ body {
   border-bottom: 1px solid #dddee3;
 }
 
-/*form*/
-.block--form {
-  padding: 20px 0;
-  border-top: 1px solid var(--accent);
-}
-
-.form-row + .form-row {
-  margin-top: 25px;
-}
-
-.form-group .input {
-  margin-top: auto;
-}
-
-.form-caption {
-  position: relative;
-  display: inline-block;
-  font-size: 1.2em;
-  font-weight: 600;
-}
-
-.form-label {
-  min-height: 2.5em;
-}
-
-.formLabel__caption {
-  position: relative;
-  display: inline-block;
-  font-weight: 600;
-}
-
-.formLabel__notice {
-  font-size: 0.85em;
-  margin-top: 10px;
-}
-
 .block__header .block__title {
   position: relative;
   display: inline-block;
 }
 
-.hintIcon {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  font-style: normal;
-  font-size: 0.75em;
-  text-align: center;
-  color: var(--accent);
-  cursor: pointer;
-}
-.hintIcon:hover + .hintBody {
-  display: block;
-}
-
-.hintBody {
-  display: none;
-  position: absolute;
-  top: 1.5em;
-  left: 100%;
-  width: 250px;
-  padding: 26px;
-  margin-left: 1em;
-  border-top: 4px solid var(--accent);
-  background-color: #fff;
-  box-shadow: 0 5px 15px rgba(255, 159, 38, 0.4);
-  color: #55555d;
-  font-size: 11px;
-  line-height: 1.64;
-  font-style: italic;
-  letter-spacing: 0.1px;
-  z-index: 50;
-}
-
-.textareaWrapper {
-  position: relative;
-}
-.textareaWrapper .textarea-char-counter {
-  position: absolute;
-  right: 1em;
-  bottom: 1em;
-  color: #55555d;
-  font-size: 11px;
-  line-height: 1.64;
-  font-style: italic;
-  letter-spacing: 0.1px;
-  user-select: none;
-  pointer-events: none;
-}
-
-/*# sourceMappingURL=data:application/json;charset=utf-8,%7B%22version%22:3,%22sourceRoot%22:%22%22,%22sources%22:%5B%22file:///D:/umbracoPJ/BaseSite/ClubSite/wwwroot/css/theme-default/main.scss%22,%22file:///D:/umbracoPJ/BaseSite/ClubSite/wwwroot/css/theme-default/styles/_btn.scss%22,%22file:///D:/umbracoPJ/BaseSite/ClubSite/wwwroot/css/theme-default/styles/_tabs.scss%22,%22file:///D:/umbracoPJ/BaseSite/ClubSite/wwwroot/css/theme-default/styles/_header.scss%22%5D,%22names%22:%5B%5D,%22mappings%22:%22AAAC;AAsIO;AACA;ACvIR;EACE;EACA;;AAEA;EACE;;AAGF;EACE;EACA;EACA;EACA;;AAEA;EACE;EACA;;;AChBL;AACD;EFgDE;EACA;EAeE;EAQA;EEtEF;;;AAGF;EACE;EACA;EACA;EACA;;AAEA;EACE;EACA;EACA;;AAGF;EACE;EACA;;AAEA;EACE;;AAKF;EACE;;;AFZJ;EGfM;IACI;;;;AH0IZ;AAAA;EAEE;;;AAIF;EACE;EACA;;;AAGF;EACE;EACA;;;AAGF;EACE;;AAEA;EACE;;;AAIJ;EACE;;;AAGF;EACE;;;AAGF;AAEA;EACE;EACA;;;AAIA;EACE;;;AAMF;EACE;;;AAIJ;EACE;EACA;EACA;EACA;;;AAGF;EACE;;;AAGF;EACE;EACA;EACA;;;AAGF;EACE;EACA;;;AAGF;EAEE;EACA;;;AAGF;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;AAGE;EACE;;;AAKN;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EAEA;;;AAGF;EACE;;AAEA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA%22%7D */
+/*# sourceMappingURL=data:application/json;charset=utf-8,%7B%22version%22:3,%22sourceRoot%22:%22%22,%22sources%22:%5B%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-default/main.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-default/styles/_btn.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-default/styles/_header.scss%22%5D,%22names%22:%5B%5D,%22mappings%22:%22AAAC;AAsIO;AACA;ACvIR;EACE;EACA;;AAEA;EACE;;AAGF;EACE;EACA;EACA;EACA;;AAEA;EACE;EACA;;;ADCJ;EEfM;IACI;;;;AF0IZ;AAAA;EAEE;;;AAIF;EACE;EACA;;;AAGF;EACE;EACA;;;AAGF;EACE;;AAEA;EACE;;;AAIJ;EACE;;;AAGF;EACE;;;AAKF;EAEE;EACA%22%7D */

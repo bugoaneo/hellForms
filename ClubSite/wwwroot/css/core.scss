@@ -136,6 +136,7 @@ $maxWidth: 1820;
 @import 'core-styles/_tb-grid.scss';
 @import 'core-styles/_header-footer.scss';
 @import 'core-styles/_header.scss';
+@import 'core-styles/_iconlinkLists.scss';
 @import 'core-styles/_footer.scss';
 @import 'core-styles/_feedBack.scss';
 @import 'core-styles/_burger.scss';
@@ -145,14 +146,13 @@ $maxWidth: 1820;
 @import 'core-styles/_btn.scss';
 @import 'core-styles/_mainSlider.scss';
 @import 'core-styles/_linearSlider.scss';
-@import 'core-styles/_coaches.scss';
 @import 'core-styles/_programs.scss';
 @import 'core-styles/_news.scss';
 @import 'core-styles/_prices.scss';
 @import 'core-styles/_tiles.scss';
 @import 'core-styles/_reviews.scss';
 @import 'core-styles/_accordion.scss';
-@import 'core-styles/_schedule.scss';
+//@import 'core-styles/_schedule.scss';
 @import 'core-styles/_advantages.scss';
 @import 'core-styles/_form.scss';
 
@@ -175,13 +175,6 @@ body {
   &._menu_open {
     overflow: hidden;
   }
-  /*  @include resp($size-sm, $size-sm-end) {
-    padding-top: 90px;
-  }
-
-  @include resp(0, $size-xs-end) {
-    padding-top: 70px;
-  }*/
 }
 
 .wrapper {
@@ -200,6 +193,7 @@ body {
 
 h1 {
   @include fFS(25px, 42px, 320px, 1420px, 30px);
+  font-weight: 700;
   margin: 0 0 24px;
 }
 
@@ -235,6 +229,10 @@ h1, h2, h3, h4 {
 
   @include resp (0, $size-md) {
     padding: 30px 0;
+  }
+
+  a {
+    color: var(--accent);
   }
 }
 
@@ -288,8 +286,8 @@ h1, h2, h3, h4 {
 
 .block__content, .header__content, .footer__content {
   position: relative;
-  max-width: 1320px;
-   min-width: 360px;
+  max-width: 1200px;
+  min-width: 360px;
   width: 100%;
   margin: 0px auto;
   padding-left: 20px;
@@ -367,11 +365,6 @@ h1, h2, h3, h4 {
     transform: scale(1.2);
   }
 }
-
-/*Скрываем стрелки на главном слайдере*/
-/*.mainSlider__arrows.arrowBlock {
-  display: none;
-}*/
 /*Бекграунды на деске и мобиле*/
 .mainSlider__item {
   background-image: var(--desktop);

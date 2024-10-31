@@ -135,9 +135,15 @@ $maxWidth: 1820;
 @import 'vars.css';
 @import "fonts.generated.css";
 @import 'styles/_btn.scss';
+@import 'styles/_tabs.scss';
 @import 'styles/_header.scss';
 
+@import 'styles/_formsInital.scss';
 
+:root {
+  --dark: #333244;
+  --halfAccent: #04007347;
+}
 
 html,
 body {
@@ -147,7 +153,7 @@ body {
 
 html {
   font-size: var(--fontSize);
-  font-family: var(--fontFamily), "Ubuntu", sans-serif;
+  font-family: var(--fontFamily), sans-serif;
 }
 
 body {
@@ -172,9 +178,16 @@ body {
 }
 
 
-
 .block__header
 .block__title {
   position: relative;
   display: inline-block;
 }
+
+
+  div[class^=tb-grid-md] {
+    grid-row: span var(--rowSpan);
+    @include bp(768px){
+      grid-row: auto;
+    }
+  }

@@ -1,0 +1,115 @@
+/*form*/
+
+input, textarea, .select-wrapper select {
+  border-color: #00009020;
+}
+
+textarea {
+  min-height: 132px;
+}
+
+.block--form {
+  padding: 20px 0;
+  //border-top: 1px solid var(--accent);
+}
+
+.form-row {
+  + .form-row {
+    margin-top: 25px;
+  }
+}
+
+.form-group {
+  .input {
+    margin-top: auto;
+  }
+}
+
+.form-caption {
+  position: relative;
+  display: inline-block;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.form-label {
+  min-height: 2.5em;
+}
+
+.formLabel__caption {
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.formLabel__notice {
+  font-size: 0.85em;
+  margin-top: 10px;
+}
+
+.textareaWrapper {
+  position: relative;
+
+  .textarea-char-counter {
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+    color: #00009020;
+    font-size: 11px;
+    line-height: 1.64;
+    font-style: italic;
+    letter-spacing: 0.1px;
+    user-select: none;
+    pointer-events: none;
+  }
+}
+
+/*radio && checbox*/
+
+.input-row__body {
+  position: relative;
+  display: block;
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-print-color-adjust: exact;
+  color-adjust: exact;
+
+  &[type=radio] {
+    border-radius: 100%;
+    background: #fff;
+
+    &:checked {
+      padding: 2px;
+      background: radial-gradient(circle closest-side, #fff 4px, var(--accent) 5px, var(--accent) 20px);
+      border-color: var(--accent);
+    }
+  }
+
+  &[type=checkbox] {
+    border-radius: 0.25em;
+
+    &:checked {
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' width='22px' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4a1 1 0 00-1.414-1.414L7 8.586 5.707 7.293z'/%3E%3C/svg%3E");
+      background-position: -2px -2px;
+      background-color: var(--accent);
+      border-color: var(--accent);
+    }
+  }
+}
+
+.input-row {
+  + .input-row {
+    margin-top: 0.45em;
+  }
+}
+
+// radial-gradient(circle closest-side, var(--accent), var(--accent))

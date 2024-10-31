@@ -4,15 +4,20 @@
     display: flex;
     flex-wrap: wrap;
     column-gap: 12px;
+    color: var(--mainMenuColor);
 
     &__item {
       padding: 7px;
       transition: .3s;
       -webkit-transition: .3s;
+    }
+  }
+}
 
-      &:hover {
-        color: var(--linkColorHovered);
-      }
+.header {
+  .navigation__item {
+    &:hover {
+      color: var(--mainMenuHoverColor);
     }
   }
 }
@@ -25,7 +30,7 @@
 
   .hLogo {
     display: flex;
-  flex: 0 0 100px;
+    flex: 0 0 120px;
 
     img {
       display: block;
@@ -40,7 +45,7 @@
     align-items: center;
     display: flex;
     flex-wrap: nowrap;
-    gap: 30px;
+    gap: 16px;
     justify-content: space-between;
     margin: 7px 0;
   }
@@ -67,18 +72,6 @@
   @include resp(0, $size-md-end) {
     .hButtons {
       width: min-content;
-    }
-  }
-
-  @include resp( $size-sm-end, $size-lg) {
-    .hLogo img {
-      height: 20px;
-    }
-  }
-
-  @include resp(0, $size-xs-end) {
-    .hLogo img {
-      height: 20px;
     }
   }
 }

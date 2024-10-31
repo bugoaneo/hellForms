@@ -1,0 +1,26 @@
+.btn {
+  border-radius: 0.5em;
+  color: #fff;
+  background-color: var(--buttonAndLinkColor);
+
+  &:hover {
+    background-color: var(--linkColorHovered);
+  }
+
+  &--link {
+    padding-left: 0;
+    text-align: initial;
+    color: var(--accent);
+    background-color: transparent;
+
+    &:hover {
+      color: var(--textColor);
+      background-color: transparent;
+    }
+  }
+
+  &--revert, &.revert {
+    background-color: #fff;
+    color: var(--buttonAndLinkColor);
+  }
+}

@@ -1,0 +1,94 @@
+/*theme style*/
+
+.header {
+}
+
+.header__content {
+  &._desktop {
+    .headerRow {
+      margin: 0.5em 0 0 0;
+      align-items: end;
+    }
+
+    .navigation {
+      width: 90%;
+      border-bottom: 1px solid var(--halfAccent);
+      font-size: 15px;
+      column-gap: 0.8em;
+
+      @include bp(1200px) {
+        width: 100%;
+      }
+    }
+
+
+    .navigation__item {
+      position: relative;
+      padding: 0.45em 0.75em 1em 0.75em;
+      line-height: 1;
+
+      @include bp(1200px) {
+        padding: 0.45em 0.5em 1em 0.5em;
+      }
+
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        opacity: 0;
+        transition: opacity 0.3s linear;
+      }
+
+      &:before {
+        inset: 0 0 0.45em 0;
+        border-radius: 0.5em;
+        pointer-events: none;
+        background-color: var(--halfAccent);
+        z-index: -1;
+      }
+
+      &:after {
+        top: calc(100% - 1px);
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: var(--accent);
+      }
+
+      &:hover {
+        &:before {
+          opacity: 1;
+        }
+      }
+
+      &.current {
+        color: var(--mainMenuHoverColor);
+
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+
+    .hLogo {
+      @include bp(1200px) {
+        flex: 0 0 80px;
+      }
+    }
+  }
+
+  &._mobile {
+    background-color: #fff;
+  }
+}
+
+.header__menu {
+  &._mobile {
+    background-color: #fff;
+  }
+}
+
+.burger {
+  &__line {
+    background-color: var(--accent);
+  }
+}

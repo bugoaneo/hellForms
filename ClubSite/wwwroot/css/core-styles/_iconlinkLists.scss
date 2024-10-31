@@ -1,0 +1,13 @@
+.hIconLinkBlock {
+  @include row(jsb, ac);
+  gap: 0 1em;
+
+  .hIconLinkBlock__btn {
+    display: flex;
+
+    .icon {
+      margin-right: 6px;
+      line-height: 1;
+    }
+  }
+}
