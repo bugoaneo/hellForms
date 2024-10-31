@@ -18,7 +18,7 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Web.Common.PublishedModels
 {
-	/// <summary>Строка текста</summary>
+	/// <summary>Строка текста или Подсказка</summary>
 	[PublishedModel("formLoremString")]
 	public partial class FormLoremString : PublishedElementModel
 	{

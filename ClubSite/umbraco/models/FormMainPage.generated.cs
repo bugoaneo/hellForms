@@ -18,7 +18,7 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Web.Common.PublishedModels
 {
-	/// <summary>HellForm</summary>
+	/// <summary>Advanced Form</summary>
 	[PublishedModel("formMainPage")]
 	public partial class FormMainPage : SysSeoPage
 	{

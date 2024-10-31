@@ -18,7 +18,7 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Web.Common.PublishedModels
 {
-	/// <summary>Универсальный - заголовок-текст</summary>
+	/// <summary>Универсальный - Заголовок - Текст</summary>
 	[PublishedModel("uniTitleAndText")]
 	public partial class UniTitleAndText : PublishedElementModel
 	{

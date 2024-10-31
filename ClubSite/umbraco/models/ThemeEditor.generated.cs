@@ -98,22 +98,6 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string FontSize => this.Value<string>(_publishedValueFallback, "fontSize");
 
 		///<summary>
-		/// Первый цвет градиента
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("gradientFirstColor")]
-		public virtual string GradientFirstColor => this.Value<string>(_publishedValueFallback, "gradientFirstColor");
-
-		///<summary>
-		/// Второй цвет градиента
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("gradientSecondColor")]
-		public virtual string GradientSecondColor => this.Value<string>(_publishedValueFallback, "gradientSecondColor");
-
-		///<summary>
 		/// Полуакцентный цвет
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
