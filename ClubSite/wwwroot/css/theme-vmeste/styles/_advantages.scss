@@ -1,0 +1,30 @@
+﻿
+.advantageCollection {
+  max-width: 865px;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.advantageCollection__item {
+  margin-top: 0px;
+}
+
+.advantageCollection__icon {
+  max-width: 33px;
+}
+
+.advantageCollection__body {
+}
+
+.advantageCollection__title {
+}
+
+.advantageCollection__text {
+  @include bp(768px) {
+    font-size: 14px;
+  }
+}
+
+.advantageCollection__item--inline .advantageCollection__title {
+  margin-bottom: 0;
+}

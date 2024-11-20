@@ -1,0 +1,19 @@
+﻿.advantageCollection {
+  max-width: 865px;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.advantageCollection__item {
+  margin-top: 0px;
+}
+
+.advantageCollection__icon {
+  max-width: 33px;
+}
+
+.advantageCollection__item--inline .advantageCollection__title {
+  margin-bottom: 0;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8,%7B%22version%22:3,%22sourceRoot%22:%22%22,%22sources%22:%5B%22file:///D:/project/hellForms/ClubSite/wwwroot/css/theme-vmeste/styles/_advantages.scss%22%5D,%22names%22:%5B%5D,%22mappings%22:%22AACA;EACE;EACA;EACA;;;AAGF;EACE;;;AAGF;EACE;;;AAYF;EACE%22%7D */

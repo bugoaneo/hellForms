@@ -1,0 +1,27 @@
+﻿.proviso__title {
+  font-size: fFS(24px,28px,390px,1440px);
+}
+
+.wrapper__proviso {
+  border-radius: 16px;
+  border: 1px solid #D8D7EB;
+
+  .wrapper__proviso--text {
+    &.colorful {
+      background-color: #FFEDD2;
+    }
+  }
+
+  .proviso__head {
+    font-size: fFS(20px,24px,390px,1440px);
+  }
+
+  .proviso__text {
+    font-size: fFS(16px,16px,390px,1440px);
+  }
+
+  .proviso__secondText {
+  }
+
+  .proviso__sum {
+  }
