@@ -6,6 +6,7 @@
     const int TITLE_AREA = 0;
     const int CONTENT_AREA = 1;
     var contentArea = grid?.Areas.ElementAt(CONTENT_AREA);
+    string isBordered = Model.Value<bool>("isBordered") ? "isBordered" :  string.Empty;
 }
 
 <section class="block block--form" style=" --veil:0%;">

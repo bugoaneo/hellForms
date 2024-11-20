@@ -18,7 +18,7 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Web.Common.PublishedModels
 {
-	/// <summary>Секция с генерируемой строкой</summary>
+	/// <summary>Секция с генерируемым шаблоном</summary>
 	[PublishedModel("generatedFormRow")]
 	public partial class GeneratedFormRow : PublishedElementModel
 	{
@@ -64,5 +64,12 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("formRowTemplate")]
 		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockGridModel FormRowTemplate => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockGridModel>(_publishedValueFallback, "formRowTemplate");
+
+		///<summary>
+		/// Окружить блок бордером: Отрисует тонкий бордер с отступами вокруг контентной  части
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
+		[ImplementPropertyType("isBordered")]
+		public virtual bool IsBordered => this.Value<bool>(_publishedValueFallback, "isBordered");
 	}
 }

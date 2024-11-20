@@ -58,12 +58,20 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string PropertyAlias => this.Value<string>(_publishedValueFallback, "propertyAlias");
 
 		///<summary>
-		/// Заголовок поля: Отображается в форме. Должно быть понятным человеку
+		/// Лайбл поля: Отображается в форме. Должно быть понятным человеку
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("propertyName")]
 		public virtual string PropertyName => this.Value<string>(_publishedValueFallback, "propertyName");
+
+		///<summary>
+		/// Заголвок поля: Выводит заголовок. Более крупный шрифт
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("propertyTitle")]
+		public virtual string PropertyTitle => this.Value<string>(_publishedValueFallback, "propertyTitle");
 
 		///<summary>
 		/// Чекбокс установлен: НУЖНО ЛИ???

@@ -143,6 +143,8 @@ $maxWidth: 1820;
 :root {
   --dark: #333244;
   --halfAccent: #04007347;
+  --border: #00009020;
+  --btn: #8B8AA9;
 }
 
 html,
@@ -185,9 +187,10 @@ body {
 }
 
 
-  div[class^=tb-grid-md] {
-    grid-row: span var(--rowSpan);
-    @include bp(768px){
-      grid-row: auto;
-    }
+div[class^=tb-grid-md] {
+  grid-row: span var(--rowSpan);
+
+  @include bp(768px) {
+    grid-row: auto;
   }
+}

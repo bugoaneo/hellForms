@@ -23,4 +23,33 @@
     background-color: #fff;
     color: var(--buttonAndLinkColor);
   }
+
+  &--remove {
+    @include row(jst, ac);
+    padding: 0.5em 20px 0.5em 0;
+    min-width: 0;
+    background-color: transparent;
+    color: var(--btn);
+
+    &:hover {
+      color: var(--textColor);
+      background-color: transparent;
+    }
+  }
+
+  &--addItem {
+    @include row(jc, ac);
+    color: #63627A;
+    background-color: #0000B010;
+    font-weight: 500;
+
+    .icon {
+      margin-left: 0.85em;
+    }
+
+    &:hover {
+      color: #fff;
+      background-color: #63627A;
+    }
+  }
 }

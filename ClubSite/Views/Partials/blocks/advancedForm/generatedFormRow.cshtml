@@ -7,6 +7,7 @@
     const int TITLE_AREA = 0;
     const int CONTENT_AREA = 1;
     var contentArea = grid?.Areas.ElementAt(CONTENT_AREA);
+    string isBordered = Model.Value<bool>("isBordered") ? "form-row--isBordered" : string.Empty;
 }
 
 <section class=@BlockFormSettings.GetBlockOuterCssClass(@Model.ContentType.Alias + "block block--form", settings)" style=" --veil:0%;">
@@ -14,9 +15,16 @@
         @await Html.GetBlockGridItemAreaHtmlAsync(grid?.Areas.ElementAt(TITLE_AREA))
         <div class="generatedRow tb-grid">
             @*Генерим эту строку*@
-            <div class="form-row tb-grid tb-grid-colgap-20 tb-grid-rowgap-10 tb-grid-md-@grid.ColumnSpan" id="@grid?.Content.Value("rowID")">
+            <div class="form-row @isBordered tb-grid tb-grid-colgap-20 tb-grid-rowgap-10 tb-grid-md-@grid.ColumnSpan" id="">
             @*Показываем кнопку, если строк > 1*@
-            <button type="button" class="btn btn--link js-removeRow">Удалить</button>
+            <button type="button" class="btn btn--remove js-removeRow">
+                    <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" width="16">                        
+                            <path fill="currentColor" fill-rule="evenodd" d="M5.867 1.067a.533.533 0 0 0 0 1.066h4.266a.533.533 0 1 0 0-1.066H5.867ZM3.2 3.733c0-.294.239-.533.534-.533h8.533a.533.533 0 0 1 0 1.067h-.534V12.8c0 .59-.477 1.067-1.066 1.067H5.334c-.59 0-1.067-.478-1.067-1.067V4.267h-.533a.533.533 0 0 1-.534-.534Zm2.134.534h5.333V12.8H5.334V4.267Z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                    <span class="label">Удалить</span>
+                </button>
                 @if (contentArea != null && contentArea.Any())
                 {
                     foreach (var item in contentArea)
@@ -29,8 +37,17 @@
             </div>
 
         </div>
-        <div class="form-action">
-            <button type="button" class="btn btn--link js-addRow">@(Model.HasValue("btnText") ? Model.BtnText : "Добавить еще строку")</button>
+        <div class="form-action tb-grid">
+            <button type="button" class="btn btn--addItem tb-grid-md-@grid.ColumnSpan js-addRow">
+                <span class="label">
+                    @(Model.HasValue("btnText") ? Model.BtnText : "Добавить еще строку")
+                </span>
+                <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 19 18" width="19">
+                        <path fill="currentColor" fill-rule="evenodd" d="M9.5 1.052a7.947 7.947 0 1 0 0 15.895 7.947 7.947 0 0 0 0-15.895ZM2.693 9a6.807 6.807 0 1 1 13.615 0A6.807 6.807 0 0 1 2.693 9ZM9.5 4.8a.6.6 0 0 1 .6.6v3h3a.6.6 0 1 1 0 1.2h-3v3a.6.6 0 0 1-1.2 0v-3h-3a.6.6 0 0 1 0-1.2h3v-3a.6.6 0 0 1 .6-.6Z" clip-rule="evenodd" />
+                    </svg>
+                </span>
+                </button>
         </div>
     </div>
 </section>

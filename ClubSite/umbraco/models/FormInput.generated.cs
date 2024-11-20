@@ -112,7 +112,7 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string PropertyMask => this.Value<string>(_publishedValueFallback, "propertyMask");
 
 		///<summary>
-		/// Заголовок поля: Отображается в форме. Должно быть понятным человеку
+		/// Лайбл поля: Отображается в форме. Кликабелен. Должно быть понятным человеку.
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
@@ -125,6 +125,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
 		[ImplementPropertyType("propertyRequired")]
 		public virtual bool PropertyRequired => this.Value<bool>(_publishedValueFallback, "propertyRequired");
+
+		///<summary>
+		/// Заголовок поля: Заголовок для поля. Выводится более крупным шрифтом.
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("propertyTitle")]
+		public virtual string PropertyTitle => this.Value<string>(_publishedValueFallback, "propertyTitle");
 
 		///<summary>
 		/// Тип поля: Выберите вариант поля. Влияет на способ проверки поля и то, как в него вводится информация

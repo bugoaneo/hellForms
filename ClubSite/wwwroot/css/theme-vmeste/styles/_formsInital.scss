@@ -1,7 +1,7 @@
 /*form*/
 
 input, textarea, .select-wrapper select {
-  border-color: #00009020;
+  border-color: var(--border);
 }
 
 textarea {
@@ -17,6 +17,23 @@ textarea {
   + .form-row {
     margin-top: 25px;
   }
+
+  &--isBordered {
+    position: relative;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+
+    .formLabel__caption {
+      width: calc(100% - 90px);
+    }
+
+    .btn--remove {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+  }
 }
 
 .form-group {
@@ -28,17 +45,19 @@ textarea {
 .form-caption {
   position: relative;
   display: inline-block;
+  margin-bottom: 10px;
   font-size: 1.2em;
   font-weight: 600;
 }
 
 .form-label {
-  min-height: 2.5em;
+  min-height: 1.5em;
 }
 
 .formLabel__caption {
   position: relative;
   display: inline-block;
+  margin-bottom: 0.5em;
   font-weight: 600;
 }
 

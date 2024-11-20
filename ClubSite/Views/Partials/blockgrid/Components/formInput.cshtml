@@ -1,13 +1,25 @@
-﻿@using Umbraco.Extensions
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using Umbraco.Extensions
 
 @{
+    string topMargin = Model.Content.HasValue("propertyName") ? "addTopMargin" : string.Empty;
+}
+
+@{
+
     void RenderSimplestString()
     {
         <div class="form-group @Model.Content.Value("cssClass")">
-            @if (!Model.Content.Value<bool>("hideLabel") && Model.Content.HasValue("propertyName"))
+            @if (!Model.Content.Value<bool>("hideLabel"))
             {
-                <label class="form-label" for="@Model.Content.Value("propertyAlias")">@Model.Content.Value("propertyName")</label>
+                if (Model.Content.HasValue("propertyTitle"))
+                {
+                    <div class="formLabel__caption">@Model.Content.Value("propertyTitle")</div> 
+                }
+                if (Model.Content.HasValue("propertyName"))
+                {
+                    <label class="form-label" for="@Model.Content.Value("propertyAlias")">@Model.Content.Value("propertyName")</label>
+                }
             }
             <input class="input" name="@Model.Content.Value("propertyAlias")" id="@Model.Content.Value("propertyAlias")" type="text" placeholder="@Model.Content.Value("inputPlaceholder")"
             @(Model.Content.Value<bool>("propertyRequired") ? "required" : string.Empty)>
@@ -15,13 +27,20 @@
         </div>
     }
 
-
+  
     void RenderNumber()
     {
         <div class="form-group @Model.Content.Value("cssClass")">
-            @if (!Model.Content.Value<bool>("hideLabel") && Model.Content.HasValue("propertyName"))
+            @if (!Model.Content.Value<bool>("hideLabel"))
             {
-                <label class="form-label" for="@Model.Content.Value("propertyAlias")">@Model.Content.Value("propertyName")</label>
+                if (Model.Content.HasValue("propertyTitle"))
+                {
+                    <div class="formLabel__caption">@Model.Content.Value("propertyTitle")</div>
+                }
+                if (Model.Content.HasValue("propertyName"))
+                {
+                    <label class="form-label" for="@Model.Content.Value("propertyAlias")">@Model.Content.Value("propertyName")</label>
+                }
             }
             <input class="input" name="@Model.Content.Value("propertyAlias")" id="@Model.Content.Value("propertyAlias")" type="number" inputmode="numeric" placeholder="@Model.Content.Value("inputPlaceholder")"
             @(Model.Content.Value<bool>("propertyRequired") ? "required" : string.Empty)>
@@ -32,9 +51,16 @@
     void RenderPhone()
     {
         <div class="form-group @Model.Content.Value("cssClass")">
-            @if (!Model.Content.Value<bool>("hideLabel") && Model.Content.HasValue("propertyName"))
+            @if (!Model.Content.Value<bool>("hideLabel"))
             {
-                <label class="form-label" for="@Model.Content.Value("propertyAlias")">@Model.Content.Value("propertyName")</label>
+                if (Model.Content.HasValue("propertyTitle"))
+                {
+                    <div class="formLabel__caption">@Model.Content.Value("propertyTitle")</div>
+                }
+                if (Model.Content.HasValue("propertyName"))
+                {
+                    <label class="form-label" for="@Model.Content.Value("propertyAlias")">@Model.Content.Value("propertyName")</label>
+                }
             }
             <input class="input" name="@Model.Content.Value("propertyAlias")" id="@Model.Content.Value("propertyAlias")" type="tel" inputmode="tel" placeholder="@Model.Content.Value("inputPlaceholder")"
             @(Model.Content.Value<bool>("propertyRequired") ? "required" : string.Empty)>
@@ -45,9 +71,16 @@
     void RenderEmail()
     {
         <div class="form-group @Model.Content.Value("cssClass")">
-            @if (!Model.Content.Value<bool>("hideLabel") && Model.Content.HasValue("propertyName"))
+            @if (!Model.Content.Value<bool>("hideLabel"))
             {
-                <label class="form-label" for="@Model.Content.Value("propertyAlias")">@Model.Content.Value("propertyName")</label>
+                if (Model.Content.HasValue("propertyTitle"))
+                {
+                    <div class="formLabel__caption">@Model.Content.Value("propertyTitle")</div>
+                }
+                if (Model.Content.HasValue("propertyName"))
+                {
+                    <label class="form-label" for="@Model.Content.Value("propertyAlias")">@Model.Content.Value("propertyName")</label>
+                }
             }
             <input class="input" name="@Model.Content.Value("propertyAlias")" id="@Model.Content.Value("propertyAlias")" type="email" inputmode="email" placeholder="@Model.Content.Value("inputPlaceholder")"
             @(Model.Content.Value<bool>("propertyRequired") ? "required" : string.Empty)>
@@ -59,9 +92,16 @@
     {
 
         <div class="form-group @Model.Content.Value("cssClass")">
-            @if (!Model.Content.Value<bool>("hideLabel") && Model.Content.HasValue("propertyName"))
+            @if (!Model.Content.Value<bool>("hideLabel"))
             {
-                <label class="form-label" for="@Model.Content.Value("propertyAlias")">@Model.Content.Value("propertyName")</label>
+                if (Model.Content.HasValue("propertyTitle"))
+                {
+                    <div class="formLabel__caption">@Model.Content.Value("propertyTitle")</div>
+                }
+                if (Model.Content.HasValue("propertyName"))
+                {
+                    <label class="form-label" for="@Model.Content.Value("propertyAlias")">@Model.Content.Value("propertyName")</label>
+                }
             }
             <input class="input" name="@Model.Content.Value("propertyAlias")" id="@Model.Content.Value("propertyAlias")" type="date" inputmode="numeric" placeholder="@Model.Content.Value("inputPlaceholder")"
             @(Model.Content.Value<bool>("propertyRequired") ? "required" : string.Empty)>
@@ -82,9 +122,16 @@
     void RenderTextarea()
     {
         <div class="form-group @Model.Content.Value("cssClass")">
-            @if (!Model.Content.Value<bool>("hideLabel") && Model.Content.HasValue("propertyName"))
+            @if (!Model.Content.Value<bool>("hideLabel"))
             {
-                <label class="form-label" for="@Model.Content.Value("propertyAlias")">@Model.Content.Value("propertyName")</label>
+                if (Model.Content.HasValue("propertyTitle"))
+                {
+                    <div class="formLabel__caption 123">@Model.Content.Value("propertyTitle")</div>
+                }
+                if (Model.Content.HasValue("propertyName"))
+                {
+                    <label class="form-label" for="@Model.Content.Value("propertyAlias")">@Model.Content.Value("propertyName")</label>
+                }
             }
             <div class="textareaWrapper">
                 <textarea class="input" name="@Model.Content.Value("propertyAlias")" placeholder="@Model.Content.Value("inputPlaceholder")" id="@Model.Content.Value("propertyAlias")"
@@ -145,4 +192,3 @@
             break;
     }
 }
-
