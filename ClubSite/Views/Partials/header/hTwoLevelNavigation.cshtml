@@ -1,0 +1,39 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HTwoLevelNavigation>
+@{
+    var currentNode = (IPublishedContent)ViewData["page"]!;
+}
+<div class="@Model.ContentType.Alias">
+    @if (Model.Title != null)
+    {
+        if (string.IsNullOrEmpty(Model.Title.Url) || Model.Title.Url == "#")
+        {
+            <div class="footer__title">@Model.Title.Name</div>
+        }
+        else
+        {
+            <div class="footer__title"><a href="@Model.Title.Url" target="@Model.Title.Target">@Model.Title.Name</a></div>
+        }
+    }
+    @if (Model.Links!.Any())
+    {
+        <nav class="navigation">
+            @foreach (var menuItem in Model.Links!)
+            {
+                var menuItemNode = Umbraco.Content(menuItem.Udi!);
+                var isActive = currentNode != null && menuItemNode != null && menuItemNode.IsAncestorOrSelf(currentNode) && (menuItemNode.Level > 1 || currentNode.Level == 1) && menuItem.Url.IndexOf('#') == -1;
+                if (menuItem.Url == "/#")
+                {
+                    <span class="navigation__item navigation__item--caption">@Html.Raw(menuItem.Name)</span>
+                }else
+                {
+                    
+                <a class="navigation__item" href="@menuItem.Url" @(isActive ? "class=\"active\"" : string.Empty) target="@menuItem.Target">
+                    @Html.Raw(menuItem.Name)
+                </a>
+                }
+
+            }
+
+        </nav>
+    }
+</div>

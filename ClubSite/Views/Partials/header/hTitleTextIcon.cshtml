@@ -1,0 +1,44 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HTitleTextIcon>
+@{
+    var currentNode = (IPublishedContent)ViewData["page"]!;
+}
+
+<div class="@Model.ContentType.Alias">
+    @if (Model.HasValue("title"))
+    {
+        if (string.IsNullOrEmpty(Model.Title!.Url) || Model.Title.Url == "#")
+        {
+            <div class="footer__title">@Html.Raw(Model.Title.Name)</div>
+        }
+        else
+        {
+            <div class="footer__title"><a href="@Model.Title.Url" target="@Model.Title.Target">@Model.Title.Name</a></div>
+        }
+    }
+    @if (Model.HasValue("text"))
+    {
+        <div class="footer__text text">@Model.Text</div>
+    }
+
+    @if (Model.IconList !=null && Model.IconList.Any())
+    {
+        <div class="footer__icons">
+            @foreach(var el in Model.IconList)
+            {
+                var icon = (UniIconLink)el.Content;
+                if (icon.HasValue("image"))
+                {
+                    <a class="footer__icons-link" href="@icon.Link?.Url" target="@icon.Link?.Target" title="@icon.Link?.Name">
+                        @await Html.PartialAsync("partImageOrSvg", icon.Image)
+                    </a>
+                }else
+                {
+                    if (icon.HasValue("link"))
+                    {                        
+                        <a class="footer__icons-link" href="@icon.Link?.Url" target="@icon.Link?.Target">@icon.Link?.Name</a> 
+                    }
+                }
+            }
+        </div>
+    }
+</div>

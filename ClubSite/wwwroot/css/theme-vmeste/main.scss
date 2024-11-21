@@ -139,6 +139,9 @@ $maxWidth: 1820;
 @import 'styles/_header.scss';
 
 @import 'styles/_formsInital.scss';
+@import 'styles/_footer.scss';
+
+
 
 :root {
   --dark: #333244;
@@ -165,7 +168,7 @@ body {
   color: var(--textColor);
 }
 
-.text a, .copyright {
+.text a, .copyright a {
   color: var(--buttonAndLinkColor);
 
   &:hover {

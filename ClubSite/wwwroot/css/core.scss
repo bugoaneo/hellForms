@@ -139,6 +139,8 @@ $maxWidth: 1820;
 @import 'core-styles/_iconlinkLists.scss';
 @import 'core-styles/_hLogoGroup.scss';
 @import 'core-styles/_footer.scss';
+
+@import 'core-styles/_hTwoLevelNavigation.scss';
 @import 'core-styles/_feedBack.scss';
 @import 'core-styles/_burger.scss';
 @import 'core-styles/_popup.scss';
@@ -311,13 +313,17 @@ h1, h2, h3, h4 {
 
 /* модификаторы */
 
-@include resp ($size-md, 9999) {
-  ._mobile {
-    display: none !important;
+
+._mobile {
+  display: none;
+
+  @include bp(1100px) {
+    display: flex;
   }
 }
 
-@include resp (0, $size-sm-end) {
+
+@include resp (0, 1100) {
   ._desktop {
     display: none !important;
   }

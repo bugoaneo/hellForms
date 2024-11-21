@@ -39,7 +39,7 @@
     position: absolute;
     top: 15px;
     height: 2px;
-    background-color: var(--halfAccent);
+    background-color: var(--light);
     left: 35px;
     width: calc(100% - 40px);
   }
@@ -61,7 +61,7 @@
   border: 2px solid;
   border-radius: 100%;
   aspect-ratio: 1;
-  color: var(--halfAccent);
+  color: var(--light);
 }
 
 .tab__control-label {

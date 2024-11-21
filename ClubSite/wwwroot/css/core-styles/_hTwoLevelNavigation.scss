@@ -1,0 +1,38 @@
+/*hTwoLevelNavigation*/
+
+.hTwoLevelNavigation {
+  .footer__title {
+    margin-bottom: 0.7em;
+    font-weight: 500;
+  }
+
+  .navigation {
+    flex-direction: column;
+  }
+}
+
+
+/*hTitleTextIcon*/
+
+.hTitleTextIcon {
+  .footer__title {
+    font-size: 16px;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+  }
+
+  .footer__icons {
+    @include row();
+    gap: 0 8px;
+    margin-top: auto;
+  }
+
+  .footer__icons-link {
+    display: block;
+
+    img, svg {
+      display: block;
+      width: 24px;
+    }
+  }
+}

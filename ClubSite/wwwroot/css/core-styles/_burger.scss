@@ -1,48 +1,42 @@
 ﻿.burger {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    position: relative;
-    cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
 
-    ._menu_open & {
-        .burger__line {
-            &:nth-child(1) {
-                transform: rotate(45deg);
-            }
+  ._menu_open & {
+    .burger__line {
+      &:nth-child(1) {
+        transform: rotate(45deg);
+      }
 
-            &:nth-child(2) {
-                opacity: 0;
-            }
+      &:nth-child(2) {
+        opacity: 0;
+      }
 
-            &:nth-child(3) {
-                transform: rotate(-45deg);
-                margin-top: -14px;
+      &:nth-child(3) {
+        transform: rotate(-45deg);
+        margin-top: -14px;
 
 
-                @media screen and (max-width: 768px) {
-                    margin-top: -12px;
-                }
-            }
+        @media screen and (max-width: 768px) {
+          margin-top: -8px;
         }
+      }
     }
+  }
 
-    &__line {
-        background-color: var(--textColor);
-        width: 26px;
-        height: 2px;
-        margin-bottom: 5px;
-        transition: .3s;
-        opacity: 1;
-    }
-
-    @include resp(0, $size-sm-end) {
-        &__line {
-            margin-bottom: 2.5px;
-            margin-top: 2.5px;
-        }
-    }
+  &__line {
+    background-color: var(--textColor);
+    width: 16px;
+    height: 1px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    transition: .3s;
+    opacity: 1;
+  }
 }

@@ -1,5 +1,16 @@
 ﻿(function () {
     'use strict';
+    var $isMicro = () => $(window).width() < '650';
+    $(window).on("resize", () => {
+        $isMicro();
+    });
+    $('.footer .copyright').appendTo($('.hTwoLevelNavigation:last'));
+
+    if ($isMicro()) {
+        $('.header__content._mobile .hIconLinkBlock').prependTo($('.header__menu._mobile'));
+    }
+
+
 
     if ($('.loadInput').length > 0) {
 
@@ -43,7 +54,7 @@
 
             $(".tabs__control").removeClass("current");
             $(this).addClass("current");
-           
+
         })
 
     }

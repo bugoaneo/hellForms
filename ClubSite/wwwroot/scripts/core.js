@@ -4,12 +4,14 @@
 $(function () {
     var $menuToggle = $("#menuToggle");
     var $body = $("body");
+    var $isTablet = () => $(window).width() < '1100';
     var $isMobile = () => $(window).width() < '768';
     var header = $('.header');
     var scrollPrev = 0;
 
     $(window).on("resize", () => {
         $isMobile();
+        $isTablet();
     });
 
     (function mobileMenuToggle() {
@@ -47,7 +49,7 @@ $(function () {
     });
 
     $(window).on("scroll", function () {
-        if ($isMobile()) {
+        if ($isTablet()) {
             var scrolled = $(window).scrollTop();
 
             if (scrolled > 100 && scrolled > scrollPrev) {
