@@ -23,6 +23,36 @@
   background-color: #fff;
   color: var(--buttonAndLinkColor);
 }
+.btn--remove {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.5em 20px 0.5em 0;
+  min-width: 0;
+  background-color: transparent;
+  color: var(--btn);
+}
+.btn--remove:hover {
+  color: var(--textColor);
+  background-color: transparent;
+}
+.btn--addItem {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  color: #63627A;
+  background-color: rgba(0, 0, 176, 0.062745098);
+  font-weight: 500;
+}
+.btn--addItem .icon {
+  margin-left: 0.85em;
+}
+.btn--addItem:hover {
+  color: #fff;
+  background-color: #63627A;
+}
 
 /*tabs*/
 .tabs__nav {
@@ -58,7 +88,7 @@
   position: absolute;
   top: 15px;
   height: 2px;
-  background-color: var(--halfAccent);
+  background-color: var(--light);
   left: 35px;
   width: calc(100% - 40px);
 }
@@ -75,7 +105,7 @@
   border: 2px solid;
   border-radius: 100%;
   aspect-ratio: 1;
-  color: var(--halfAccent);
+  color: var(--light);
 }
 
 .tab__control-label {
@@ -90,25 +120,32 @@
 }
 
 /*theme style*/
+.header {
+  padding: 16px 0;
+}
+
 .header__content._desktop .headerRow {
   margin: 0.5em 0 0 0;
-  align-items: end;
+  align-items: center;
 }
 .header__content._desktop .navigation {
+  justify-content: flex-start;
   width: 90%;
-  border-bottom: 1px solid var(--halfAccent);
   font-size: 15px;
   column-gap: 0.8em;
 }
 @media (max-width: 1200px) {
   .header__content._desktop .navigation {
     width: 100%;
+    column-gap: 0.2em;
   }
 }
 .header__content._desktop .navigation__item {
+  flex: 0 1;
   position: relative;
   padding: 0.45em 0.75em 1em 0.75em;
   line-height: 1;
+  text-align: center;
 }
 @media (max-width: 1200px) {
   .header__content._desktop .navigation__item {
@@ -149,6 +186,12 @@
     flex: 0 0 80px;
   }
 }
+.header__content._desktop .btn--small {
+  padding: 0.5em 1.5em 0.75em 1.5em;
+}
+.header__content._desktop .btn.revert {
+  padding: 0.5em 0.5em;
+}
 .header__content._mobile {
   background-color: #fff;
 }
@@ -161,9 +204,32 @@
   background-color: var(--accent);
 }
 
+/*.hLogoGroup*/
+.hLogoGroup {
+  width: 240px;
+}
+
+.hLogoGroup__item {
+  width: 100%;
+}
+.hLogoGroup__item:first-child {
+  flex: 0 1 40%;
+  padding-right: 14px;
+}
+.hLogoGroup__item:last-child {
+  flex: 0 1 60%;
+  padding-left: 14px;
+  border-left: 1px solid #A4ABB1;
+}
+.hLogoGroup__item:only-child {
+  flex: 0 1 100%;
+  padding: 0;
+  border: none;
+}
+
 /*form*/
 input, textarea, .select-wrapper select {
-  border-color: rgba(0, 0, 144, 0.1254901961);
+  border-color: var(--border);
 }
 
 textarea {
@@ -177,6 +243,20 @@ textarea {
 .form-row + .form-row {
   margin-top: 25px;
 }
+.form-row--isBordered {
+  position: relative;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.form-row--isBordered .formLabel__caption {
+  width: calc(100% - 90px);
+}
+.form-row--isBordered .btn--remove {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
 
 .form-group .input {
   margin-top: auto;
@@ -185,17 +265,19 @@ textarea {
 .form-caption {
   position: relative;
   display: inline-block;
+  margin-bottom: 10px;
   font-size: 1.2em;
   font-weight: 600;
 }
 
 .form-label {
-  min-height: 2.5em;
+  min-height: 1.5em;
 }
 
 .formLabel__caption {
   position: relative;
   display: inline-block;
+  margin-bottom: 0.5em;
   font-weight: 600;
 }
 
@@ -263,7 +345,11 @@ textarea {
 
 :root {
   --dark: #333244;
-  --halfAccent: #04007347;
+  --light: #04007347;
+  --border: #00009020;
+  --btn: #8B8AA9;
+  --desktopGap: 20px;
+  --mobileGap: 8px;
 }
 
 html,
@@ -310,4 +396,4 @@ div[class^=tb-grid-md] {
   }
 }
 
-/*# sourceMappingURL=data:application/json;charset=utf-8,%7B%22version%22:3,%22sourceRoot%22:%22%22,%22sources%22:%5B%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/main.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_btn.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_tabs.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_header.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_formsInital.scss%22%5D,%22names%22:%5B%5D,%22mappings%22:%22AAAC;AAsIO;AACA;ACvIR;EACE;EACA;EACA;;AAEA;EACE;;AAGF;EACE;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAIJ;EACE;EACA;;;ACvBH;AACD;EFgDE;EACA;EAGE;EAgCA;EElFF;;;AAGF;EACE;EACA;EACA;EACA;;AAGE;EACE;;AAKF;EACE;;AAKF;EACE;EACA;EACA;;AAGF;EACE;;AAIJ;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;AAIA;EACE;;;AAMN;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;;AAGF;EACE;EACA;EACA;;;AAKA;EACE;EACA;;;AC5EJ;AAOI;EACE;EACA;;AAGF;EACE;EACA;EACA;EACA;;AH2EJ;EG/EE;IAOI;;;AAKJ;EACE;EACA;EACA;;AHgEJ;EGnEE;IAMI;;;AAGF;EACE;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;EACA;EACA;;AAIA;EACE;;AAIJ;EACE;;AAEA;EACE;;AHyBR;EGpBE;IAEI;;;AAKN;EACE;;;AAKF;EACE;;;AAKF;EACE;;;AC3FJ;AAEA;EACE;;;AAGF;EACE;;;AAGF;EACE;;;AAKA;EACE;;;AAKF;EACE;;;AAIJ;EACE;EACA;EACA;EACA;;;AAGF;EACE;;;AAGF;EACE;EACA;EACA;;;AAGF;EACE;EACA;;;AAGF;EACE;;AAEA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;;AAIJ;AAEA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAEA;EACE;EACA;EACA;;AAIJ;EACE;;AAEA;EACE;EACA;EACA;EACA;;;AAMJ;EACE;;;AJgCJ;EACE;EACA;;;AAGF;AAAA;EAEE;;;AAIF;EACE;EACA;;;AAGF;EACE;EACA;;;AAGF;EACE;;AAEA;EACE;;;AAIJ;EACE;;;AAGF;EACE;;;AAIF;EAEE;EACA;;;AAIA;EACE;;AAjGF;EAgGA;IAGI%22%7D */
+/*# sourceMappingURL=data:application/json;charset=utf-8,%7B%22version%22:3,%22sourceRoot%22:%22%22,%22sources%22:%5B%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/main.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_btn.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_tabs.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_header.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_formsInital.scss%22%5D,%22names%22:%5B%5D,%22mappings%22:%22AAAC;AAsIO;AACA;ACvIR;EACE;EACA;EACA;;AAEA;EACE;;AAGF;EACE;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAIJ;EACE;EACA;;AAGF;EDuBA;EACA;EAGE;EAoBA;EC7CA;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAIJ;EDUA;EACA;EAWE;EAYA;EChCA;EACA;EACA;;AAEA;EACE;;AAGF;EACE;EACA;;;ACnDL;AACD;EFgDE;EACA;EAGE;EAgCA;EElFF;;;AAGF;EACE;EACA;EACA;EACA;;AAGE;EACE;;AAKF;EACE;;AAKF;EACE;EACA;EACA;;AAGF;EACE;;AAIJ;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;AAIA;EACE;;;AAMN;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;;AAGF;EACE;EACA;EACA;;;AAKA;EACE;EACA;;;AC5EJ;AAEA;EACE;;;AAKE;EACE;EACA;;AAGF;EACE;EACA;EAEA;EACA;;AHyEJ;EG9EE;IAQI;IACA;;;AAKJ;EACE;EACA;EACA;EACA;EACA;;AH2DJ;EGhEE;IAQI;;;AAGF;EACE;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;EACA;EACA;;AAIA;EACE;;AAIJ;EACE;;AAEA;EACE;;AHoBR;EGfE;IAEI;;;AAKF;EACE;;AAGF;EACE;;AAKN;EACE;;;AAKF;EACE;;;AAKF;EACE;;;AAIJ;AACA;EACE;;;AAIF;EACE;;AAEA;EACE;EACA;;AAGF;EACE;EACA;EACA;;AAGF;EACE;EACA;EACA;;;ACrIJ;AAEA;EACE;;;AAGF;EACE;;;AAGF;EACE;;;AAKA;EACE;;AAGF;EACE;EACA;EACA;EACA;;AAEA;EACE;;AAGF;EACE;EACA;EACA;;;AAMJ;EACE;;;AAIJ;EACE;EACA;EACA;EACA;EACA;;;AAGF;EACE;;;AAGF;EACE;EACA;EACA;EACA;;;AAGF;EACE;EACA;;;AAGF;EACE;;AAEA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;;AAIJ;AAEA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAEA;EACE;EACA;EACA;;AAIJ;EACE;;AAEA;EACE;EACA;EACA;EACA;;;AAMJ;EACE;;;AJaJ;EACE;EACA;EACA;EACA;EACA;EACA;;;AAGF;AAAA;EAEE;;;AAIF;EACE;EACA;;;AAGF;EACE;EACA;;;AAGF;EACE;;AAEA;EACE;;;AAIJ;EACE;;;AAGF;EACE;;;AAIF;EAEE;EACA;;;AAIF;EACE;;AArGA;EAoGF;IAII%22%7D */

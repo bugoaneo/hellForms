@@ -1,0 +1,17 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.HLogoGroup>
+@{
+    var content = (IPublishedContent)ViewData["page"];
+}
+
+<a href="@content.Root().Url()" class="@Model.ContentType.Alias">
+    <span class="@(Model.ContentType.Alias)__item">
+        <img class="@(Model.ContentType.Alias)__img" src="@Model.LogoFirst?.Url()" alt="@content.Root().Name">
+    </span>
+    @if (Model.HasValue("logoSecond") != null)
+    {
+        <span class="@(Model.ContentType.Alias)__item">
+
+            <img class="@(Model.ContentType.Alias)__img" src="@Model.LogoSecond?.Url()" alt="@content.Root().Name">
+        </span>
+    }
+</a>

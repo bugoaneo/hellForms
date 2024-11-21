@@ -1,0 +1,16 @@
+/*hLogoGroup*/
+
+.hLogoGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &.reverse {
+    direction: rtl;
+  }
+}
+
+.hLogoGroup__img {
+  display: block;
+  width: 100%;
+}

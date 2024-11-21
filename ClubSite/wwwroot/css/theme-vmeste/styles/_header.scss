@@ -1,31 +1,36 @@
 /*theme style*/
 
 .header {
+  padding: 16px 0;
 }
 
 .header__content {
   &._desktop {
     .headerRow {
       margin: 0.5em 0 0 0;
-      align-items: end;
+      align-items: center;
     }
 
     .navigation {
+      justify-content: flex-start;
       width: 90%;
-      border-bottom: 1px solid var(--halfAccent);
+      //border-bottom: 1px solid var(--halfAccent);
       font-size: 15px;
       column-gap: 0.8em;
 
       @include bp(1200px) {
         width: 100%;
+        column-gap: 0.2em;
       }
     }
 
 
     .navigation__item {
+      flex: 0 1;
       position: relative;
       padding: 0.45em 0.75em 1em 0.75em;
       line-height: 1;
+      text-align: center;
 
       @include bp(1200px) {
         padding: 0.45em 0.5em 1em 0.5em;
@@ -74,6 +79,16 @@
         flex: 0 0 80px;
       }
     }
+
+    .btn {
+      &--small {
+        padding: 0.5em 1.5em 0.75em 1.5em;
+      }
+
+      &.revert {
+        padding: 0.5em 0.5em;
+      }
+    }
   }
 
   &._mobile {
@@ -90,5 +105,32 @@
 .burger {
   &__line {
     background-color: var(--accent);
+  }
+}
+
+/*.hLogoGroup*/
+.hLogoGroup {
+  width: 240px;
+  //grid-template-columns: 40% 60%;
+}
+
+.hLogoGroup__item {
+  width: 100%;
+
+  &:first-child {
+    flex: 0 1 40%;
+    padding-right: 14px;
+  }
+
+  &:last-child {
+    flex: 0 1 60%;
+    padding-left: 14px;
+    border-left: 1px solid #A4ABB1;
+  }
+
+  &:only-child {
+    flex: 0 1 100%;
+    padding: 0;
+    border: none;
   }
 }

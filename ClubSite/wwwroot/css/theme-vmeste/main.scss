@@ -142,9 +142,11 @@ $maxWidth: 1820;
 
 :root {
   --dark: #333244;
-  --halfAccent: #04007347;
+  --light: #04007347;
   --border: #00009020;
   --btn: #8B8AA9;
+  --desktopGap: 20px;
+  --mobileGap: 8px;
 }
 
 html,
