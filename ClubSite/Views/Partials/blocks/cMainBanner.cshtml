@@ -1,0 +1,21 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CMainBanner>
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var settings = (BlockSettings?)ViewData["settings"];
+}
+@await Html.PartialAsync("partRenderAnchor", settings)
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+    <div class="@BlockHelpers.GetContainerCssClass("mainBanner__wrapper", settings)">
+        <div class="mainBanner__content">
+            <div class="mainBanner__container">
+                <h1 class="mainBanner__title">@Html.Raw(Model.Title)</h1>
+                @if (Model.HasValue("description"))
+                {
+                    <div class="mainBanner__description text">@Model.Description</div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
