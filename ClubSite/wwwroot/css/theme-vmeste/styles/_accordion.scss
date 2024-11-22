@@ -1,0 +1,9 @@
+﻿.content__wrapper {
+  max-width: 865px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 9999px) {
+  .accordion__body {
+    padding: 0px 30px 20px 30px;
+  }
+}
