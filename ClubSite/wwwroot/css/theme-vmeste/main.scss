@@ -137,6 +137,7 @@ $maxWidth: 1820;
 @import 'styles/_btn.scss';
 @import 'styles/_tabs.scss';
 @import 'styles/_header.scss';
+@import 'styles/_mainBanner.scss';
 
 @import 'styles/_formsInital.scss';
 @import 'styles/_footer.scss';
@@ -150,6 +151,7 @@ $maxWidth: 1820;
   --btn: #8B8AA9;
   --desktopGap: 20px;
   --mobileGap: 8px;
+  --mainColor: #f3920a;
 }
 
 html,

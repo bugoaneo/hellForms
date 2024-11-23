@@ -1,0 +1,13 @@
+
+/*.mainBanner__wrapper {
+  aspect-ratio: 3/1;
+}*/
+
+.mainBanner__title {
+  @include fFS(28px, 60px, 320px, 1420px, 40px);
+  line-height: 1;
+}
+
+.mainBanner__description {
+  @include fFS(16px, 24px, 320px, 1420px, 40px);
+}

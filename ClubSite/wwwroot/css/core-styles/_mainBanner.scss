@@ -1,5 +1,16 @@
 /**/
 .mainBanner__wrapper {
+  position: relative;
+  display: flex;
+  justify-content: end;
+  align-items: center;
   align-self: stretch;
-  width: 54%;
+  width: 54.5%;
+  background-color: var(--mainColor, #fff);
+  min-height: 490px;
+}
+
+.mainBanner__content {
+  max-width: 570px;
+  margin-right: 10%;
 }
