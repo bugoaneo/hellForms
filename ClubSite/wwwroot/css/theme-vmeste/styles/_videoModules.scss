@@ -1,0 +1,99 @@
+.cVideoAndText__video {
+  @include bp(768px) {
+    margin-bottom: 10px;
+  }
+}
+
+.videoAndText__wrapper {
+  display: grid;
+  grid-template-areas: "stuck";
+  height: 100%;
+  max-width: 630px;
+  border-radius: 1em;
+  overflow: hidden;
+
+  @include bp(768px) {
+    max-width: 100%;
+  }
+}
+
+.videoAndText__videoBody, .videoAndText__videoCover {
+  grid-area: stuck;
+}
+
+.videoAndText__videoCover {
+  position: relative;
+
+  &:before, &:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  &:before {
+    background-color: rgba(#000, 0.3);
+  }
+
+  &:after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 92 92' width='92'%3E%3Cmask id='a' width='80' height='80' x='6' y='6' maskUnits='userSpaceOnUse' style='mask-type:luminance'%3E%3Cpath fill='%23fff' stroke='%23fff' stroke-linejoin='round' stroke-width='2' d='M46 84.333c21.171 0 38.333-17.162 38.333-38.333C84.333 24.828 67.171 7.667 46 7.667 24.828 7.667 7.667 24.828 7.667 46c0 21.171 17.161 38.333 38.333 38.333Z'/%3E%3Cpath fill='%23000' stroke='%23000' stroke-linejoin='round' stroke-width='2' d='M38.333 46V32.721l11.5 6.64L61.333 46l-11.5 6.64-11.5 6.639V46Z'/%3E%3C/mask%3E%3Cg mask='url(%23a)'%3E%3Cpath fill='%23fff' d='M0 0h92v92H0V0Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 15% auto;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.videoAndText__videoBody {
+  iframe, video {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.videoAndText__content {
+  &.text {
+    p {
+      @include fFS(16px, 20px, 320px, 1440px, 320px);
+    }
+
+    h3 {
+      margin: 0 0 0.2em;
+    }
+  }
+}
+
+.videoAndText__textBlocks {
+  margin-top: 1.5em;
+
+  @include bp(768px) {
+    margin-top: 0.8em;
+  }
+}
+
+.videoAndText__textBlock {
+  + .videoAndText__textBlock {
+    margin-top: 1.5em;
+
+    @include bp(768px) {
+      margin-top: 0.8em;
+    }
+  }
+}
+
+.videoAndText__caption {
+  margin-bottom: 0.2em;
+  @include fFS(20px, 28px, 320px, 1440px, 320px);
+  font-weight: 700;
+}
+
+.videoAndText__text {
+  &.text {
+    p {
+      @include fFS(16px, 20px, 320px, 1440px, 320px);
+    }
+  }
+}

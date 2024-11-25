@@ -1,5 +1,5 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CVideoAndText>
-
+@using System.Text.RegularExpressions;
 @{
     var settings = (BlockSettings)ViewData["settings"];
     var textBlockList = Model.TextBlockList;
@@ -7,31 +7,62 @@
 @await Html.PartialAsync("partRenderAnchor", settings)
 <section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
     <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
-        <div class="tb-grid tb-grid-gap-20 @(Model.Reverse ? "reverse" : string.Empty)">            
-            <div class="text tb-grid-md-6 cVideoAndText__video">
+        <div class="tb-grid tb-grid-gap-20 @(Model.Reverse ? "reverse" : string.Empty)">
+            <div class="tb-grid-md-7 cVideoAndText__video">
                 @if (Model.Video != null || Model.VideoWebp != null)
                 {
-                    <div class="videoAndText__video">
-                        <video class="videoBody" controls preload="auto" poster="@(Model.Cover != null ? @Html.Raw(Model.Cover.Url()) : null)">
-                            @if (Model.Video != null)
-                            {
-                                <source src="@Model.Video.Url()" type="video/mp4">
-                            }
-                            @if (Model.VideoWebp != null)
-                            {
-                                <source src="@Model.VideoWebp.Url()" type="video/mp4">
-                            }
-                        </video>
+                    <div class="videoAndText__wrapper">
+                        <div class="videoAndText__videoBody">
+                            <video class="videoBody" controls preload="auto" poster="@(Model.Cover != null ? @Html.Raw(Model.Cover.Url()) : null)">
+                                @if (Model.Video != null)
+                                {
+                                    <source src="@Model.Video.Url()" type="video/mp4">
+                                }
+                                @if (Model.VideoWebp != null)
+                                {
+                                    <source src="@Model.VideoWebp.Url()" type="video/mp4">
+                                }
+                            </video>
+                        </div>
+                        @if (Model.HasValue("cover"))
+                        {
+                            <div class="videoAndText__videoCover">
+                                <img src="@Model.Cover?.Url()" alt="@Model.Cover?.Name" loading="eager" />
+                            </div>
+
+                        }
                     </div>
                 }
                 @if (Model.CodeVideo != null && !string.IsNullOrEmpty(Model.CodeVideo))
                 {
-                    <div class="videoAndText__video">
-                        @Html.Raw(@Model.Value("codeVideo"))
+                    var srcString = Regex.Match(Model.CodeVideo, "src\\s*=\\s*(?:[\"'](?<1>[^\"']*)[\"']|(?<1>\\S+))",
+                    RegexOptions.IgnoreCase | RegexOptions.Compiled,
+                    TimeSpan.FromSeconds(1));
+                    <div class="videoAndText__wrapper">
+                        @if (srcString.ToString().Contains("vk"))
+                        {
+                            var str = srcString.Value.Replace("src=\"", "").Replace("\"", "");
+                            str = str + "&js_api=1";
+                            <div class="videoAndText__videoBody">                             
+                                <iframe src="@str" allow="autoplay; encrypted-media; fullscreen; picture-in-picture;" frameborder="0" allowfullscreen="1"></iframe>
+                            </div>
+                        }else
+                        {
+                            <div class="videoAndText__videoBody">
+                                @Html.Raw(Model.Value("codeVideo"))
+                            </div>
+                        }
+
+                        @if (Model.HasValue("cover"))
+                        {
+                            <div class="videoAndText__videoCover">
+                                <img src="@Model.Cover?.Url()" alt="@Model.Cover?.Name" loading="eager" />
+                            </div>
+                        }
                     </div>
                 }
             </div>
-            <div class="tb-grid-md-6 cVideoAndText__desctiption">
+            <div class="tb-grid-md-5 cVideoAndText__desctiption">
                 @if (Model.HasValue("title"))
                 {
                     <h2 class="block__title">@Html.Raw(Model.Title)</h2>
@@ -47,7 +78,7 @@
                             var block = (UniTitleAndText)item.Content;
                             <div class="videoAndText__textBlock">
                                 <div class="videoAndText__caption">@Html.Raw(block.Title)</div>
-                                <div class="videoAndText__text">@block.Contents</div>
+                                <div class="videoAndText__text text">@block.Contents</div>
                             </div>
                         }
                     </div>
@@ -61,6 +92,6 @@
                 }
             </div>
         </div>
-        
+
     </div>
 </section>

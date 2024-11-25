@@ -11,7 +11,6 @@
     }
 
 
-
     if ($('.loadInput').length > 0) {
 
         $('.loadInput').change(function (e) {
@@ -57,6 +56,24 @@
 
         })
 
+    }
+
+    if ($('.videoAndText__wrapper').length > 0) {
+        $('.videoAndText__wrapper').each(function (index, item) {
+
+            const videoVrapper = $('.videoAndText__videoCover', $(item));
+            const videoFrame = $('iframe', $(item))[0];
+            const videoFrameSrc = $('iframe', $(item))[0].src;
+            //console.log(videoFrame)
+            $(item).on('click', function () {
+                videoVrapper.remove();
+                if (videoFrameSrc.split("/").includes("vk.com")) {
+                    // const fraime = this.contentContainer[0].childNodes[0].lastElementChild;
+                    const player = VK.VideoPlayer(videoFrame);
+                    player.play();
+                }
+            })
+        })
     }
 
 })();

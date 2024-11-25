@@ -140,6 +140,7 @@ $maxWidth: 1820;
 @import 'styles/_mainBanner.scss';
 
 @import 'styles/_formsInital.scss';
+@import 'styles/_videoModules.scss';
 @import 'styles/_footer.scss';
 
 
@@ -196,9 +197,7 @@ body {
   border-bottom: 1px solid #dddee3;
 }
 
-
-.block__header
-.block__title {
+.block__header .block__title {
   position: relative;
   display: inline-block;
 }

@@ -196,27 +196,30 @@ body {
 }
 
 h1 {
-  @include fFS(25px, 42px, 320px, 1420px, 30px);
-  font-weight: 700;
+  @include fFS(28px, 35px, 320px, 1440px, 320px);
+  line-height: 1;
   margin: 0 0 24px;
 }
 
 h2 {
-  @include fFS(20px, 32px, 320px, 1420px, 30px);
+  @include fFS(28px, 35px, 320px, 1440px, 320px);
   margin: 0 0 24px;
 }
 
 h3 {
-  @include fFS(18px, 22px, 320px, 1420px, 30px);
-  margin: 0 0 20px;
+  @include fFS(24px, 28px, 320px, 1440px, 320px);
+  margin: 0 0 24px;
 }
 
 h4 {
-  @include fFS(16px, 18px, 320px, 1420px, 30px);
+  @include fFS(16px, 18px, 320px, 1440px, 320px);
   margin: 0 0 16px;
 }
 
 h1, h2, h3, h4 {
+  font-weight: 700;
+  line-height: 1.2;
+
   &:only-child {
     margin-bottom: 0;
   }
@@ -229,7 +232,7 @@ h1, h2, h3, h4 {
 /* разметка сетки */
 .block {
   position: relative;
-  padding: 50px 0;
+  padding: 72px 0;
 
   @include resp (0, $size-md) {
     padding: 30px 0;
