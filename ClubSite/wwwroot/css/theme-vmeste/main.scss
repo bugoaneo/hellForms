@@ -138,8 +138,10 @@ $maxWidth: 1820;
 @import 'styles/_tabs.scss';
 @import 'styles/_header.scss';
 @import 'styles/_advantages.scss';
-@import 'styles/_advantages.scss';
+@import'styles/_accordion.scss';
+
 @import 'styles/_participantList.scss';
+@import 'styles/_iconTitleTextList.scss';
 
 @import 'styles/_formsInital.scss';
 @import 'styles/_footer.scss';
@@ -201,4 +203,8 @@ div[class^=tb-grid-md] {
   @include bp(768px) {
     grid-row: auto;
   }
+}
+
+.text__wrapper, .advantageCollection {
+  max-width: 865px;
 }

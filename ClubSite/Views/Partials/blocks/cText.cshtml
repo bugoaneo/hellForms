@@ -4,10 +4,23 @@
 }
 @await Html.PartialAsync("partRenderAnchor", settings)
 <section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+
     <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
-        @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
-        <div class="text">
-            @Model.Contents
+        <div class="text__wrapper">
+
+
+            @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
+            <div class="text">
+                @Model.Contents
+            </div>
+
+
+
+
         </div>
     </div>
+
+
+
+
 </section>
