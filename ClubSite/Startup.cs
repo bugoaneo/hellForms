@@ -34,6 +34,16 @@ namespace ClubSite
         /// </remarks>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
             services.AddUmbraco(_env, _config)
                 .AddBackOffice()
                 .AddWebsite()
@@ -41,6 +51,7 @@ namespace ClubSite
                 .AddNotificationHandler<ContentPublishedNotification, ThemeEditorPublishedHandler>()
                 .SetContentLastChanceFinder<MultipleSite404ContentFinder>()
                 .Build();
+
         }
 
         /// <summary>
@@ -58,10 +69,10 @@ namespace ClubSite
 			var options = new RewriteOptions()
 				.AddRewrite(@"(robots.txt)(/)?$", "/robots", skipRemainingRules: true);
 			app.UseRewriter(options); // Надо для перенаправления на роботс
-
-			app.UseHttpsRedirection();
-
-            app.UseUmbraco()
+            app.UseCors("AllowAllOrigins");
+            app.UseHttpsRedirection();
+			app.UseStaticFiles();
+			app.UseUmbraco()
                 .WithMiddleware(u =>
                 {
                     u.UseBackOffice();
