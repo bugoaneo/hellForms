@@ -154,10 +154,10 @@ $maxWidth: 1820;
   --mainColor: #f3920a;
 }
 
-html,
+/*html,
 body {
   scrollbar-gutter: stable;
-}
+}*/
 
 
 html {
@@ -192,7 +192,6 @@ body {
   position: relative;
   display: inline-block;
 }
-
 
 div[class^=tb-grid-md] {
   grid-row: span var(--rowSpan);

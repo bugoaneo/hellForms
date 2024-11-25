@@ -1,16 +1,73 @@
-/**/
-.mainBanner__wrapper {
-  position: relative;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  align-self: stretch;
-  width: 54.5%;
-  background-color: var(--mainColor, #fff);
-  min-height: 490px;
+/*mainBanner*/
+
+.cMainBanner {
+  overflow: hidden;
+
+  .block__content {
+    grid-area: stuck;
+    display: flex;
+
+    @include bp(768px) {
+      grid-area: initial;
+    }
+  }
 }
 
 .mainBanner__content {
-  max-width: 570px;
-  margin-right: 10%;
+  position: relative;
+  display: flex;
+  align-content: center;
+}
+
+.mainBanner__background {
+  grid-area: stuck;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  @include bp(768px) {
+    grid-area: initial;
+  }
+}
+
+.mainBanner__title {
+  @include fFS(28px, 60px, 320px, 1420px, 40px);
+  line-height: 1;
+}
+
+.mainBanner__description {
+  @include fFS(16px, 24px, 320px, 1420px, 40px);
+}
+
+
+.mainBanner__actions {
+  @include row(jst, ac);
+  gap: 0 20px;
+  margin-top: 30px;
+
+  @include bp(650px) {
+    gap: 12px 0;
+    margin-top: 20px;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+.mainBanner__noticeIcon {
+  display: flex;
+  align-items: start;
+  margin-top: 25px;
+
+  .icon {
+    flex: 0 0 22px;
+    margin-right: 1em;
+  }
+
+  .content {
+    align-self: center;
+  }
 }

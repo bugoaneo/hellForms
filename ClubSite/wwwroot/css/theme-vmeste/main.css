@@ -5,6 +5,7 @@
   border-radius: 0.5em;
   color: #fff;
   background-color: var(--buttonAndLinkColor);
+  font-weight: 500;
 }
 .btn:hover {
   background-color: var(--linkColorHovered);
@@ -36,6 +37,14 @@
 .btn--remove:hover {
   color: var(--textColor);
   background-color: transparent;
+}
+.btn--bordered {
+  background-color: transparent;
+  color: var(--btn);
+  border: 1px solid currentColor;
+}
+.btn--bordered:hover {
+  opacity: 0.7;
 }
 .btn--addItem {
   display: flex;
@@ -121,7 +130,8 @@
 
 /*theme style*/
 .header {
-  padding: 16px 0;
+  padding: 12px 0;
+  background-color: #fff;
 }
 @media (max-width: 650px) {
   .header {
@@ -202,9 +212,6 @@
 .header__content._desktop .btn.revert {
   padding: 0.5em;
 }
-.header__content._mobile {
-  background-color: #fff;
-}
 @media (max-width: 650px) {
   .header__content._mobile .hIconLinkBlock {
     display: none;
@@ -263,37 +270,85 @@
   border: none;
 }
 
-/*.mainBanner__wrapper {
-  aspect-ratio: 3/1;
-}*/
-.mainBanner__title {
-  font-size: 28px;
-  line-height: 1;
+/*mainBanner*/
+.mainBanner__content {
+  max-width: calc(590px + 5vw);
+  padding: 20px 5vw 20px 0;
+  z-index: 1;
 }
-@media (min-width: 320px) {
-  .mainBanner__title {
-    font-size: 40px;
-    font-size: calc(0.0290909091 * 100vw + 18.6909090909px);
+.mainBanner__content:before, .mainBanner__content:after {
+  content: "";
+  position: absolute;
+  background-color: var(--mainColor, #fff);
+  opacity: 0.8;
+  z-index: -1;
+}
+.mainBanner__content:before {
+  inset: 0;
+}
+.mainBanner__content:after {
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  right: 100%;
+}
+@media (max-width: 768px) {
+  .mainBanner__content {
+    max-width: 100%;
+    padding: 20px 0;
+    color: var(--textColor);
   }
-}
-@media (min-width: 1420px) {
-  .mainBanner__title {
-    font-size: 60px;
+  .mainBanner__content:before, .mainBanner__content:after {
+    display: none;
   }
 }
 
-.mainBanner__description {
-  font-size: 16px;
+.mainBanner__background img {
+  aspect-ratio: 3/1;
+  object-fit: cover;
+  object-position: bottom center;
+  min-height: 495px;
 }
-@media (min-width: 320px) {
-  .mainBanner__description {
-    font-size: 40px;
-    font-size: calc(0.0072727273 * 100vw + 13.6727272727px);
+@media (max-width: 768px) {
+  .mainBanner__background img {
+    aspect-ratio: 2/1;
   }
 }
-@media (min-width: 1420px) {
-  .mainBanner__description {
-    font-size: 24px;
+
+.mainBanner__title {
+  margin: -4.5% 0 0.2em 0;
+}
+@media (max-width: 768px) {
+  .mainBanner__title {
+    margin: 0 0 0.2em 0;
+  }
+}
+
+.mainBanner__container {
+  align-self: center;
+}
+
+.mainBanner__actions .btn {
+  background-color: #fff;
+  color: var(--mainColor);
+  font-size: 18px;
+}
+@media (max-width: 768px) {
+  .mainBanner__actions .btn {
+    background-color: var(--mainColor);
+    color: #fff;
+  }
+}
+.mainBanner__actions .btn:hover {
+  opacity: 0.8;
+}
+.mainBanner__actions .btn--bordered {
+  background-color: transparent;
+  color: currentColor;
+}
+@media (max-width: 768px) {
+  .mainBanner__actions .btn--bordered {
+    color: var(--mainColor);
   }
 }
 
@@ -473,11 +528,10 @@ textarea {
   --mainColor: #f3920a;
 }
 
-html,
+/*html,
 body {
   scrollbar-gutter: stable;
-}
-
+}*/
 html {
   font-size: var(--fontSize);
   font-family: var(--fontFamily), sans-serif;
@@ -517,4 +571,4 @@ div[class^=tb-grid-md] {
   }
 }
 
-/*# sourceMappingURL=data:application/json;charset=utf-8,%7B%22version%22:3,%22sourceRoot%22:%22%22,%22sources%22:%5B%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/main.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_btn.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_tabs.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_header.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_mainBanner.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_formsInital.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_footer.scss%22%5D,%22names%22:%5B%5D,%22mappings%22:%22AAAC;AAsIO;AACA;ACvIR;EACE;EACA;EACA;;AAEA;EACE;;AAGF;EACE;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAIJ;EACE;EACA;;AAGF;EDuBA;EACA;EAGE;EAoBA;EC7CA;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAIJ;EDUA;EACA;EAWE;EAYA;EChCA;EACA;EACA;;AAEA;EACE;;AAGF;EACE;EACA;;;ACnDL;AACD;EFgDE;EACA;EAGE;EAgCA;EElFF;;;AAGF;EACE;EACA;EACA;EACA;;AAGE;EACE;;AAKF;EACE;;AAKF;EACE;EACA;EACA;;AAGF;EACE;;AAIJ;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;AAIA;EACE;;;AAMN;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;;AAGF;EACE;EACA;EACA;;;AAKA;EACE;EACA;;;AC5EJ;AAEA;EACE;;AHwFA;EGzFF;IAII;;;;AAMA;EACE;EACA;;AAGF;EACE;EACA;EAEA;EACA;;AHqEJ;EG1EE;IAQI;IACA;;;AAKJ;EACE;EACA;EACA;EACA;EACA;;AHuDJ;EG5DE;IAQI;;;AAGF;EACE;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;EACA;EACA;;AAIA;EACE;;AAIJ;EACE;;AAEA;EACE;;AHgBR;EGXE;IAEI;;;AAKF;EACE;;AHGN;EGJI;IAII;;;AAIJ;EACE;;AAKN;EACE;;AHXF;EGaE;IAEI;;;;AAON;EACE;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAGF;EACE;EACA;EACA;;AHrCJ;EGwCM;IACE;;EAEA;IACE;;;;AASV;EACE;;;AAIJ;AACA;EACE;;;AAIF;EACE;;AAEA;EACE;EACA;;AAGF;EACE;EACA;EACA;;AAGF;EACE;EACA;EACA;;;AC3KJ;AAAA;AAAA;AAIA;EJkHE,WIjHa;EACb;;AJkHA;EIpHF;IJsHM,WIrHoC;IJwHtC;;;AAGF;EI5HF;IJ6HI,WI5HiB;;;;AAIrB;EJ6GE,WI5Ga;;AJ8Gb;EI/GF;IJiHM,WIhHoC;IJmHtC;;;AAGF;EIvHF;IJwHI,WIvHiB;;;;ACXrB;AAEA;EACE;;;AAGF;EACE;;;AAGF;EACE;;;AAKA;EACE;;AAGF;EACE;EACA;EACA;EACA;;AAEA;EACE;;AAGF;EACE;EACA;EACA;;;AAMJ;EACE;;;AAIJ;EACE;EACA;EACA;EACA;EACA;;;AAGF;EACE;;;AAGF;EACE;EACA;EACA;EACA;;;AAGF;EACE;EACA;;;AAGF;EACE;;AAEA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;;AAIJ;AAEA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAEA;EACE;EACA;EACA;;AAIJ;EACE;;AAEA;EACE;EACA;EACA;EACA;;;AAMJ;EACE;;;ACjIJ;AAEA;EACE;EACA;EACA;;ANsFA;EMzFF;IAMI;;;AAGF;EACE;EACA;EACA;;AN6EF;EMhFA;IAMI;;;AAGF;EACE;EACA;;AAIJ;EACE;EACA;EACA;;AN8DF;EMjEA;IAMI;;;AAIA;EACE;;AAKN;EACE;EACA;EACA;EACA;;;AAKF;EACE;EACA;;;AN6FJ;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;;AAGF;AAAA;EAEE;;;AAIF;EACE;EACA;;;AAGF;EACE;EACA;;;AAGF;EACE;;AAEA;EACE;;;AAIJ;EACE;;;AAGF;EACE;;;AAIF;EAEE;EACA;;;AAIF;EACE;;AA1GA;EAyGF;IAII%22%7D */
+/*# sourceMappingURL=data:application/json;charset=utf-8,%7B%22version%22:3,%22sourceRoot%22:%22%22,%22sources%22:%5B%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/main.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_btn.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_tabs.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_header.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_mainBanner.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_formsInital.scss%22,%22file:///D:/%25D0%25BF%25D1%2580%25D0%25BE%25D0%25B5%25D0%25BA%25D1%2582%25D1%258B/hellForm/ClubSite/wwwroot/css/theme-vmeste/styles/_footer.scss%22%5D,%22names%22:%5B%5D,%22mappings%22:%22AAAC;AAsIO;AACA;ACvIR;EACE;EACA;EACA;EACA;;AAEA;EACE;;AAGF;EACE;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAIJ;EACE;EACA;;AAGF;EDsBA;EACA;EAGE;EAoBA;EC5CA;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAIJ;EACE;EACA;EACA;;AAEA;EACE;;AAIJ;EDDA;EACA;EAWE;EAYA;ECrBA;EACA;EACA;;AAEA;EACE;;AAGF;EACE;EACA;;;AC9DL;AACD;EFgDE;EACA;EAGE;EAgCA;EElFF;;;AAGF;EACE;EACA;EACA;EACA;;AAGE;EACE;;AAKF;EACE;;AAKF;EACE;EACA;EACA;;AAGF;EACE;;AAIJ;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;AAIA;EACE;;;AAMN;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;;AAGF;EACE;EACA;EACA;;;AAKA;EACE;EACA;;;AC5EJ;AAEA;EACE;EACA;;AHuFA;EGzFF;IAKI;;;;AAMA;EACE;EACA;;AAGF;EACE;EACA;EAEA;EACA;;AHoEJ;EGzEE;IAQI;IACA;;;AAKJ;EACE;EACA;EACA;EACA;EACA;;AHsDJ;EG3DE;IAQI;;;AAGF;EACE;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;EACA;EACA;;AAIA;EACE;;AAIJ;EACE;;AAEA;EACE;;AHeR;EGVE;IAEI;;;AAKF;EACE;;AHEN;EGHI;IAII;;;AAIJ;EACE;;AHNN;EGYE;IAEI;;;;AAON;EACE;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAGF;EACE;EACA;EACA;;AHpCJ;EGuCM;IACE;;EAEA;IACE;;;;AASV;EACE;;;AAIJ;AACA;EACE;;;AAIF;EACE;;AAEA;EACE;EACA;;AAGF;EACE;EACA;EACA;;AAGF;EACE;EACA;EACA;;;AC1KJ;AAEA;EACE;EACA;EACA;;AAEA;EACE;EACA;EACA;EACA;EACA;;AAGF;EACE;;AAGF;EACE;EACA;EACA;EACA;;AJmEF;EIxFF;IAyBI;IACA;IACA;;EAEA;IACE;;;;AAMJ;EACE;EACA;EACA;EACA;;AJgDF;EIpDA;IAOI;;;;AAKN;EACE;;AJuCA;EIxCF;IAII;;;;AAKJ;EACE;;;AAIA;EACE;EACA;EACA;;AJuBF;EI1BA;IAMI;IACA;;;AAGF;EACE;;AAGF;EACE;EACA;;AJUJ;EIZE;IAKI;;;;ACpFR;AAEA;EACE;;;AAGF;EACE;;;AAGF;EACE;;;AAKA;EACE;;AAGF;EACE;EACA;EACA;EACA;;AAEA;EACE;;AAGF;EACE;EACA;EACA;;;AAMJ;EACE;;;AAIJ;EACE;EACA;EACA;EACA;EACA;;;AAGF;EACE;;;AAGF;EACE;EACA;EACA;EACA;;;AAGF;EACE;EACA;;;AAGF;EACE;;AAEA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;;AAIJ;AAEA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAEA;EACE;EACA;EACA;;AAIJ;EACE;;AAEA;EACE;EACA;EACA;EACA;;;AAMJ;EACE;;;ACjIJ;AAEA;EACE;EACA;EACA;;ANsFA;EMzFF;IAMI;;;AAGF;EACE;EACA;EACA;;AN6EF;EMhFA;IAMI;;;AAGF;EACE;EACA;;AAIJ;EACE;EACA;EACA;;AN8DF;EMjEA;IAMI;;;AAIA;EACE;;AAKN;EACE;EACA;EACA;EACA;;;AAKF;EACE;EACA;;;AN6FJ;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;;AAGF;AAAA;AAAA;AAAA;AAMA;EACE;EACA;;;AAGF;EACE;EACA;;;AAGF;EACE;;AAEA;EACE;;;AAIJ;EACE;;;AAGF;EACE;;;AAIF;EAEE;EACA;;;AAGF;EACE;;AAzGA;EAwGF;IAII%22%7D */

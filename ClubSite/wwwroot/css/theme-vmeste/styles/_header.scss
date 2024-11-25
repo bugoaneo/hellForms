@@ -1,7 +1,8 @@
 /*theme style*/
 
 .header {
-  padding: 16px 0;
+  padding: 12px 0;
+  background-color: #fff;
 
   @include bp(650px) {
     padding: 0;
@@ -100,8 +101,6 @@
   }
 
   &._mobile {
-    background-color: #fff;
-
     .hIconLinkBlock {
       @include bp(650px) {
         display: none;

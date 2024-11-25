@@ -1,13 +1,89 @@
 
-/*.mainBanner__wrapper {
-  aspect-ratio: 3/1;
-}*/
+/*mainBanner*/
 
-.mainBanner__title {
-  @include fFS(28px, 60px, 320px, 1420px, 40px);
-  line-height: 1;
+.mainBanner__content {
+  max-width: calc(590px + 5vw);
+  padding: 20px 5vw 20px 0;
+  z-index: 1;
+
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    background-color: var(--mainColor, #fff);
+    opacity: 0.8;
+    z-index: -1;
+  }
+
+  &:before {
+    inset: 0;
+  }
+
+  &:after {
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    right: 100%;
+  }
+
+  @include bp(768px) {
+    max-width: 100%;
+    padding: 20px 0;
+    color: var(--textColor);
+
+    &:before, &:after {
+      display: none;
+    }
+  }
 }
 
-.mainBanner__description {
-  @include fFS(16px, 24px, 320px, 1420px, 40px);
+.mainBanner__background {
+  img {
+    aspect-ratio: 3/1;
+    object-fit: cover;
+    object-position: bottom center;
+    min-height: 495px;
+
+    @include bp(768px) {
+      aspect-ratio: 2/1;
+    }
+  }
+}
+
+.mainBanner__title {
+  margin: -4.5% 0 0.2em 0;
+
+  @include bp(768px) {
+    margin: 0 0 0.2em 0;
+  }
+}
+
+
+.mainBanner__container {
+  align-self: center;
+}
+
+.mainBanner__actions {
+  .btn {
+    background-color: #fff;
+    color: var(--mainColor);
+    font-size: 18px;
+
+    @include bp(768px) {
+      background-color: var(--mainColor);
+      color: #fff;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &--bordered {
+      background-color: transparent;
+      color: currentColor;
+
+      @include bp(768px) {
+        color: var(--mainColor);
+      }
+    }
+  }
 }

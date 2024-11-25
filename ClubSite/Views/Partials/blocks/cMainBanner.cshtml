@@ -5,10 +5,26 @@
 @{
     var settings = (BlockSettings?)ViewData["settings"];
     var linkList = Model.Links;
+    var altImg = Model.Banner?.Value("altImg");
 }
 @await Html.PartialAsync("partRenderAnchor", settings)
-<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
-    <div class="@BlockHelpers.GetContainerCssClass("mainBanner__wrapper", settings)">
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block block--gridBanner", settings)>
+    <div class="mainBanner__background">
+        @if (Model.HasValue("bannerMobile"))
+        {
+            <picture>
+                <source media="(max-width: 786px)" srcset="@Model.BannerMobile?.Url()" />
+                <img src="@Model.Banner?.Url()" loading="lazy" alt="@(altImg?.ToString() != string.Empty ? altImg : Model.Banner?.Name)" />
+            </picture>
+        }
+        else
+        {
+            <img src="@Model.Banner?.Url()" alt="@(altImg?.ToString() != string.Empty ? altImg : Model.Banner?.Name)" loading="lazy">
+        }
+
+    </div>
+    @*mainBanner__wrapper*@
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
         <div class="mainBanner__content">
             <div class="mainBanner__container">
                 <h1 class="mainBanner__title">@Html.Raw(Model.Title)</h1>
@@ -18,7 +34,13 @@
                 }
                 @if (linkList != null && linkList.Any())
                 {
-
+                    <div class="mainBanner__actions">
+                        @foreach (var item in linkList)
+                        {
+                            var link = (LinkWithState)item.Content;
+                            <a href="@link.Link?.Url" class="btn @(link.Value<bool>("linkState")? "btn--bordered": string.Empty)">@link.Link?.Name</a>
+                        }
+                    </div>
                 }
                 @if (Model.HasValue("noticeIcon"))
                 {
