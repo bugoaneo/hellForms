@@ -45,6 +45,7 @@
 
     @include bp(768px) {
       aspect-ratio: 2/1;
+      min-height: 250px;
     }
   }
 }
@@ -52,7 +53,7 @@
 .mainBanner__title {
   margin: -4.5% 0 0.2em 0;
 
-  @include bp(768px) {
+  @include bp(1100px) {
     margin: 0 0 0.2em 0;
   }
 }
