@@ -65,7 +65,7 @@
     }
   }
 
-  @include resp (0, $size-sm-end) {
+  @include resp (0, 1100) {
     position: fixed;
     left: 0;
     top: 0;

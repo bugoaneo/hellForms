@@ -170,6 +170,16 @@ body {
   color: var(--textColor);
 }
 
+.wrapper {
+  @include bp(1100px) {
+    margin-top: 83px;
+  }
+
+  @include bp(650px) {
+    margin-top: 56px;
+  }
+}
+
 .text a, .copyright a {
   color: var(--buttonAndLinkColor);
 
