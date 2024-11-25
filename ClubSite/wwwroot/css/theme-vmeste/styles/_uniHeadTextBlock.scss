@@ -1,0 +1,66 @@
+﻿.wrapper__flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.elem__wrap {
+  flex: 0 1 calc(100%/5 - 8px);
+  flex-direction: column;
+  border: 1px solid #D8D7EB;
+  border-radius: 8px;
+}
+
+.color__wrap {
+}
+
+.elem__head {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.08px;
+  font-weight: 500;
+  padding: 0.4em 0.5em;
+  background-color: #EFEFFA;
+}
+
+.elem__content {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: -0.08px;
+  padding: 0.4em 0.5em;
+  max-width: 194px;
+}
+
+
+/*стили с цифрой*/
+.wrapper__flex-num {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.elem__wrap-num {
+  background-color: #FFEDD2;
+  border-radius: 8px;
+  flex: 0 1 calc(100%/5 - 8px);
+  border: 1px solid #FFEDD2;
+}
+
+.color__wrap-num {
+  font-size: 35px;
+  font-weight: 700;
+  color: #F3920A;
+  line-height: 40px;
+  letter-spacing: -0.16px;
+  padding: 0.3em 0em 0em 0.3em;
+}
+
+.elem__content-num {
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: -0.08px;
+  padding: 0.4em 0.5em;
+}
