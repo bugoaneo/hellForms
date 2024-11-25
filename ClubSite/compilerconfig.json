@@ -42,5 +42,9 @@
   {
     "outputFile": "wwwroot/css/theme-dat/main.css",
     "inputFile": "wwwroot/css/theme-dat/main.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/theme-vmeste/main.css",
+    "inputFile": "wwwroot/css/theme-vmeste/main.scss"
   }
 ]

@@ -137,6 +137,7 @@ $maxWidth: 1820;
 @import 'styles/_btn.scss';
 @import 'styles/_tabs.scss';
 @import 'styles/_header.scss';
+@import 'styles/_mainBanner.scss';
 @import 'styles/_advantages.scss';
 @import'styles/_accordion.scss';
 
@@ -155,12 +156,13 @@ $maxWidth: 1820;
   --btn: #8B8AA9;
   --desktopGap: 20px;
   --mobileGap: 8px;
+  --mainColor: #f3920a;
 }
 
-html,
+/*html,
 body {
   scrollbar-gutter: stable;
-}
+}*/
 
 
 html {
@@ -171,6 +173,16 @@ html {
 body {
   background-color: var(--background);
   color: var(--textColor);
+}
+
+.wrapper {
+  @include bp(1100px) {
+    margin-top: 83px;
+  }
+
+  @include bp(650px) {
+    margin-top: 56px;
+  }
 }
 
 .text a, .copyright a {
@@ -195,7 +207,6 @@ body {
   position: relative;
   display: inline-block;
 }
-
 
 div[class^=tb-grid-md] {
   grid-row: span var(--rowSpan);

@@ -1,0 +1,59 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CMainBanner>
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var settings = (BlockSettings?)ViewData["settings"];
+    var linkList = Model.Links;
+    var altImg = Model.Banner?.Value("altImg");
+}
+@await Html.PartialAsync("partRenderAnchor", settings)
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block block--gridBanner", settings)>
+    <div class="mainBanner__background">
+        @if (Model.HasValue("bannerMobile"))
+        {
+            <picture>
+                <source media="(max-width: 786px)" srcset="@Model.BannerMobile?.Url()" />
+                <img src="@Model.Banner?.Url()" loading="lazy" alt="@(altImg?.ToString() != string.Empty ? altImg : Model.Banner?.Name)" />
+            </picture>
+        }
+        else
+        {
+            <img src="@Model.Banner?.Url()" alt="@(altImg?.ToString() != string.Empty ? altImg : Model.Banner?.Name)" loading="lazy">
+        }
+
+    </div>
+    @*mainBanner__wrapper*@
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+        <div class="mainBanner__content">
+            <div class="mainBanner__container">
+                <h1 class="mainBanner__title">@Html.Raw(Model.Title)</h1>
+                @if (Model.HasValue("description"))
+                {
+                    <div class="mainBanner__description text">@Model.Description</div>
+                }
+                @if (linkList != null && linkList.Any())
+                {
+                    <div class="mainBanner__actions">
+                        @foreach (var item in linkList)
+                        {
+                            var link = (LinkWithState)item.Content;
+                            <a href="@link.Link?.Url" class="btn @(link.Value<bool>("linkState")? "btn--bordered": string.Empty)">@link.Link?.Name</a>
+                        }
+                    </div>
+                }
+                @if (Model.HasValue("noticeIcon"))
+                {
+                    <div class="mainBanner__noticeIcon">
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 22" width="22">
+                                <path fill="currentColor" fill-rule="evenodd" d="M11 .403C5.148.403.403 5.147.403 11c0 5.852 4.745 10.596 10.597 10.596 5.852 0 10.596-4.744 10.596-10.596C21.596 5.147 16.852.403 11 .403ZM1.923 11a9.077 9.077 0 1 1 18.153 0 9.077 9.077 0 0 1-18.153 0ZM12.2 6.2a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0ZM8.6 8.6H11a.8.8 0 0 1 .8.8V15h1.6v1.6H8.6V15h1.6v-4.8H8.6V8.6Z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="content">@Html.Raw(Model.NoticeIcon)</div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

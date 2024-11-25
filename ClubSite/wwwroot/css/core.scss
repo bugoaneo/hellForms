@@ -148,6 +148,7 @@ $maxWidth: 1820;
 @import 'core-styles/_text.scss';
 @import 'core-styles/_btn.scss';
 @import 'core-styles/_mainSlider.scss';
+@import 'core-styles/_mainBanner.scss';
 @import 'core-styles/_linearSlider.scss';
 @import 'core-styles/_programs.scss';
 @import 'core-styles/_news.scss';
@@ -234,8 +235,17 @@ h1, h2, h3, h4 {
     padding: 30px 0;
   }
 
-  a {
+  a:not(.btn) {
     color: var(--accent);
+  }
+
+  &--gridBanner {
+    display: grid;
+    grid-template-areas: "stuck";
+
+    @include bp(768px) {
+      grid-template-areas: none;
+    }
   }
 }
 
