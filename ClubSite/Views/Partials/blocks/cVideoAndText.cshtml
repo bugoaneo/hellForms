@@ -2,18 +2,12 @@
 
 @{
     var settings = (BlockSettings)ViewData["settings"];
+    var textBlockList = Model.TextBlockList;
 }
 @await Html.PartialAsync("partRenderAnchor", settings)
 <section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
     <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
-        @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
-        <div class="tb-grid tb-grid-gap-20 @(Model.Reverse ? "reverse" : string.Empty)">
-            <div class="tb-grid-md-6 cVideoAndText__desctiption">
-                <div class="videoAndText__content text">
-                    @Model.Content
-                </div>
-
-            </div>
+        <div class="tb-grid tb-grid-gap-20 @(Model.Reverse ? "reverse" : string.Empty)">            
             <div class="text tb-grid-md-6 cVideoAndText__video">
                 @if (Model.Video != null || Model.VideoWebp != null)
                 {
@@ -37,13 +31,36 @@
                     </div>
                 }
             </div>
-        </div>
-        @if (Model.Btn != null)
-        {
-            <div class="videoAndText__footer">
-                <a class="btn" href="@Model.Btn.Url">@Model?.Btn?.Name</a>
-            </div>
+            <div class="tb-grid-md-6 cVideoAndText__desctiption">
+                @if (Model.HasValue("title"))
+                {
+                    <h2 class="block__title">@Html.Raw(Model.Title)</h2>
+                }
+                <div class="videoAndText__content text">
+                    @Model.Content
+                </div>
+                @if (textBlockList != null && textBlockList.Any())
+                {
+                    <div class="videoAndText__textBlocks">
+                        @foreach (var item in textBlockList)
+                        {
+                            var block = (UniTitleAndText)item.Content;
+                            <div class="videoAndText__textBlock">
+                                <div class="videoAndText__caption">@Html.Raw(block.Title)</div>
+                                <div class="videoAndText__text">@block.Contents</div>
+                            </div>
+                        }
+                    </div>
+                }
+                @if (Model.Btn != null)
+                {
+                    <div class="videoAndText__footer">
+                        <a class="btn" href="@Model.Btn.Url">@Model?.Btn?.Name</a>
+                    </div>
 
-        }
+                }
+            </div>
+        </div>
+        
     </div>
 </section>
