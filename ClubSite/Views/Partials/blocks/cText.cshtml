@@ -7,20 +7,13 @@
 
     <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
         <div class="text__wrapper">
-
-
-            @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
-            <div class="text">
-                @Model.Contents
+            <div class="contaitment">
+                @*оболочка ограничитель*@
+                @await Html.PartialAsync("partRenderStandardTitle", Model.Title)
+                <div class="text">
+                    @Model.Contents
+                </div>
             </div>
-
-
-
-
         </div>
     </div>
-
-
-
-
 </section>

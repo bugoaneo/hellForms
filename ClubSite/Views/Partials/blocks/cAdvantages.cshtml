@@ -33,62 +33,71 @@
 @{
     void RenderStandartAdvantages()
     {
-        <div class="advantageCollection">
-            @foreach (var item in advantages)
-            {
-                var advantagesItem = (UniImageTitleWsub)(item.Content);
-                var altImg = advantagesItem.Image?.Value("altImg");
-                <div class="advantageCollection__item @(Model.BigText ? "_big" : string.Empty)">
-                    <div class="advantageCollection__icon">
+        <div class="contaitment">
+            <div class="advantageCollection">
+                @foreach (var item in advantages)
+                {
+                    var advantagesItem = (UniImageTitleWsub)(item.Content);
+                    var altImg = advantagesItem.Image?.Value("altImg");
+                    <div class="advantageCollection__item @(Model.BigText ? "_big" : string.Empty)">
+                        <div class="advantageCollection__icon">
                             @if (advantagesItem.Image != null)
                             {
                                 <img src="@advantagesItem.Image.Url()" loading="@lazyLoading" alt="@(altImg?.ToString() != string.Empty ? altImg : advantagesItem.Image?.Name)">
                             }
-                    </div>
-                    @if (!string.IsNullOrEmpty(advantagesItem.Title))
-                    {
-                        <div class="advantageCollection__title">@advantagesItem.Title</div>
-                    }
-
-                    @if (!string.IsNullOrEmpty(advantagesItem.SubTitle))
-                    {
-                        <div class="advantageCollection__text ">
-                            @Html.Raw(advantagesItem.SubTitle)
                         </div>
-                    }
-                </div>
-            }
+                        @if (!string.IsNullOrEmpty(advantagesItem.Title))
+                        {
+                            <div class="advantageCollection__title">@advantagesItem.Title</div>
+                        }
+                        @if (!string.IsNullOrEmpty(advantagesItem.SubTitle))
+                        {
+                            <div class="advantageCollection__text ">
+                                @Html.Raw(advantagesItem.SubTitle)
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+
+
+
+
         </div>
+
+
     }
     void RenderLiniarAdvantages()
     {
-        <div class="advantageCollection">
-            @foreach (var item in advantages)
-            {
-                var advantagesItem = (UniImageTitleWsub)(item.Content);
-                var altImg = advantagesItem.Image?.Value("altImg");
-                <div class="advantageCollection__item advantageCollection__item--inline @(Model.BigText ? "_big" : string.Empty)">
-                    <div class="advantageCollection__icon">
+        <div class="contaitment">
+            <div class="advantageCollection">
+                @foreach (var item in advantages)
+                {
+                    var advantagesItem = (UniImageTitleWsub)(item.Content);
+                    var altImg = advantagesItem.Image?.Value("altImg");
+                    <div class="advantageCollection__item advantageCollection__item--inline @(Model.BigText ? "_big" : string.Empty)">
+                        <div class="advantageCollection__icon">
                             @if (advantagesItem.Image != null)
                             {
-                            <img src="@advantagesItem.Image.Url()" loading="@lazyLoading" alt="@(altImg?.ToString() != string.Empty ? altImg : advantagesItem.Image?.Name)">
+                                <img src="@advantagesItem.Image.Url()" loading="@lazyLoading" alt="@(altImg?.ToString() != string.Empty ? altImg : advantagesItem.Image?.Name)">
                             }
                         </div>
-                    <div class="advantageCollection__body">
+                        <div class="advantageCollection__body">
                             @if (!string.IsNullOrEmpty(advantagesItem.Title))
                             {
-                            <div class="advantageCollection__title">@advantagesItem.Title</div>
+                                <div class="advantageCollection__title">@advantagesItem.Title</div>
                             }
 
                             @if (!string.IsNullOrEmpty(advantagesItem.SubTitle))
                             {
-                            <div class="advantageCollection__text ">
+                                <div class="advantageCollection__text ">
                                     @Html.Raw(advantagesItem.SubTitle)
                                 </div>
                             }
-                        </div>    
-                </div>
-            }
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     }
 }
