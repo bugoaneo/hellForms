@@ -85,6 +85,10 @@ $maxWidth: 1820;
   @if ($align == "ast") {
     align-items: flex-start;
   }
+
+  @if ($align == "and") {
+    align-items: flex-end;
+  }
 }
 
 
@@ -195,13 +199,13 @@ body {
   }
 }
 
-h1 {
+h1, .block__title {
   @include fFS(28px, 35px, 320px, 1440px, 320px);
   line-height: 1;
   margin: 0 0 24px;
 }
 
-h2 {
+h2, .block__title {
   @include fFS(28px, 35px, 320px, 1440px, 320px);
   margin: 0 0 24px;
 }
@@ -216,7 +220,7 @@ h4 {
   margin: 0 0 16px;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, .block__title {
   font-weight: 700;
   line-height: 1.2;
 
@@ -322,11 +326,20 @@ h1, h2, h3, h4 {
   }
 }
 
+.block__header-row {
+  @include row(jst, ab);
 
+  .block__title {
+    margin-bottom: 0;
+  }
+}
 
+.block__titlecount {
+  margin-left: 8px;
+  font-size: 20px;
+  color: #8E8C99;
+}
 /* модификаторы */
-
-
 ._mobile {
   display: none;
 
