@@ -1,0 +1,25 @@
+﻿@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.PublishedCache;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+        Layout = "_master.cshtml";
+}
+
+
+
+@{
+	var contentBlocks = Model.Value<Umbraco.Cms.Core.Models.Blocks.BlockListModel>("contentBlocks")!;
+	if (contentBlocks != null)
+	{
+		var index = 0;
+		ViewData["page"] = Model;
+		foreach (var block in contentBlocks)
+		{
+			ViewData["blockIndex"] = index++;
+			ViewData["settings"] = block.Settings;
+			@await Html.PartialAsync("blocks/" + block.Content.ContentType.Alias, block.Content)
+		}
+	}
+}
