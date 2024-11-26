@@ -89,6 +89,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual bool Reverse => this.Value<bool>(_publishedValueFallback, "reverse");
 
 		///<summary>
+		/// Список блоков с текстом
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("textBlockList")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel TextBlockList => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "textBlockList");
+
+		///<summary>
 		/// Заголовок
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]

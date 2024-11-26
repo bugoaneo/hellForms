@@ -2,10 +2,7 @@
 
 // solve css min problem ...
 @function css-function( $function, $values... ) {
-  @return $function
-		+ unquote( '(' )
-		+ $values
-		+ unquote( ')' ) ;
+  @return $function + unquote( '(' ) + $values + unquote( ')' );
 }
 
 @function css-min( $values... ) {
@@ -14,51 +11,44 @@
 
 // end solve css min problem ...
 
-$tb-grid-breakpoints: (
-        xs: 0,
-        sm: 576px,
-        md: 768px,
-        lg: 992px,
-        xl: 1200px,
-        xxl: 1400px
-);
+$tb-grid-breakpoints: ( xs: 0, sm: 576px, md: 769px, lg: 992px, xl: 1200px, xxl: 1400px );
 
 .tb-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
 
-    @for $i from 1 through 50 {
-        &.tb-grid-gap-#{$i} {
-          //row-gap: #{$i}px;
-          //column-gap: #{css-min(#{$i}px, 8%)};
-          gap: #{$i}px #{css-min(#{$i}px, 8%)};
-        }
-      }
-    
-      @for $i from 1 through 50 {
-        &.tb-grid-colgap-#{$i} {
-          column-gap: #{css-min(#{$i}px, 8%)};
-        }
-      }
-    
-      @for $i from 1 through 50 {
-        &.tb-grid-rowgap-#{$i} {
-          row-gap: #{$i}px;
-        }
-      }
-    
-
-    > * {
-        grid-column-start: span 12;
+  @for $i from 1 through 50 {
+    &.tb-grid-gap-#{$i} {
+      //row-gap: #{$i}px;
+      //column-gap: #{css-min(#{$i}px, 8%)};
+      gap: #{$i}px #{css-min(#{$i}px, 8%)};
     }
+  }
 
-    @each $breakpoint-name, $breakpoint-value in $tb-grid-breakpoints {
-        @media (min-width: #{$breakpoint-value}) {
-            @for $i from 1 through 12 {
-                .tb-grid-#{$breakpoint-name}-#{$i} {
-                    grid-column-start: span #{$i};
-                }
-            }
-        }
+  @for $i from 1 through 50 {
+    &.tb-grid-colgap-#{$i} {
+      column-gap: #{css-min(#{$i}px, 8%)};
     }
+  }
+
+  @for $i from 1 through 50 {
+    &.tb-grid-rowgap-#{$i} {
+      row-gap: #{$i}px;
+    }
+  }
+
+
+  > * {
+    grid-column-start: span 12;
+  }
+
+  @each $breakpoint-name, $breakpoint-value in $tb-grid-breakpoints {
+    @media (min-width: #{$breakpoint-value}) {
+      @for $i from 1 through 12 {
+        .tb-grid-#{$breakpoint-name}-#{$i} {
+          grid-column-start: span #{$i};
+        }
+      }
+    }
+  }
 }
