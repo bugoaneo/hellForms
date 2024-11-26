@@ -1,0 +1,37 @@
+﻿.contentDocs__wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(375px-20px, 1fr));
+  gap: 20px;
+}
+
+.link__docs {
+}
+
+.imageDocs {
+}
+
+.download__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.file__name {
+  margin: 0px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.cCatalogList__fileWeight {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #84828E;
+}
+
+.itemDocs__wrap {
+  display: flex;
+  flex-direction: row;
+  gap: 13px;
+  align-items: center;
+}

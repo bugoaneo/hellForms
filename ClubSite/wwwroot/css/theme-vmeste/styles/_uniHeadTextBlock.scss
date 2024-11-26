@@ -64,3 +64,18 @@
   letter-spacing: -0.08px;
   padding: 0.4em 0.5em;
 }
+/* стили для 3 в ряд*/
+.treeInRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+/* стили для 4 в ряд*/
+.fourInRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+/* стили для 5 в ряд*/
+.fiveInRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}

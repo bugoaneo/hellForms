@@ -23,7 +23,10 @@
                     var elem = (ElemIconHeadText)item.Content;
                     <div class="wrapper__nomination">
                         <div class="wrapper__nomination--elem">
-                            <img class="nomination__icon" src="@elem.Icon.Url()">
+                            @if (elem.HasValue("icon"))
+                            {
+                                <img class="nomination__icon" src="@elem.Icon.Url()" width="32">
+                            }
                             <h5 class="nomination__title">@elem.Title</h5>
                         </div>
                         <div class="wrapper__nomination--elem">

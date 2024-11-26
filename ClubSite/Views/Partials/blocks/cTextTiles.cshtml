@@ -2,7 +2,7 @@
 @{
     var settings = (BlockSettings?)ViewData["settings"];
     var textTilesList = Model.ElemList;
-    string additionalClass = string.Empty;
+    var additionalClass = "";
 }
 
 @{
@@ -24,19 +24,6 @@
                     <div class="block__description text">@Model.Description</div>
                 }
 
-                @*переключатель "цифра или текст"*@
-                @switch (Model.Layout)
-                {
-                    case "Заголовок с текстом":
-                        renderTextHead();
-                        break;
-                    case "Заголовок с числом":
-                        renderNumberHead();
-                        break;
-                    default:
-                        renderTextHead();
-                        break;
-                }
                 @* переключатель "колонки в ряд"*@
                 @switch (Model.Layout2)
                 {
@@ -53,6 +40,20 @@
                         additionalClass = "treeInRow";
                         break;
                 }
+                @*переключатель "цифра или текст"*@
+
+                @switch (Model.Layout)
+                {
+                    case "Заголовок с текстом":
+                        renderTextHead();
+                        break;
+                    case "Заголовок с числом":
+                        renderNumberHead();
+                        break;
+                    default:
+                        renderTextHead();
+                        break;
+                }
 
             </div>
         </div>
@@ -65,6 +66,7 @@
         @*отрисовка элемента *@
         @if (textTilesList != null && textTilesList.Any())
         {
+
             <div class="wrapper__flex @additionalClass">
                 @foreach (var item in textTilesList)
                 {
