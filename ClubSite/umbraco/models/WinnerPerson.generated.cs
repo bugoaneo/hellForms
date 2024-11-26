@@ -73,14 +73,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual global::System.DateTime EndDate => this.Value<global::System.DateTime>(_publishedValueFallback, "endDate");
 
 		///<summary>
-		/// Сумма гранта: Обязательное поле
+		/// Сумма гранта: Обязательное поле. Выводится в списках и на странице победителя
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
 		[ImplementPropertyType("grantSumm")]
 		public virtual int GrantSumm => this.Value<int>(_publishedValueFallback, "grantSumm");
 
 		///<summary>
-		/// Номинация: Обязательное поле
+		/// Номинация
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
@@ -96,7 +96,7 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel PublicationConstructor => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "publicationConstructor");
 
 		///<summary>
-		/// Краткое описание: Выводится на странице конкурсанта под заголовком
+		/// Краткое описание: Обязательное поле. Выводится на странице конкурсанта под заголовком
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
@@ -119,11 +119,12 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string Title => this.Value<string>(_publishedValueFallback, "title");
 
 		///<summary>
-		/// Дата: Обязательное поле
+		/// Год
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("winnersDate")]
-		public virtual global::System.DateTime WinnersDate => this.Value<global::System.DateTime>(_publishedValueFallback, "winnersDate");
+		public virtual global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent WinnersDate => this.Value<global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>(_publishedValueFallback, "winnersDate");
 
 		///<summary>
 		/// Победитель: Обязательное поле
