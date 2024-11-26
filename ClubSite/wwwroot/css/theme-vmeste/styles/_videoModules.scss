@@ -19,6 +19,7 @@
 
 .videoAndText__videoBody, .videoAndText__videoCover {
   grid-area: stuck;
+  border-radius: inherit;
 }
 
 .videoAndText__videoCover {
@@ -51,6 +52,8 @@
   iframe, video {
     width: 100%;
     height: 100%;
+    border-radius: inherit;
+    border: 1px solid #fff;
   }
 }
 
