@@ -1,25 +1,143 @@
-﻿@using Umbraco.Cms.Core.Models;
+﻿@using System;
+@using Umbraco.Cms.Core.Models;
 @using Umbraco.Cms.Core.Models.Blocks;
 @using Umbraco.Cms.Core.PublishedCache;
 @using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
-        Layout = "_master.cshtml";
-	var publicationBlocks = Model.Value<Umbraco.Cms.Core.Models.Blocks.BlockListModel>("publicationConstructor")!;
+    Layout = "_master.cshtml";
+    var publicationBlocks = Model.Value<BlockListModel>("publicationConstructor")!;
+    var title = Model.HasValue("title") ? Html.Raw(Model.Value("title")) : Html.Raw(Model.Name);
+    var city = Model.Value<Umbraco.Cms.Web.Common.PublishedModels.DictionaryItem>("city");
+    // var nomination = Model.Value<Umbraco.Cms.Web.Common.PublishedModels.DictionaryItem>("nomination");
+    // var winnerType = Model.Value<Umbraco.Cms.Web.Common.PublishedModels.DictionaryItem>("winnerType");
+
 }
 
+<div class="winnerPage block block--inner">
+
+    <div class="winnerPage__topRow">
+        <div class="block__content">
+            <button id="history-button" class="btn btn--icon history-hide historyBtn" title="Вернуться назад">
+                <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24">
+                        <path fill="none" fill-opacity=".01" d="M0 0h24v24H0z" />
+                        <path fill="currentColor" fill-rule="evenodd" d="M10.966 5.034a.8.8 0 0 1 0 1.131L5.93 11.2H20a.8.8 0 0 1 0 1.6H5.931l5.035 5.034a.8.8 0 0 1-1.132 1.132l-6.4-6.4a.8.8 0 0 1 0-1.132l6.4-6.4a.8.8 0 0 1 1.132 0Z" clip-rule="evenodd" />
+                    </svg>
+                </span>
+                <span class="label">Все&nbsp;победители</span>
+            </button>
+        </div>
+    </div>
 
 
-@{
-	if (publicationBlocks != null)
-	{
-		var index = 0;
-		ViewData["page"] = Model;
-		foreach (var block in publicationBlocks)
-		{
-			ViewData["blockIndex"] = index++;
-			ViewData["settings"] = block.Settings;
-			@await Html.PartialAsync("blocks/" + block.Content.ContentType.Alias, block.Content)
-		}
-	}
-}
+    <div class="block__content">
+        <div class="winnerPage__container">
+            <div class="winnerPage__content">
+                <h1 class="block__title">@title</h1>
+                @if (city.IsNotNull())
+                {
+                    <div class="winnerPage__label">
+                        @if (city.HasValue("icon"))
+                        {
+                            <div class="icon"><img src="@city.Icon?.Url()" alt="@city.Name" /></div>
+                        }
+                        <div class="label"> @city.Name</div>
+                    </div>
+                }
+                <div class="winnerPage__brif text">
+                    <div class="winnerPage__caption">Конкурсант</div>
+                    @Model.Value("shortDescription")
+                </div>
+                <div class="winnerPage__infoGrid">
+                    @if (city.IsNotNull())
+                    {
+                        <div class="winnerPage__infoGrid-item geo">
+                            <div class="winnerPage__caption">География</div>
+                            <div class="winnerPage__label"> г.&nbsp;@city.Name</div>
+                        </div>
+                    }
+                    @if (Model.HasValue("startDate") || Model.HasValue("endDate"))
+                    {
+                        var startDate = Model.Value<DateTime?>("startDate");
+                        var formattedStart = startDate.HasValue && startDate.Value != DateTime.MinValue
+                        ? startDate.Value.ToString("dd.MM.yyyy")
+                        : string.Empty;
+
+                        var endDate = Model.Value<DateTime?>("endDate");
+                        var formattedEnd = endDate.HasValue && endDate.Value != DateTime.MinValue
+                        ? endDate.Value.ToString("dd.MM.yyyy")
+                        : string.Empty;
+
+                        <div class="winnerPage__infoGrid-item date">
+                            <div class="winnerPage__caption">Сроки реализации</div>
+                            <div class="winnerPage__label"> 
+                                @if (formattedStart.IsNotEmpty()){@formattedStart}                                
+                                @if (formattedEnd.IsNotEmpty()){@Html.Raw("&nbsp;&#8213;&nbsp;") @formattedEnd}
+                            </div>
+                        </div>
+                    }
+                    @if (Model.HasValue("grantSumm") || Model.HasValue("ownFunds"))
+                    {
+                        var ownString = Model.HasValue("ownFunds") ? "Собственные средства /" : string.Empty;
+                        var ownValue = Model.Value<int>("ownFunds");
+                        var grantValue = Model.Value<int>("grantSumm");
+                        <div class="winnerPage__infoGrid-item grant">
+                            <div class="winnerPage__caption">@ownString Сумма гранта</div>
+                            @if (Model.HasValue("ownFunds"))
+                            {
+                                @ownValue
+
+                                @Html.Raw("&nbsp;&#8381;&nbsp;&#47;")
+                            }
+                            @grantValue@Html.Raw("&nbsp;&#8381;")
+                            
+                        </div>
+                    }
+                </div>
+                @if (Model.HasValue("fullDescription"))
+                {
+                    <div class="winnerPage__description text">
+                        @Model.Value("fullDescription")
+                    </div>
+                }
+                @if (Model.HasValue("btnLink"))
+                {
+                    <div class="winnerPage__action">
+                        <a href="@(Model.Value<Link>("btnLink")?.Url)" class="btn btn--icon">
+                            <span class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24">
+                                    <path fill="none" fill-opacity=".01" d="M0 0h24v24H0z" />
+                                    <path fill="currentColor" fill-rule="evenodd" d="M13.62 4.808c1.081-.735 2.45-.75 3.466-.082.23.152.477.393 1.136 1.052.66.659.9.905 1.052 1.136.667 1.016.653 2.385-.082 3.467-.168.247-.428.512-1.111 1.195l-.99.99a.8.8 0 0 0 1.131 1.131l.99-.99.07-.069c.59-.59.969-.97 1.233-1.358 1.08-1.59 1.136-3.66.096-5.244-.254-.387-.623-.756-1.186-1.318l-.071-.072-.072-.071c-.562-.563-.931-.932-1.318-1.186-1.584-1.04-3.654-.985-5.244.096-.389.264-.767.643-1.359 1.234l-.068.069-.99.99a.8.8 0 1 0 1.131 1.13l.99-.989c.683-.683.948-.943 1.195-1.11Zm-6.711 6.626a.8.8 0 0 0-1.132-1.131l-.99.99-.068.069c-.592.59-.97.97-1.234 1.358-1.08 1.59-1.137 3.66-.096 5.245.253.386.623.756 1.186 1.317l.07.072.072.071c.562.563.932.933 1.318 1.186 1.584 1.04 3.654.985 5.245-.096.389-.264.767-.642 1.358-1.234l.069-.068.99-.99a.8.8 0 0 0-1.131-1.132l-.99.99c-.684.684-.948.943-1.195 1.11-1.083.736-2.45.75-3.467.083-.231-.152-.478-.392-1.137-1.051-.659-.66-.9-.906-1.05-1.137-.668-1.016-.654-2.384.081-3.467.168-.247.428-.511 1.11-1.195l.99-.99Zm8.486-1.697a.8.8 0 0 0-1.132-1.132l-5.657 5.657a.8.8 0 1 0 1.132 1.131l5.657-5.656Z" clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                            <span class="label">@(Model.Value<Link>("btnLink")?.Name)</span>
+                        </a>
+                    </div>
+                }
+            </div>
+            <div class="winnerPage__media">
+                @if (Model.HasValue("cover"))
+                {
+                    <div class="winnerPage__pic"><img src="@(Model.Value<MediaWithCrops>("cover")?.Url())" alt="@title"></div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="constructor">
+
+    @if (publicationBlocks != null)
+    {
+
+        var index = 0;
+        ViewData["page"] = Model;
+        foreach (var block in publicationBlocks)
+        {
+            ViewData["blockIndex"] = index++;
+            ViewData["settings"] = block.Settings;
+            @await Html.PartialAsync("blocks/" + block.Content.ContentType.Alias, block.Content)
+        }
+    }
+</div>

@@ -19,13 +19,13 @@ using Umbraco.Extensions;
 namespace Umbraco.Cms.Web.Common.PublishedModels
 {
 	/// <summary>Победитель</summary>
-	[PublishedModel("winnerPerson")]
-	public partial class WinnerPerson : SysSeoPage
+	[PublishedModel("winnerSingle")]
+	public partial class WinnerSingle : SysSeoPage
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
-		public new const string ModelTypeAlias = "winnerPerson";
+		public new const string ModelTypeAlias = "winnerSingle";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
@@ -34,20 +34,28 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 			=> PublishedModelUtility.GetModelContentType(publishedSnapshotAccessor, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<WinnerPerson, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<WinnerSingle, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(publishedSnapshotAccessor), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public WinnerPerson(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
+		public WinnerSingle(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
 		}
 
 		// properties
+
+		///<summary>
+		/// Ссылка
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("btnLink")]
+		public virtual global::Umbraco.Cms.Core.Models.Link BtnLink => this.Value<global::Umbraco.Cms.Core.Models.Link>(_publishedValueFallback, "btnLink");
 
 		///<summary>
 		/// Город: Обязательное поле
@@ -73,6 +81,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual global::System.DateTime EndDate => this.Value<global::System.DateTime>(_publishedValueFallback, "endDate");
 
 		///<summary>
+		/// Полное описание
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("fullDescription")]
+		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString FullDescription => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "fullDescription");
+
+		///<summary>
 		/// Сумма гранта: Обязательное поле. Выводится в списках и на странице победителя
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
@@ -86,6 +102,13 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("nomination")]
 		public virtual global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent Nomination => this.Value<global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>(_publishedValueFallback, "nomination");
+
+		///<summary>
+		/// Собственные средства
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
+		[ImplementPropertyType("ownFunds")]
+		public virtual int OwnFunds => this.Value<int>(_publishedValueFallback, "ownFunds");
 
 		///<summary>
 		/// Конструктор публикации
