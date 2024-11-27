@@ -6,6 +6,9 @@
 /ClubSite/.vs
 /ClubSite/bin
 /ClubSite/obj
-/ClubSite/uSync/v9/Content/
-/ClubSite/uSync/v9/Media/
-/ClubSite/umbraco/models/CTextTiles.generated.cs
+/ClubSite/uSync/v9/Content
+/ClubSite/uSync/v9/Media
+ClubSite/wwwroot/css/core.css
+ClubSite/wwwroot/css/core.min.css
+ClubSite/wwwroot/css/main.css
+ClubSite/wwwroot/css/main.min.css

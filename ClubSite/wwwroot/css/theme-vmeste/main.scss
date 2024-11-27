@@ -151,7 +151,7 @@ $maxWidth: 1820;
 @import 'styles/_videoModules.scss';
 @import 'styles/_footer.scss';
 
-
+@import 'pages/_winnerPage.scss';
 
 :root {
   --dark: #333244;
@@ -180,11 +180,14 @@ body {
 }
 
 .wrapper {
+  padding-bottom: 100px;
+
   @include bp(1100px) {
     margin-top: 83px;
   }
 
   @include bp(650px) {
+    padding-bottom: 50px;
     margin-top: 56px;
   }
 }
