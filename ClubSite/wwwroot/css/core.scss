@@ -254,6 +254,10 @@ h1, h2, h3, h4, .block__title {
       grid-template-areas: none;
     }
   }
+
+  &--inner {
+    padding-top: 32px;
+  }
 }
 
 /* настройки блоков */
@@ -304,7 +308,7 @@ h1, h2, h3, h4, .block__title {
   display: none;
 }
 
-.block__content, .header__content, .footer__content {
+.block__content, .header__content, .footer__content, .publicationBlock__container {
   position: relative;
   max-width: 1200px;
   min-width: 360px;

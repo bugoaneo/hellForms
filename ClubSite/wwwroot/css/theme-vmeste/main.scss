@@ -172,11 +172,14 @@ body {
 }
 
 .wrapper {
+  padding-bottom: 100px;
+
   @include bp(1100px) {
     margin-top: 83px;
   }
 
   @include bp(650px) {
+    padding-bottom: 50px;
     margin-top: 56px;
   }
 }
