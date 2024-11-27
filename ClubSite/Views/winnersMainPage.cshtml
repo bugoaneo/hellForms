@@ -8,7 +8,7 @@
     var childList = Model?.Children.Where(x => x.IsVisible());
 }
 
-<section class="block _noMarginBottom" style="--veil: 0;">
+<section class="winnerCatlog block block--inner _noMarginBottom" style="--veil: 0;">
     <div class="block__content">
         <div class="block__header-row">
             <h1 class="block__title">@(Model.HasValue("title") ? Model.Value("title") : Model.Name())</h1>
@@ -23,7 +23,6 @@
 {
 <section class="block _noMarginBottom" style="--veil: 0;">
     <div class="block__content">
-
     </div>
     </section>
 }
