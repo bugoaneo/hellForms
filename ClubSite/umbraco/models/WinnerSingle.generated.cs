@@ -58,7 +58,7 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual global::Umbraco.Cms.Core.Models.Link BtnLink => this.Value<global::Umbraco.Cms.Core.Models.Link>(_publishedValueFallback, "btnLink");
 
 		///<summary>
-		/// Город: Обязательное поле
+		/// Город
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
@@ -150,7 +150,7 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent WinnersDate => this.Value<global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>(_publishedValueFallback, "winnersDate");
 
 		///<summary>
-		/// Победитель: Обязательное поле
+		/// Победитель
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
