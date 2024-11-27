@@ -1,81 +1,147 @@
-﻿.wrapper__flex {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
+﻿.cTextTiles {
+  .wrapper__flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    /*    @include br() {
+    }*/
+  }
 
-.elem__wrap {
-  flex: 0 1 calc(100%/5 - 8px);
-  flex-direction: column;
-  border: 1px solid #D8D7EB;
-  border-radius: 8px;
-}
-
-.color__wrap {
-}
-
-.elem__head {
-  font-size: 20px;
-  line-height: 28px;
-  letter-spacing: -0.08px;
-  font-weight: 500;
-  padding: 0.4em 0.5em;
-  background-color: #EFEFFA;
-}
-
-.elem__content {
-  display: flex;
-  flex-direction: column;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-  letter-spacing: -0.08px;
-  padding: 0.4em 0.5em;
-  max-width: 194px;
-}
+  .styleTitle {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.12px;
+    margin-bottom: 31px;
+  }
 
 
-/*стили с цифрой*/
-.wrapper__flex-num {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
+  .elem__wrap {
+    flex: 0 1 calc(100%/5 - 8px);
+    flex-direction: column;
+    border: 1px solid #D8D7EB;
+    border-radius: 8px;
+  }
 
-.elem__wrap-num {
-  background-color: #FFEDD2;
-  border-radius: 8px;
-  flex: 0 1 calc(100%/5 - 8px);
-  border: 1px solid #FFEDD2;
-}
+  .color__wrap {
+  }
 
-.color__wrap-num {
-  font-size: 35px;
-  font-weight: 700;
-  color: #F3920A;
-  line-height: 40px;
-  letter-spacing: -0.16px;
-  padding: 0.3em 0em 0em 0.3em;
-}
+  .elem__head {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.08px;
+    font-weight: 500;
+    padding: 0.4em 0.5em;
+    background-color: #EFEFFA;
+  }
 
-.elem__content-num {
-  line-height: 24px;
-  font-weight: 400;
-  letter-spacing: -0.08px;
-  padding: 0.4em 0.5em;
-}
-/* стили для 3 в ряд*/
-.treeInRow {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-/* стили для 4 в ряд*/
-.fourInRow {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-/* стили для 5 в ряд*/
-.fiveInRow {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  .elem__content {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    //letter-spacing: -0.08px;
+    padding: 0.6em 0.4em;
+    max-width: 194px;
+  }
+
+  .elem__content p + p {
+    margin-top: 0.5em;
+  }
+
+  .elem__content > p {
+    margin-left: 0.2em;
+  }
+  /*стили с цифрой*/
+  .styleTitle2 {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.12px;
+    margin-top: 7px;
+    padding-bottom: 9px;
+  }
+
+  .wrapper__flex-num {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .elem__wrap-num {
+    background-color: #FFEDD2;
+    border-radius: 8px;
+    flex: 0 1 calc(100%/5 - 8px);
+    border: 1px solid #FFEDD2;
+  }
+
+  .color__wrap-num {
+    font-size: 35px;
+    font-weight: 700;
+    color: #F3920A;
+    line-height: 40px;
+    letter-spacing: -0.16px;
+    padding: 0.4em 0em 0em 0.4em;
+  }
+
+
+  .elem__content-num {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    letter-spacing: -0.08px;
+    padding: 0.3em 0.9em 0.8em 0.9em;
+  }
+  /* стили для 3 в ряд*/
+  .threeInRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    @include bp(769px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @include bp(600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  /* стили для 4 в ряд*/
+  .fourInRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    @include bp(961px) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @include bp(769px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @include bp(600px) {
+      grid-template-columns: 1fr;
+    }
+
+    @include bp(500px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  /* стили для 5 в ряд*/
+  .fiveInRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+    @include bp(961px) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @include bp(769px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @include bp(600px) {
+      grid-template-columns: 1fr;
+    }
+  }
 }

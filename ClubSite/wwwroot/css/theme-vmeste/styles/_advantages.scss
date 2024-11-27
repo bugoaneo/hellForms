@@ -1,5 +1,8 @@
 ﻿
 .advantageCollection {
+  padding-top: 0.7em;
+  justify-content: flex-start;
+  gap: 33px;
 }
 
 .advantageCollection__item {
@@ -7,19 +10,20 @@
 }
 
 .advantageCollection__icon {
-  max-width: 33px;
+  max-width: 37px;
 }
 
 .advantageCollection__body {
 }
 
 .advantageCollection__title {
+  @include fFS(16px,20px,390px,1440px);
+  line-height: 28px;
+  letter-spacing: -0.08px;
+  font-weight: 500;
 }
 
 .advantageCollection__text {
-  //@include bp(768px) {
-  //  font-size: 14px;
-  //}
 }
 
 .advantageCollection__item--inline .advantageCollection__title {
@@ -28,9 +32,14 @@
 
 .advantageCollection__item--inline .advantageCollection__icon {
   flex: 0 0 36px;
-  margin-right: 1em;
+  margin-right: 0.8em;
 }
 
 .contaitment {
   max-width: 865px;
+}
+
+.padding__wrapper {
+  padding-top: 2em;
+  padding-left: 0.9em;
 }

@@ -13,22 +13,13 @@
         <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
             <div class="text__wrapper">
                 @*отрисовка Заголовка*@
-                @if (Model.HasValue("title"))
-                {
-                    <h2 class="block__title styleTitle">@Model.Title</h2>
-                }
 
-                @*отрисовка описания*@
-                @if (Model.HasValue("description"))
-                {
-                    <div class="block__description text">@Model.Description</div>
-                }
 
                 @* переключатель "колонки в ряд"*@
                 @switch (Model.Layout2)
                 {
                     case "3 в ряд":
-                        additionalClass = "treeInRow";
+                        additionalClass = "threeInRow";
                         break;
                     case "4 в ряд":
                         additionalClass = "fourInRow";
@@ -37,7 +28,7 @@
                         additionalClass = "fiveInRow";
                         break;
                     default:
-                        additionalClass = "treeInRow";
+                        additionalClass = "threeInRow";
                         break;
                 }
                 @*переключатель "цифра или текст"*@
@@ -62,7 +53,17 @@
 
 
     void renderTextHead()
-    {
+    {@*отрисовка Заголовка*@
+        @if (Model.HasValue("title"))
+        {
+            <h2 class="block__title styleTitle">@Model.Title</h2>
+        }
+
+        @*отрисовка описания*@
+        @if (Model.HasValue("description"))
+        {
+            <div class="block__description text">@Model.Description</div>
+        }
         @*отрисовка элемента *@
         @if (textTilesList != null && textTilesList.Any())
         {
@@ -83,7 +84,17 @@
         }
     }
     void renderNumberHead()
-    {
+    {@*отрисовка Заголовка*@
+        @if (Model.HasValue("title"))
+        {
+            <h2 class="block__title styleTitle2">@Model.Title</h2>
+        }
+
+        @*отрисовка описания*@
+        @if (Model.HasValue("description"))
+        {
+            <div class="block__description text">@Model.Description</div>
+        }
         int count = 1;
         @*отрисовка элемента *@
         @if (textTilesList != null && textTilesList.Any())
