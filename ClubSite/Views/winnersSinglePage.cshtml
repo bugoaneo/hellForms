@@ -9,9 +9,7 @@
     var publicationBlocks = Model.Value<BlockListModel>("publicationConstructor")!;
     var title = Model.HasValue("title") ? Html.Raw(Model.Value("title")) : Html.Raw(Model.Name);
     var city = Model.Value<Umbraco.Cms.Web.Common.PublishedModels.DictionaryItem>("city");
-    // var nomination = Model.Value<Umbraco.Cms.Web.Common.PublishedModels.DictionaryItem>("nomination");
-    // var winnerType = Model.Value<Umbraco.Cms.Web.Common.PublishedModels.DictionaryItem>("winnerType");
-
+    var nomination = Model.Value<Umbraco.Cms.Web.Common.PublishedModels.DictionaryItem>("nomination");
 }
 
 <div class="winnerPage block block--inner">
@@ -34,21 +32,27 @@
     <div class="block__content">
         <div class="winnerPage__container">
             <div class="winnerPage__content">
-                <h1 class="block__title">@title</h1>
-                @if (city.IsNotNull())
-                {
-                    <div class="winnerPage__label">
-                        @if (city.HasValue("icon"))
-                        {
-                            <div class="icon"><img src="@city.Icon?.Url()" alt="@city.Name" /></div>
-                        }
-                        <div class="label"> @city.Name</div>
-                    </div>
-                }
-                <div class="winnerPage__brif text">
-                    <div class="winnerPage__caption">Конкурсант</div>
-                    @Model.Value("shortDescription")
+                <div class="winnerPage__header">
+                    <h1 class="block__title">@title</h1>
+                    @if (city.IsNotNull())
+                    {
+                        <div class="winnerPage__nomination">
+                            @if (nomination.HasValue("icon"))
+                            {
+                                <div class="icon"><img src="@nomination.Icon?.Url()" alt="@nomination.Name" /></div>
+                            }
+                            <div class="label"> @nomination.Name</div>
+                        </div>
+                    }
+
                 </div>
+
+
+                    <div class="winnerPage__brif text">
+                        <div class="winnerPage__caption">Конкурсант</div>
+                        @Model.Value("shortDescription")
+                    </div>
+
                 <div class="winnerPage__infoGrid">
                     @if (city.IsNotNull())
                     {
@@ -71,9 +75,15 @@
 
                         <div class="winnerPage__infoGrid-item date">
                             <div class="winnerPage__caption">Сроки реализации</div>
-                            <div class="winnerPage__label"> 
-                                @if (formattedStart.IsNotEmpty()){@formattedStart}                                
-                                @if (formattedEnd.IsNotEmpty()){@Html.Raw("&nbsp;&#8213;&nbsp;") @formattedEnd}
+                            <div class="winnerPage__label">
+                                @if (formattedStart.IsNotEmpty())
+                                {
+                                    @formattedStart
+                                }
+                                @if (formattedEnd.IsNotEmpty())
+                                {
+                                    @Html.Raw("&nbsp;&#8213;&nbsp;") @formattedEnd
+                                }
                             </div>
                         </div>
                     }
@@ -91,7 +101,7 @@
                                 @Html.Raw("&nbsp;&#8381;&nbsp;&#47;")
                             }
                             @grantValue@Html.Raw("&nbsp;&#8381;")
-                            
+
                         </div>
                     }
                 </div>

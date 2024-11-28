@@ -6,6 +6,7 @@
 @{
     Layout = "_master.cshtml";
     var childList = Model?.Children.Where(x => x.IsVisible());
+    var directories = Model?.Value<Umbraco.Cms.Web.Common.PublishedModels.Dictionaries>("directories");
 }
 
 <section class="winnerCatlog block block--inner _noMarginBottom" style="--veil: 0;">
@@ -21,9 +22,49 @@
 </section>
 @if (childList?.Count() > 0)
 {
-<section class="block _noMarginBottom" style="--veil: 0;">
-    <div class="block__content">
+    <div class="filters">
+        <div class="filters__container">
+            <div class="filters__search">
+                <form class="searchPage__form" action="@Model.Url()" method="get">
+                    <label class="searchPage__label" for="@Model.Key">
+                        <input id="@Model.Key" type="text" name="title" value="" placeholder="Введите поисковый запрос">
+                    </label>
+                    <button type="submit" class="searchPage__btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 18">
+                            <path fill="currentColor" fill-rule="evenodd" d="M2.564 8a6 6 0 0 1 6-5.999 6 6 0 1 1-6 6Zm6-7.999a8 8 0 1 0 5.026 14.223c.04.177.13.345.267.482l3 3a1 1 0 0 0 1.415-1.414l-3-3a.995.995 0 0 0-.483-.267A8 8 0 0 0 8.564.002Z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                </form>
+            </div>
+            <div class="filters__grid">
+                @foreach (var item in directories.Children)
+                {
+                    @if (item.Children.Count() > 0)
+                    {
+                        <div class="select-wrapper filter__category">
+                            <select name="@item.UrlSegment" id="@item.Value("dictionaryId")">
+                                <option value="all">@item.Value("defaultField")</option>
+                                @foreach (var elem in item.Children)
+                                {
+                                    <option value="@elem.UrlSegment">@elem.Name</option>
+                                }
+                            </select>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="filters__search-result">
+                По запросу <span class="queryValye"></span> найдено <sapn class="queryCount"></sapn>
+            </div>
+
+
+        </div>
     </div>
+    <section class="block _noMarginBottom" style="--veil: 0;">
+        <div class="block__content">
+
+        </div>
     </section>
 }
 else

@@ -48,5 +48,21 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		}
 
 		// properties
+
+		///<summary>
+		/// Поле для фильтра по умолчанию
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("defaultField")]
+		public virtual string DefaultField => this.Value<string>(_publishedValueFallback, "defaultField");
+
+		///<summary>
+		/// Id: Используется в фильтрах. Обязательное поле. Латиница.
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("dictionaryId")]
+		public virtual string DictionaryId => this.Value<string>(_publishedValueFallback, "dictionaryId");
 	}
 }

@@ -5,3 +5,98 @@
 .publicationBlock__content {
   margin-bottom: 2em;
 }
+
+.winnerPage__topRow {
+  margin-bottom: 24px;
+}
+
+.winnerPage__nomination {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5px 10px;
+  border: 1px solid #0200279D;
+  border-radius: 0.25em;
+
+  .icon {
+    margin-right: 0.5em;
+
+    img {
+      display: block;
+    }
+  }
+}
+
+.winnerPage__header,
+.winnerPage__brif,
+.winnerPage__infoGrid,
+.winnerPage__description {
+  margin-bottom: 32px;
+}
+
+.winnerPage__caption {
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.winnerPage__container {
+  display: grid;
+  grid-template-columns: 41% 50%;
+  justify-content: space-between;
+  gap: 32px;
+
+  @include bp(768px) {
+    grid-template-columns: 100%;
+  }
+}
+
+.winnerPage__pic {
+  position: sticky;
+  top: 0;
+}
+
+.winnerPage__infoGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+
+  @include bp(600px) {
+    grid-template-columns: 100%;
+  }
+}
+
+.winnerPage__infoGrid-item {
+  padding: 12px;
+  border-radius: 0.5em;
+  background-color: #FFEDD2;
+
+  .winnerPage__caption {
+    margin-bottom: 8px;
+  }
+
+  &.geo {
+    grid-column: span 2;
+
+    @include bp(600px) {
+      grid-column: auto;
+    }
+  }
+
+  &.date {
+    grid-column: span 3;
+
+    @include bp(600px) {
+      grid-column: auto;
+    }
+  }
+
+  &.grant {
+    grid-column: 1/-1;
+  }
+}
+
+.winnerPage__media {
+  @include bp(768px) {
+    order: -1;
+  }
+}
