@@ -18,14 +18,14 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Web.Common.PublishedModels
 {
-	/// <summary>Видео слайд для слайдера</summary>
-	[PublishedModel("videoSlide")]
-	public partial class VideoSlide : PublishedElementModel
+	/// <summary>Слайдер</summary>
+	[PublishedModel("cSlider")]
+	public partial class CSlider : PublishedElementModel
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
-		public new const string ModelTypeAlias = "videoSlide";
+		public new const string ModelTypeAlias = "cSlider";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
@@ -34,36 +34,20 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 			=> PublishedModelUtility.GetModelContentType(publishedSnapshotAccessor, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<VideoSlide, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<CSlider, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(publishedSnapshotAccessor), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public VideoSlide(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
+		public CSlider(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
 		}
 
 		// properties
-
-		///<summary>
-		/// Текст кнопки
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("btnText")]
-		public virtual string BtnText => this.Value<string>(_publishedValueFallback, "btnText");
-
-		///<summary>
-		/// Обложка слайда
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("cover")]
-		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops Cover => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "cover");
 
 		///<summary>
 		/// Описание
@@ -74,12 +58,12 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString Description => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "description");
 
 		///<summary>
-		/// Ссылка на видео с YouTube, Vmeo, GooglMap: Вида https://www.youtube.com/watch?v=ID  https://vimeo.com/ID  https://www.google.com/maps/d/embed?mid=ID
+		/// Элементы слайдера
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("mediaLink")]
-		public virtual string MediaLink => this.Value<string>(_publishedValueFallback, "mediaLink");
+		[ImplementPropertyType("slider")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel Slider => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "slider");
 
 		///<summary>
 		/// Заголовок
@@ -88,13 +72,5 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("title")]
 		public virtual string Title => this.Value<string>(_publishedValueFallback, "title");
-
-		///<summary>
-		/// Код для вставки с ВК: Код для вставки с ВК
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("vkCode")]
-		public virtual string VkCode => this.Value<string>(_publishedValueFallback, "vkCode");
 	}
 }

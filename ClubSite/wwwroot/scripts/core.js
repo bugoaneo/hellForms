@@ -189,9 +189,9 @@ $(function () {
             if ($e.hasClass("cardGallery")) {
                 options = swiperOptions.cardGallery;
             }
-            if ($e.hasClass("videoSlider")) {
-                options = swiperOptions.videoSlider;
-            }
+            //if ($e.hasClass("videoSlider")) {
+            //    options = swiperOptions.videoSlider;
+            //}
             var swiper = new Swiper(".mySwiper" + index, options);
         });
     }

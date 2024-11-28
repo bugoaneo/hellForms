@@ -1,4 +1,5 @@
-﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CVideoSlider>
+﻿@using System.Text.RegularExpressions
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CVideoSlider>
 @{
     var settings = (BlockSettings?)ViewData["settings"];
 
@@ -14,23 +15,16 @@
                 @Model.Content
             </div>
         }
-        @if(Model.SlideList !=null && Model.SlideList.Any())
+        @if (Model.SlideList != null && Model.SlideList.Any())
         {
             <div class="videoSlider__body">
                 <div class="swiper mySwiper swiper-container videoSlider popup-gallery">
                     <div class="swiper-wrapper videoSlider__list">
                         @{
-                            foreach(var slide in Model.SlideList)
+                            foreach (var slide in Model.SlideList)
                             {
                                 var videoItem = (VideoSlide)slide.Content;
-                                <div class="swiper-slide videoSlider__item">                                
-                                    @if (videoItem.HasValue("projectDate"))
-                                    {
-                                       <div class="videoSlider__date">
-                                        @(videoItem.Value<DateTime>("projectDate").ToString("d"))
-                                    </div> 
-                                    }
-
+                                <div class="swiper-slide videoSlider__item">
                                     <div class="videoSlider__content">
                                         @if (videoItem.Cover != null)
                                         {
@@ -39,17 +33,26 @@
                                                 <img class="videoSlider__cover" src="@videoItem.Cover.Url()" alt="@(altImg.ToString() != string.Empty ? altImg : videoItem.Cover.Name)">
                                             </a>
                                         }
+                                        @if (videoItem.VkCode != null)
+                                        {
+                                            var m = Regex.Match(videoItem.VkCode, "src\\s*=\\s*(?:[\"'](?<1>[^\"']*)[\"']|(?<1>\\S+))",
+                                            RegexOptions.IgnoreCase | RegexOptions.Compiled,
+                                            TimeSpan.FromSeconds(1));
+                                            if (!string.IsNullOrEmpty(m.Value))
+                                            {
 
+                                                var str = m.Value.Replace("src=\"", "").Replace("\"", "");
+                                                str = str + "&js_api=1";
+                                                <a class="videoSlider__item-link" href="@str">
+                                                    <img class="videoSlider__cover" src="@(videoItem.Cover != null ? videoItem.Cover.Url() : null)" alt="">
+                                                </a>
+                                                //@str;
+                                            }
+                                        }
                                         <div class="videoSlider__item-info">
                                             @if (!string.IsNullOrEmpty(videoItem.Title))
                                             {
                                                 <h3 class="videoSlider__item-title">@videoItem.Title</h3>
-                                            }
-                                            @if (videoItem.HasValue("projectDate"))
-                                            {
-                                                <div class="videoSlider__date mobile">
-                                                    @(videoItem.Value<DateTime>("projectDate").ToString("d"))
-                                                </div>
                                             }
                                             @if (videoItem.HasValue("description"))
                                             {
@@ -60,9 +63,9 @@
                                                 <a class="btn btn--slider" href="@(videoItem.MediaLink)">@videoItem.BtnText</a>
                                             }
                                         </div>
-                                    
+
                                     </div>
-                                   
+
                                 </div>
                             }
                         }
@@ -81,11 +84,11 @@
         }
         @if (Model.Btn != null)
         {
-           <div class="videoSlider__footer">
-            <a class="btn" href="@Model.Btn.Url" target="@Model.Btn.Target">@Model?.Btn?.Name</a> 
-            </div> 
+            <div class="videoSlider__footer">
+                <a class="btn" href="@Model.Btn.Url" target="@Model.Btn.Target">@Model?.Btn?.Name</a>
+            </div>
         }
-        
+
     </div>
 </section>
 
@@ -93,7 +96,7 @@
     void RenderVideoSlide(IPublishedContent slide)
     {
         <div class="swiper-slide">
-        
+
         </div>
     }
 }*@

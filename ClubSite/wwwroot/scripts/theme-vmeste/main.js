@@ -75,5 +75,33 @@
             })
         })
     }
+    if (videoSlider !== null) {
+        let personSlider = document.querySelector('.videoSlider').swiper;
+        if (window.innerWidth >= 577) {
+            personSlider.init();
+            personSlider.updateSlides();
+        } else {
+            personSlider.destroy(true, true);
+        }
+    }
+
+    const caseSlider = new Swiper('.case__slider', {
+        slidesPerView: 1.1,
+        spaceBetween: 10,
+        slidesOffsetBefore: 0,
+        observer: true,
+        //loop: true,
+        //centeredSlides: false,
+        navigation: {
+            nextEl: ".case__arrow-next",
+            prevEl: ".case__arrow-prev",
+        },
+        breakpoints: {
+            576: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+            },
+        }
+    })
 
 })();
