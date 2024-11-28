@@ -1,0 +1,50 @@
+﻿.cVideoSlider {
+  h2 {
+    @include fFS(24px,28px,390px,1440px);
+    line-height: 36px;
+    letter-spacing: -0.12px;
+
+    @include bp(600px) {
+      margin-bottom: 12px;
+      line-height: 30px;
+      letter-spacing: -0.01px;
+    }
+  }
+
+  .videoSlider__item-title {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 26px;
+    letter-spacing: -0.04px;
+    margin-top: 8px;
+    color: #333244;
+
+    @include bp(600px) {
+    }
+  }
+
+
+  .videoSlider__content {
+    max-width: 100%;
+  }
+
+  .videoSlider__cover {
+    border-radius: 16px;
+  }
+
+  .swiper-button-prev, .swiper-button-next {
+    color: black;
+    max-width: 20px;
+    max-height: 20px;
+  }
+
+  .swiper-button-next:after, .swiper-button-prev:after {
+    font-size: 20px;
+  }
+  /*стили для колонки*/
+  .grid__container {
+    .videoSlider__content {
+      margin-bottom: 12px;
+    }
+  }
+}

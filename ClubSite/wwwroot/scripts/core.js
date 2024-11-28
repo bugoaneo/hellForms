@@ -101,18 +101,18 @@ $(function () {
                         }
                     }
                 },
-                "videoSlider": {
-                    slidesPerView: 1,
-                    navigation: {
-                        nextEl: ".button-next" + index,
-                        prevEl: ".button-prev" + index,
-                    },
-                    pagination: {
-                        el: ".pagination" + index,
-                        type: "fraction",
-                        clickable: true
-                    },
-                },
+                //"videoSlider": {
+                //    slidesPerView: 1,
+                //    navigation: {
+                //        nextEl: ".button-next" + index,
+                //        prevEl: ".button-prev" + index,
+                //    },
+                //pagination: {
+                //    el: ".pagination" + index,
+                //    type: "fraction",
+                //    clickable: true
+                //},
+                //},
                 "gallery": {
                     loop: true,
                     spaceBetween: 10,
