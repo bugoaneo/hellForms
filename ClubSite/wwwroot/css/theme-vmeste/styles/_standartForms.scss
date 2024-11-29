@@ -1,0 +1,29 @@
+.filters__search {
+  margin-bottom: 20px;
+}
+
+.searchPage__form {
+  @include row();
+  width: 49%;
+  border: 1px solid var(--border);
+  border-radius: 0.4em;
+}
+
+.searchPage__label {
+  width: calc(100% - 40px);
+  margin-bottom: 0 !important;
+
+  input {
+    border: none;
+    font-size: 16px !important;
+    padding: 1em 1em 1em 0;
+
+    &::placeholder {
+      opacity: 1;
+    }
+  }
+}
+
+.searchPage__btn {
+  flex: 0 0 40px;
+}

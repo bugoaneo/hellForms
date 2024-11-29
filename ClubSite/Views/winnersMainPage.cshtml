@@ -1,15 +1,37 @@
-﻿@using Umbraco.Cms.Core.Models;
+﻿@using ClubSite.src.Models;
+@using Examine;
+@using Umbraco.Cms.Core.Models;
 @using Umbraco.Cms.Core.Models.Blocks;
 @using Umbraco.Cms.Core.PublishedCache;
 @using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inject IExamineManager examineManager
+@inject ITagQuery tagQuery
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @{
     Layout = "_master.cshtml";
     var childList = Model?.Children.Where(x => x.IsVisible());
     var directories = Model?.Value<Umbraco.Cms.Web.Common.PublishedModels.Dictionaries>("directories");
-}
+    SmidgeHelper.RequiresJs(new Smidge.Models.JavaScriptFile("~/scripts/catalog.js"));
+    var pageSize = 3;
+    var query = Context.Request.Query["query"];
+    var catalog = Model.Root().FirstChildOfType("catalog");
+    //var resultSearch = SiteHelpers.SearchProduct(examineManager, Umbraco, new SearchProductReq
+    //		{
+    //               ParentId = catalog.Id,
+    //			CurrentCount = 0,
+    //			PageSize = pageSize,
+    //			Title = query
+    //		});
 
-<section class="winnerCatlog block block--inner _noMarginBottom" style="--veil: 0;">
+}
+@functions {
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+<section class="block block--inner _noMarginBottom" style="--veil: 0;">
     <div class="block__content">
         <div class="block__header-row">
             <h1 class="block__title">@(Model.HasValue("title") ? Model.Value("title") : Model.Name())</h1>
@@ -20,20 +42,23 @@
         </div>
     </div>
 </section>
-@if (childList?.Count() > 0)
+@if (childList !=null && childList?.Count() > 0)
 {
-    <div class="filters">
-        <div class="filters__container">
+    @if (directories != null)
+    {
+    <div class="block block--inner filters _noMarginBottom">
+        <div class="block__content">
             <div class="filters__search">
                 <form class="searchPage__form" action="@Model.Url()" method="get">
-                    <label class="searchPage__label" for="@Model.Key">
-                        <input id="@Model.Key" type="text" name="title" value="" placeholder="Введите поисковый запрос">
-                    </label>
                     <button type="submit" class="searchPage__btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 18">
-                            <path fill="currentColor" fill-rule="evenodd" d="M2.564 8a6 6 0 0 1 6-5.999 6 6 0 1 1-6 6Zm6-7.999a8 8 0 1 0 5.026 14.223c.04.177.13.345.267.482l3 3a1 1 0 0 0 1.415-1.414l-3-3a.995.995 0 0 0-.483-.267A8 8 0 0 0 8.564.002Z" clip-rule="evenodd" />
-                        </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" width="16">
+                                <path fill="transparent" fill-opacity=".01" d="M0 0h16v16H0z" />
+                                <path fill="currentColor" fill-opacity=".616" fill-rule="evenodd" d="M10.667 6.934a3.733 3.733 0 1 1-7.467 0 3.733 3.733 0 0 1 7.467 0Zm-.738 3.75a4.8 4.8 0 1 1 .754-.754l3.027 3.027a.534.534 0 0 1-.754.754L9.93 10.684Z" clip-rule="evenodd" />
+                            </svg>
                     </button>
+                    <label class="searchPage__label" for="@Model.Key">
+                        <input id="@Model.Key" type="text" name="title" value="@(query)" placeholder="Введите поисковый запрос">
+                    </label>
 
                 </form>
             </div>
@@ -55,15 +80,33 @@
                 }
             </div>
             <div class="filters__search-result">
-                По запросу <span class="queryValye"></span> найдено <sapn class="queryCount"></sapn>
+                По запросу <span class="queryValye">спорт</span> найдено <span class="queryCount">42</span> вариант(а)
             </div>
-
-
         </div>
     </div>
-    <section class="block _noMarginBottom" style="--veil: 0;">
+        
+    }
+    <section class="winnerCatlog block _noMarginBottom" style="--veil: 0;">
         <div class="block__content">
-
+            <div class="winnerCatlog__grid">
+                @foreach (var card in childList)
+                {
+                    var title = card.HasValue("title") ? Html.Raw(card.Value("title")) : Html.Raw(card.Name);
+                    <div class="winnerCatlog__item">
+                        <a href="@card.Url()" class="winnerCatlog__link" id="@card.UrlSegment@card.Id">
+                            <div class="winnerCatlog__pic">
+                                <img src="@(card.Value<MediaWithCrops>("cover")?.Url())" loading="lazy" alt="@title" />
+                            </div>
+                            <div class="winnerCatlog__body">
+                                <div class="winnerCatlog__title">@title</div>
+                                <div class="winnerCatlog__summ">@(card.Value<int>("grantSumm"))@Html.Raw("&nbsp;&#8381;") </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                }
+            </div>
+            <div class="pagination">А тутЪ должна бы быть пагинация, но мы ее делаем!</div>
         </div>
     </section>
 }
