@@ -253,6 +253,7 @@ $(function () {
                                     id: 'v=',
                                     src: '//www.youtube.com/embed/%id%?autoplay=1'
                                 },
+
                                 vimeo: {
                                     index: 'vimeo.com/',
                                     id: '/',

@@ -60,7 +60,7 @@
                                                         var str = m.Value.Replace("src=\"", "").Replace("\"", "");
                                                         str = str + "&js_api=1";
                                                         <a class="videoSlider__item-link" href="@str">
-                                                            <img class="videoSlider__cover" src="@(videoItem.Cover != null ? videoItem.Cover.Url() : null)" alt="">
+                                                            <img class="videoSlider__cover" src="@(videoItem.Cover != null ? videoItem.Cover.Url() : "/css/img/lorempic.jpg")" alt="">
                                                         </a>
                                                         //@str;
                                                     }
@@ -112,7 +112,7 @@
                 }
                 @if (Model.SlideList != null && Model.SlideList.Any())
                 {
-                    <div class="grid__container">
+                    <div class="grid__container videoSlider popup-gallery">
                         @{
                             foreach (var slide in Model.SlideList)
                             {
@@ -137,7 +137,7 @@
                                                 var str = m.Value.Replace("src=\"", "").Replace("\"", "");
                                                 str = str + "&js_api=1";
                                                 <a class="videoSlider__item-link" href="@str">
-                                                    <img class="videoSlider__cover" src="@(videoItem.Cover != null ? videoItem.Cover.Url() : null)" alt="">
+                                                    <img class="videoSlider__cover" src="@(videoItem.Cover != null ? videoItem.Cover.Url() : "/css/img/lorempic.jpg")" alt="">
                                                 </a>
                                                 //@str;
                                             }

@@ -107,7 +107,7 @@ $(function () {
                 },
             }
         })
-        if (window.innerWidth <= 577) {
+        if (window.innerWidth <= 650) {
             videoSlider.destroy(true, true);
         } else {
             videoSlider.init();
