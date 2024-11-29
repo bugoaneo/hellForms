@@ -112,7 +112,7 @@
                 }
                 @if (Model.SlideList != null && Model.SlideList.Any())
                 {
-                    <div class="grid__container videoSlider popup-gallery">
+                    <div class="grid__container .videoSlider popup-gallery">
                         @{
                             foreach (var slide in Model.SlideList)
                             {
@@ -161,12 +161,12 @@
                             }
                         }
                     </div>
-                    @if (Model.Btn != null)
-                    {
-                        <div class="videoSlider__footer">
-                            <a class="btn" href="@Model.Btn.Url" target="@Model.Btn.Target">@Model?.Btn?.Name</a>
-                        </div>
-                    }
+                    // @if (Model.Btn != null)
+                    // {
+                    //     <div class="videoSlider__footer">
+                    //         <a class="btn" href="@Model.Btn.Url" target="@Model.Btn.Target">@Model?.Btn?.Name</a>
+                    //     </div>
+                    // }
                 }
             }
         }
