@@ -3,12 +3,13 @@
 @using Umbraco.Cms.Core.PublishedCache;
 @using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
 @{
     Layout = "_master.cshtml";
     var childList = Model?.Children.Where(x => x.IsVisible());
     var directories = Model?.Value<Umbraco.Cms.Web.Common.PublishedModels.Dictionaries>("directories");
+    var persons = Model?.Value<Umbraco.Cms.Web.Common.PublishedModels.Persons>("persons");
 }
-
 <section class="winnerCatlog block block--inner _noMarginBottom" style="--veil: 0;">
     <div class="block__content">
         <div class="block__header-row">
@@ -63,7 +64,6 @@
     </div>
     <section class="block _noMarginBottom" style="--veil: 0;">
         <div class="block__content">
-
         </div>
     </section>
 }
