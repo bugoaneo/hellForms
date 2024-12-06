@@ -39,7 +39,7 @@
                         <div class="winnerPage__nomination">
                             @if (nomination.HasValue("icon"))
                             {
-                                <div class="icon"><img src="@nomination.Icon?.Url()" alt="@nomination.Name" /></div>
+                                <div class="icon"><img src="@nomination.Icon?.Url()" alt="@nomination.Name" width="16" /></div>
                             }
                             <div class="label"> @nomination.Name</div>
                         </div>
@@ -48,10 +48,10 @@
                 </div>
 
 
-                    <div class="winnerPage__brif text">
-                        <div class="winnerPage__caption">Конкурсант</div>
-                        @Model.Value("shortDescription")
-                    </div>
+                <div class="winnerPage__brif text">
+                    <div class="winnerPage__caption">Конкурсант</div>
+                    @Model.Value("shortDescription")
+                </div>
 
                 <div class="winnerPage__infoGrid">
                     @if (city.IsNotNull())

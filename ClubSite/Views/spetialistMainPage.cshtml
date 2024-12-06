@@ -1,4 +1,5 @@
-﻿@using Umbraco.Cms.Core.Models;
+﻿@using System;
+@using Umbraco.Cms.Core.Models;
 @using Umbraco.Cms.Core.Models.Blocks;
 @using Umbraco.Cms.Core.PublishedCache;
 @using Umbraco.Cms.Web.Common.PublishedModels;
@@ -6,85 +7,90 @@
 
 @{
     Layout = "_master.cshtml";
-    var childList = Model?.Children.Where(x => x.IsVisible());
-    var directories = Model?.Value<Umbraco.Cms.Web.Common.PublishedModels.Dictionaries>("directories");
-    var persons = Model?.Value<Umbraco.Cms.Web.Common.PublishedModels.Persons>("persons");
+    ViewData["page"] = Model;
+    var directories = Model?.Value<Dictionaries>("directories");
+    var subtitle = Model?.Value("subTitle1");
+    var subtitleSecond = Model?.Value("subTitle2");
+    var expertsWithPhotos = Model?.Value<IPublishedContent>("expertsWithPhotos");
+    var expertsWithoutPhotos = Model?.Value<IPublishedContent>("expertsWithoutPhotos");
+    var childrenNodes = Model?.Children;
 }
-<section class="winnerCatlog block block--inner _noMarginBottom" style="--veil: 0;">
+
+
+<div class="block">
     <div class="block__content">
-        <div class="block__header-row">
-            <h1 class="block__title">@(Model.HasValue("title") ? Model.Value("title") : Model.Name())</h1>
-            @if (childList?.Count() > 0)
+        <div class="title__wrapper">
+            @if (Model.HasValue("title"))
             {
-                <div class="block__titlecount">@childList?.Count()</div>
+                <h2>@Model.Value("title")</h2>
+            }
+        </div>
+        @*выведдение городов*@
+        <div class="city__wrapper">
+            @foreach (var item in directories.Children)
+            {
+                var page = (IPublishedContent?)ViewData["page"];
+                var href = Model.UrlSegment + $"/?city={item.Name}";
+
+                <input type="radio" id="@item.Id" name="city" value="@item.Name" class="expert__href" />
+                <label for="name">@item.Name</label>
+
+
+                @*
+
+            <a href="@href" data-get="">@item.Name</a>
+
+            *@
+
+
+
+            }
+        </div>
+
+
+
+
+        <div class="title__subwrapper">
+            @if (Model.HasValue("subtitle1"))
+            {
+                <h3>@Model.Value("subtitle1")</h3>
+            }
+        </div>
+
+        <div class="expertsWithPhotos__wrapper">
+            @if (expertsWithPhotos != null)
+            {
+                foreach (var item in expertsWithPhotos.Children)
+                {
+                    var expert = (Person)item;
+                    <div class="expert__blockWrap">
+                        <img src="@expert.Image.Url()" alt="" class="expert__image" />
+                        <div class="expert__wrapText">
+                            <h5 class="expert__head">@expert.PersonName</h5>
+                            <p class="expert__par">@expert.PersonSpecialty</p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="title__subwrapper">
+            @if (Model.HasValue("subtitle2"))
+            {
+                <h3>@Model.Value("subtitle2")</h3>
+            }
+        </div>
+        <div class="expertsWithoutPhotos__wrapper">
+            @if (expertsWithoutPhotos != null)
+            {
+                foreach (var item in expertsWithoutPhotos.Children)
+                {
+                    var expert = (Person)item;
+                    <div class="expert__Wrap">
+                        <h3 class="expert__name">@expert.PersonName</h3>
+                        <h4 class="expert__workKompany">@expert.WorkKompany</h4>
+                        <p class="expert__part">@expert.PersonSpecialty</p>
+                    </div>
+                }
             }
         </div>
     </div>
-</section>
-@if (childList?.Count() > 0)
-{
-    <div class="filters">
-        <div class="filters__container">
-            <div class="filters__search">
-                <form class="searchPage__form" action="@Model.Url()" method="get">
-                    <label class="searchPage__label" for="@Model.Key">
-                        <input id="@Model.Key" type="text" name="title" value="" placeholder="Введите поисковый запрос">
-                    </label>
-                    <button type="submit" class="searchPage__btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 18">
-                            <path fill="currentColor" fill-rule="evenodd" d="M2.564 8a6 6 0 0 1 6-5.999 6 6 0 1 1-6 6Zm6-7.999a8 8 0 1 0 5.026 14.223c.04.177.13.345.267.482l3 3a1 1 0 0 0 1.415-1.414l-3-3a.995.995 0 0 0-.483-.267A8 8 0 0 0 8.564.002Z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-
-                </form>
-            </div>
-            <div class="filters__grid">
-                @foreach (var item in directories.Children)
-                {
-                    @if (item.Children.Count() > 0)
-                    {
-                        <div class="select-wrapper filter__category">
-                            <select name="@item.UrlSegment" id="@item.Value("dictionaryId")">
-                                <option value="all">@item.Value("defaultField")</option>
-                                @foreach (var elem in item.Children)
-                                {
-                                    <option value="@elem.UrlSegment">@elem.Name</option>
-                                }
-                            </select>
-                        </div>
-                    }
-                }
-            </div>
-            <div class="filters__search-result">
-                По запросу <span class="queryValye"></span> найдено <span class="queryCount"></span>
-            </div>
-
-
-        </div>
-    </div>
-    <section class="block _noMarginBottom" style="--veil: 0;">
-        <div class="block__content">
-        </div>
-    </section>
-}
-else
-{
-    <div class="block__content">
-        <div class="block__title">Пока тут ничего нет. Но скоро появиться :)</div>
-    </div>
-}
-
-@{
-    var contentBlocks = Model.Value<Umbraco.Cms.Core.Models.Blocks.BlockListModel>("contentBlocks")!;
-    if (contentBlocks != null)
-    {
-        var index = 0;
-        ViewData["page"] = Model;
-        foreach (var block in contentBlocks)
-        {
-            ViewData["blockIndex"] = index++;
-            ViewData["settings"] = block.Settings;
-            @await Html.PartialAsync("blocks/" + block.Content.ContentType.Alias, block.Content)
-        }
-    }
-}
