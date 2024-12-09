@@ -1,5 +1,6 @@
 ﻿@using ClubSite.src.Models;
 @using Examine;
+@using System.Globalization
 @using Umbraco.Cms.Core.Models;
 @using Umbraco.Cms.Core.Models.Blocks;
 @using Umbraco.Cms.Core.PublishedCache;
@@ -95,11 +96,12 @@
                     <div class="winnerCatlog__item">
                         <a href="@card.Url()" class="winnerCatlog__link" id="@card.UrlSegment@card.Id">
                             <div class="winnerCatlog__pic">
-                                <img src="@(card.Value<MediaWithCrops>("cover")?.Url())" loading="lazy" alt="@title" />
+                                <img src="@(card.Value<MediaWithCrops>("cover")?.Url())" loading="lazy" alt="@title" width="380"/>
                             </div>
                             <div class="winnerCatlog__body">
                                 <div class="winnerCatlog__title">@title</div>
-                                <div class="winnerCatlog__summ">@(card.Value<int>("grantSumm"))@Html.Raw("&nbsp;&#8381;") </div>
+                               
+                                <div class="winnerCatlog__summ">@{RenderNumber(card.Value<int>("grantSumm").ToString());}@Html.Raw("&nbsp;&#8381;")</div>
                             </div>
                         </a>
                     </div>
@@ -128,6 +130,21 @@ else
             ViewData["blockIndex"] = index++;
             ViewData["settings"] = block.Settings;
             @await Html.PartialAsync("blocks/" + block.Content.ContentType.Alias, block.Content)
+        }
+    }
+}
+
+@{
+    void RenderNumber(String num)
+    {
+        if (int.TryParse(num, out int number))
+        {
+            double doubleNumber = (double)number;
+            CultureInfo culture = new CultureInfo("ru-RU");
+            culture.NumberFormat.NumberGroupSeparator = " ";
+            string formattedNumber = doubleNumber.ToString("N0", culture);
+            @formattedNumber
+            ;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@using System;
+@using System.Globalization
 @using Umbraco.Cms.Core.Models;
 @using Umbraco.Cms.Core.Models.Blocks;
 @using Umbraco.Cms.Core.PublishedCache;
@@ -48,10 +49,10 @@
                 </div>
 
 
-                    <div class="winnerPage__brif text">
-                        <div class="winnerPage__caption">Конкурсант</div>
-                        @Model.Value("shortDescription")
-                    </div>
+                <div class="winnerPage__brif text">
+                    <div class="winnerPage__caption">Конкурсант</div>
+                    @Model.Value("shortDescription")
+                </div>
 
                 <div class="winnerPage__infoGrid">
                     @if (city.IsNotNull())
@@ -90,18 +91,17 @@
                     @if (Model.HasValue("grantSumm") || Model.HasValue("ownFunds"))
                     {
                         var ownString = Model.HasValue("ownFunds") ? "Собственные средства /" : string.Empty;
-                        var ownValue = Model.Value<int>("ownFunds");
-                        var grantValue = Model.Value<int>("grantSumm");
+                        var ownValue = Model.Value<int>("ownFunds").ToString();
+                        var grantValue = Model.Value<int>("grantSumm").ToString();                           
+
                         <div class="winnerPage__infoGrid-item grant">
                             <div class="winnerPage__caption">@ownString Сумма гранта</div>
                             @if (Model.HasValue("ownFunds"))
                             {
-                                @ownValue
-
-                                @Html.Raw("&nbsp;&#8381;&nbsp;&#47;")
+                                RenderNumber(ownValue);
+                                @Html.Raw("&nbsp;&#8381;&nbsp;&#47;&nbsp;")
                             }
-                            @grantValue@Html.Raw("&nbsp;&#8381;")
-
+                            @{RenderNumber(grantValue);} @Html.Raw("&nbsp;&#8381;")
                         </div>
                     }
                 </div>
@@ -151,3 +151,15 @@
         }
     }
 </div>
+@{
+    void RenderNumber (String num){
+        if (int.TryParse(num, out int number))
+        {
+            double doubleNumber = (double)number;
+            CultureInfo culture = new CultureInfo("ru-RU");
+            culture.NumberFormat.NumberGroupSeparator = " ";
+            string formattedNumber = doubleNumber.ToString("N0", culture);
+            @formattedNumber;
+        }
+    }
+}
