@@ -27,13 +27,15 @@
         </div>
         @*выведдение городов*@
         <div class="city__wrapper">
+            <input type="radio" id="all" name="city" value="all" class="expert__href" />
+            <label for="all">Все</label>
             @foreach (var item in directories.Children)
             {
                 var page = (IPublishedContent?)ViewData["page"];
                 var href = Model.UrlSegment + $"/?city={item.Name}";
 
                 <input type="radio" id="@item.Id" name="city" value="@item.Name" class="expert__href" />
-                <label for="name">@item.Name</label>
+                <label for="@item.Id">@item.Name</label>
 
 
                 @*
