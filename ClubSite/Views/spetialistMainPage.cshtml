@@ -17,12 +17,13 @@
     var city = Context.Request.Query["city"];
     if (!(!string.IsNullOrEmpty(city) && directories.Children.Where(x => x.Name == city).Any()))
     {
-        city = string.Empty; 
+        city = string.Empty;
     }
+
     if (!string.IsNullOrEmpty(city))
     {
-        expertsWithPhotos = expertsWithPhotos?.Where(x => ((Person)x).City!=null && ((Person)x).City.Name == city.ToString());
-        expertsWithoutPhotos = expertsWithoutPhotos?.Where(x => ((Person)x).City != null && ((Person)x).City.Name == city.ToString());
+        expertsWithPhotos = expertsWithPhotos?.Where(x => (x as Person)?.MultiCityPicker?.Any(v => v.Name == city) == true);
+        expertsWithoutPhotos = expertsWithoutPhotos?.Where(x => ((Person)x).MultiCityPicker != null && ((Person)x).MultiCityPicker.Any(v => v.Name.ToString() == city.ToString()));
     }
 }
 @{
@@ -38,31 +39,22 @@
             }
         </div>
         @*выведдение городов*@
+
         <div class="city__wrapper">
             <input type="radio" id="all" name="city" value="all" class="expert__href" onclick="checkSpec(this)" @(string.IsNullOrEmpty(city) ? "checked" : "") />
-            <label for="all">Все</label>
+            <div class="town__subwrapper">
+                <label for="all">Все города</label>
+            </div>
             @foreach (var item in directories.Children)
             {
                 var page = (IPublishedContent?)ViewData["page"];
                 var href = Model.UrlSegment + $"/?city={item.Name}";
-
-                <input type="radio" id="@item.Id" name="city" value="@item.Name" class="expert__href" onclick="checkSpec(this)" @(city == @item.Name? "checked": "")/>
-                <label for="@item.Id">@item.Name</label>
-
-
-                @*
-
-            <a href="@href" data-get="">@item.Name</a>
-
-            *@
-
-
-
+                <input type="radio" id="@item.Id" name="city" value="@item.Name" class="expert__href" onclick="checkSpec(this)" @(city == @item.Name ? "checked" : "") />
+                <div class="town__subwrapper">
+                    <label for="@item.Id" class="city__name">@item.Name</label>
+                </div>
             }
         </div>
-
-
-
 
         <div class="title__subwrapper">
             @if (Model.HasValue("subtitle1"))
@@ -108,3 +100,4 @@
             }
         </div>
     </div>
+</div>
