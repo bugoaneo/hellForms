@@ -12,3 +12,7 @@ ClubSite/wwwroot/css/core.css
 ClubSite/wwwroot/css/core.min.css
 ClubSite/wwwroot/css/main.css
 ClubSite/wwwroot/css/main.min.css
+/ClubSite/wwwroot/css/*.css
+/ClubSite/wwwroot/css/core.css
+/ClubSite/wwwroot/css/theme-vmeste/main.min.css
+/ClubSite/wwwroot/css/theme-vmeste/main.css

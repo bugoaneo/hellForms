@@ -1,4 +1,5 @@
-﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+﻿@using Umbraco.Cms.Core.Models
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 
 @{
     string metaKeywords = String.Empty;
@@ -64,9 +65,11 @@
 
     ogMeta["og:description"] = ogObject?.OgDescription ?? metaDescription ?? string.Empty;
 
-    Umbraco.Cms.Core.Models.MediaWithCrops? pageImage;
-    pageImage = ogObject?.OgImage ?? ogDefaultObject?.OgImage;
 
+    
+    var socImage = Model.Value<MediaWithCrops>("ogImage");
+   Umbraco.Cms.Core.Models.MediaWithCrops? pageImage;
+    pageImage = socImage ?? ogObject?.OgImage ?? ogDefaultObject?.OgImage;
     if (pageImage != null)
     {
     ogMeta["og:image"] = rootUrl + pageImage.Url();
