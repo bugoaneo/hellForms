@@ -94,6 +94,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string MetaTitle => this.Value<string>(_publishedValueFallback, "metaTitle");
 
 		///<summary>
+		/// Картинка для репоста
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("ogImage")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops OgImage => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "ogImage");
+
+		///<summary>
 		/// SEO - соцсети: Заполните, если нужно что-то специальное на этой странице для соцсетей
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
