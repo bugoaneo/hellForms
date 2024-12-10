@@ -101,18 +101,18 @@ $(function () {
                         }
                     }
                 },
-                "videoSlider": {
-                    slidesPerView: 1,
-                    navigation: {
-                        nextEl: ".button-next" + index,
-                        prevEl: ".button-prev" + index,
-                    },
-                    pagination: {
-                        el: ".pagination" + index,
-                        type: "fraction",
-                        clickable: true
-                    },
-                },
+                //"videoSlider": {
+                //    slidesPerView: 1,
+                //    navigation: {
+                //        nextEl: ".button-next" + index,
+                //        prevEl: ".button-prev" + index,
+                //    },
+                //pagination: {
+                //    el: ".pagination" + index,
+                //    type: "fraction",
+                //    clickable: true
+                //},
+                //},
                 "gallery": {
                     loop: true,
                     spaceBetween: 10,
@@ -189,9 +189,9 @@ $(function () {
             if ($e.hasClass("cardGallery")) {
                 options = swiperOptions.cardGallery;
             }
-            if ($e.hasClass("videoSlider")) {
-                options = swiperOptions.videoSlider;
-            }
+            //if ($e.hasClass("videoSlider")) {
+            //    options = swiperOptions.videoSlider;
+            //}
             var swiper = new Swiper(".mySwiper" + index, options);
         });
     }
@@ -253,6 +253,7 @@ $(function () {
                                     id: 'v=',
                                     src: '//www.youtube.com/embed/%id%?autoplay=1'
                                 },
+
                                 vimeo: {
                                     index: 'vimeo.com/',
                                     id: '/',

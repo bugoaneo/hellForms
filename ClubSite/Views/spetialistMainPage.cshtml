@@ -1,0 +1,103 @@
+﻿@using System;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.PublishedCache;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    Layout = "_master.cshtml";
+    ViewData["page"] = Model;
+    var directories = Model?.Value<Dictionaries>("directories");
+    var subtitle = Model?.Value("subTitle1");
+    var subtitleSecond = Model?.Value("subTitle2");
+    var expertsWithPhotos = Model?.Value<IPublishedContent>("expertsWithPhotos")?.Children;
+    var expertsWithoutPhotos = Model?.Value<IPublishedContent>("expertsWithoutPhotos")?.Children;
+    var childrenNodes = Model?.Children;
+    var city = Context.Request.Query["city"];
+    if (!(!string.IsNullOrEmpty(city) && directories.Children.Where(x => x.Name == city).Any()))
+    {
+        city = string.Empty;
+    }
+
+    if (!string.IsNullOrEmpty(city))
+    {
+        expertsWithPhotos = expertsWithPhotos?.Where(x => (x as Person)?.MultiCityPicker?.Any(v => v.Name == city) == true);
+        expertsWithoutPhotos = expertsWithoutPhotos?.Where(x => ((Person)x).MultiCityPicker != null && ((Person)x).MultiCityPicker.Any(v => v.Name.ToString() == city.ToString()));
+    }
+}
+@{
+    SmidgeHelper.RequiresJs(new Smidge.Models.JavaScriptFile("~/scripts/specialist.js"));
+}
+
+<div class="block">
+    <div class="block__content">
+        <div class="title__wrapper">
+            @if (Model.HasValue("title"))
+            {
+                <h2>@Model.Value("title")</h2>
+            }
+        </div>
+        @*выведдение городов*@
+
+        <div class="city__wrapper">
+            <input type="radio" id="all" name="city" value="all" class="expert__href" onclick="checkSpec(this)" @(string.IsNullOrEmpty(city) ? "checked" : "") />
+            <div class="town__subwrapper">
+                <label for="all">Все города</label>
+            </div>
+            @foreach (var item in directories.Children)
+            {
+                var page = (IPublishedContent?)ViewData["page"];
+                var href = Model.UrlSegment + $"/?city={item.Name}";
+                <input type="radio" id="@item.Id" name="city" value="@item.Name" class="expert__href" onclick="checkSpec(this)" @(city == @item.Name ? "checked" : "") />
+                <div class="town__subwrapper">
+                    <label for="@item.Id" class="city__name">@item.Name</label>
+                </div>
+            }
+        </div>
+
+        <div class="title__subwrapper">
+            @if (Model.HasValue("subtitle1"))
+            {
+                <h3>@Model.Value("subtitle1")</h3>
+            }
+        </div>
+
+        <div class="expertsWithPhotos__wrapper">
+            @if (expertsWithPhotos != null)
+            {
+                foreach (var item in expertsWithPhotos)
+                {
+                    var expert = (Person)item;
+                    <div class="expert__blockWrap">
+                        <img src="@expert.Image.Url()" alt="" class="expert__image" />
+                        <div class="expert__wrapText">
+                            <h5 class="expert__head">@expert.PersonName</h5>
+                            <p class="expert__par">@expert.PersonSpecialty</p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="title__subwrapper">
+            @if (Model.HasValue("subtitle2"))
+            {
+                <h3>@Model.Value("subtitle2")</h3>
+            }
+        </div>
+        <div class="expertsWithoutPhotos__wrapper">
+            @if (expertsWithoutPhotos != null)
+            {
+                foreach (var item in expertsWithoutPhotos)
+                {
+                    var expert = (Person)item;
+                    <div class="expert__Wrap">
+                        <h3 class="expert__name">@expert.PersonName</h3>
+                        <h4 class="expert__workKompany">@expert.WorkKompany</h4>
+                        <p class="expert__part">@expert.PersonSpecialty</p>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

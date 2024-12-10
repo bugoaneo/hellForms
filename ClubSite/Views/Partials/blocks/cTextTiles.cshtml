@@ -1,0 +1,119 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CTextTiles>
+@{
+    var settings = (BlockSettings?)ViewData["settings"];
+    var textTilesList = Model.ElemList;
+    var additionalClass = "";
+}
+
+@{
+
+    @await Html.PartialAsync("partRenderAnchor", settings)
+    <section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+
+        <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+            <div class="text__wrapper">
+                @*отрисовка Заголовка*@
+
+
+                @* переключатель "колонки в ряд"*@
+                @switch (Model.Layout2)
+                {
+                    case "3 в ряд":
+                        additionalClass = "threeInRow";
+                        break;
+                    case "4 в ряд":
+                        additionalClass = "fourInRow";
+                        break;
+                    case "5 в ряд":
+                        additionalClass = "fiveInRow";
+                        break;
+                    default:
+                        additionalClass = "threeInRow";
+                        break;
+                }
+                @*переключатель "цифра или текст"*@
+
+                @switch (Model.Layout)
+                {
+                    case "Заголовок с текстом":
+                        renderTextHead();
+                        break;
+                    case "Заголовок с числом":
+                        renderNumberHead();
+                        break;
+                    default:
+                        renderTextHead();
+                        break;
+                }
+
+            </div>
+        </div>
+    </section>
+    @*функция которая приводит переключатель в действие*@
+
+
+    void renderTextHead()
+    {@*отрисовка Заголовка*@
+        @if (Model.HasValue("title"))
+        {
+            <h2 class="block__title styleTitle">@Model.Title</h2>
+        }
+
+        @*отрисовка описания*@
+        @if (Model.HasValue("description"))
+        {
+            <div class="block__description text">@Model.Description</div>
+        }
+        @*отрисовка элемента *@
+        @if (textTilesList != null && textTilesList.Any())
+        {
+
+            <div class="wrapper__flex @additionalClass">
+                @foreach (var item in textTilesList)
+                {
+                    var elem = (UniTitleAndText)item.Content;
+                    <div class="elem__wrap">
+                        <div class="color__wrap">
+                            <div class="elem__head">@Html.Raw(elem.Title)</div>
+                        </div>
+
+                        <div class="elem__content text">@Html.Raw(elem.Contents)</div>
+                    </div>
+                }
+            </div>
+        }
+    }
+    void renderNumberHead()
+    {@*отрисовка Заголовка*@
+        @if (Model.HasValue("title"))
+        {
+            <h2 class="block__title styleTitle2">@Model.Title</h2>
+        }
+
+        @*отрисовка описания*@
+        @if (Model.HasValue("description"))
+        {
+            <div class="block__description text">@Model.Description</div>
+        }
+        int count = 1;
+        @*отрисовка элемента *@
+        @if (textTilesList != null && textTilesList.Any())
+        {
+            <div class="wrapper__flex-num @additionalClass">
+                @foreach (var item in textTilesList)
+                {
+                    var elem = (UniTitleAndText)item.Content;
+                    <div class="elem__wrap-num">
+                        <div class="color__wrap-num">
+                            @count
+                            @* <h5 class="elem__head number">@Html.Raw(elem.Title)</h5>*@
+                        </div>
+                        <div class="elem__content-num  text">@Html.Raw(elem.Contents)</div>
+
+                    </div>
+                    count++;
+                }
+            </div>
+        }
+    }
+}

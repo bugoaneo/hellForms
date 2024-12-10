@@ -1,0 +1,43 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CSlider>
+@{
+    var settings = (BlockSettings?)ViewData["settings"];
+    var sliderList = Model.Slider;
+}
+@await Html.PartialAsync("partRenderAnchor", settings)
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+        @if (Model.HasValue("title"))
+        {
+            <h2 class="proviso__title styleTitle">@Html.Raw(Model.Title)</h2>
+        }
+        @if (Model.HasValue("description"))
+        {
+            <div class="block__description">@Model.Description</div>
+        }
+        @if (Model.Slider != null && Model.Slider.Any())
+        {
+            foreach (var slide in Model.Slider)
+            {
+                var videoItem = (ElemSlide)slide.Content;
+                <div class="videoSlider__body">
+                    <div class="swiper mySwiper swiper-container videoSlider popup-gallery">
+
+                        <div class="swiper-wrapper videoSlider__list">
+                            <div class="video">@Html.Raw(videoItem.VideoCode)</div>
+                            <div class="banner">@videoItem.Cover?.Url()</div>
+                            <div class="title__slide">@videoItem.Title</div>
+                            <a class="btn" href="@videoItem.Link?.Url">@videoItem.Link?.Name</a>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        }
+
+
+
+
+
+    </div>
+</section>

@@ -1,0 +1,91 @@
+﻿.proviso__title {
+  @include fFS(24px,28px,390px,1440px);
+  margin-bottom: 36px;
+}
+
+.content__wrap {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  @include bp(770px) {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.wrapper__proviso {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 8px;
+  border-radius: 16px;
+  border: 1px solid #D8D7EB;
+  padding: 8px;
+  flex: 0 1 calc(50% - 20px);
+
+  @include bp(770px) {
+    flex-direction: column;
+  }
+}
+
+.wrapper__proviso--text {
+  padding: 0.6em 0.7em;
+  flex: 0 1 329px;
+  align-content: flex-start;
+  flex-direction: row;
+
+
+  @include bp(770px) {
+    max-width: 100%;
+    padding: 0.6em 0.8em;
+    flex: 0 1 auto;
+  }
+
+  &.colorful {
+    background-color: #FFEDD2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-radius: 8px;
+    flex: 0 1 205px;
+
+    @include bp(770px) {
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: baseline;
+      gap: 8px;
+      flex: 0 1 auto;
+    }
+  }
+}
+
+.proviso__head {
+  @include fFS(20px,24px,390px,1440px);
+}
+
+.proviso__text, .proviso__secondText {
+  @include fFS(16px,16px,390px,1440px);
+  line-height: 24px;
+  font-weight: 400;
+}
+
+
+
+.proviso__sum, .proviso__head {
+  font-weight: bold;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.proviso__sum {
+
+  @include bp(600px) {
+    font-size: 16px;
+  }
+}
+
+.wrapper__proviso--text:first-child {
+  margin-right: 22px;
+}

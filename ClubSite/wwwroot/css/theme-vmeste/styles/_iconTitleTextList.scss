@@ -1,0 +1,59 @@
+﻿.cIconTitleTextList {
+  .content__wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    @include bp(961px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @include bp(600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .wrapper__nomination {
+    border: 1px solid #F3920A;
+    border-radius: 8px;
+    padding: 29px 18px;
+    flex: 0 1 calc(33% - 10px);
+
+    &:hover {
+      background-color: #FFEDD2;
+    }
+  }
+
+  .nomination__icon {
+  }
+
+  .nomination__title {
+    @include fFS(20px,20px,390px,1440px);
+    font-weight: 600;
+    line-height: 28px;
+    letter-spacing: -0.08px;
+  }
+
+  .wrapper__nomination--elem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nomination__text {
+    @include fFS(16px,16px,390px,1440px);
+    margin-top: 0.5em;
+    font-weight: 400;
+  }
+  //.styleTitle {
+  //  font-weight: bold;
+  //}
+
+  .styleTitle {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.12px;
+    margin-bottom: 31px;
+  }
+}

@@ -1,0 +1,80 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Web.Common.PublishedModels.CModuleDocs>
+@{
+    var settings = (BlockSettings?)ViewData["settings"];
+    var docList = Model.Document;
+}
+@await Html.PartialAsync("partRenderAnchor", settings)
+<section @BlockHelpers.GetBlockOuterAttributes(@Model.ContentType.Alias + " block", settings)>
+    <div class="@BlockHelpers.GetContainerCssClass("block__content", settings)">
+        @if (Model.HasValue("title"))
+        {
+            <h2 class="proviso__title styleTitle">@Model.Title</h2>
+        }
+        @if (Model.HasValue("description"))
+        {
+            <div class="block__description">@Model.Description</div>
+        }
+
+        @if (docList != null && docList.Any())
+        {
+            <div class="contentDocs__wrapper">
+                @foreach (var item in docList)
+                {
+                    var element = (ElemListDocs)item.Content;
+                    renderItem(element);
+                }
+            </div>
+        }
+    </div>
+</section>
+@{
+    void renderItem(ElemListDocs element)
+    {
+        var fileWeight = element.DownloadFile?.Value("umbracoBytes");
+        var toConv = 0.0;
+        var fileSize = 0.0;
+        try
+        {
+            toConv = Convert.ToDouble(fileWeight);
+
+            fileSize = Math.Round(toConv / (1024 * 1024));
+        }
+        catch
+        {
+            toConv = 0.00;
+            //fileHref = string.Empty;
+            //fileText = "Файл сломан!";
+        }
+        <a class="link__docs" download="" title="@element.Title" target="_blank" href="@element.DownloadFile?.Url()">
+
+            <div class="itemDocs__wrap">
+                <img src="@element.Image.Url()" alt="" class="imageDocs" width="33">
+                <div class="download__wrapper">
+                    <h4 class="file__name">
+                        @element.Title
+                    </h4>
+                    <div class="cCatalogList__fileWeight">
+                        @if (fileSize != 0 && fileSize.IsNotNull())
+                        {
+                            @(fileSize + " мб")
+                            //fileHref = $"href={@document.DownLoadFile?.Url()}";
+                        }
+                        else
+                        {
+                            @Html.Raw("< 1 мб")
+                            //fileHref = $"href={@document.DownLoadFile?.Url()}";
+                        }
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </a>
+
+    }
+
+
+
+}

@@ -1,0 +1,103 @@
+﻿.cVideoSlider {
+  h2 {
+    @include fFS(24px,28px,390px,1440px);
+    line-height: 36px;
+    letter-spacing: -0.12px;
+
+    @include bp(600px) {
+      margin-bottom: 12px;
+      line-height: 30px;
+      letter-spacing: -0.01px;
+    }
+  }
+
+  .videoSlider__item-title {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 26px;
+    letter-spacing: -0.04px;
+    margin-top: 8px;
+    color: #333244;
+  }
+
+  .swiper-wrapper {
+    @include bp(600px) {
+      flex-direction: column;
+    }
+  }
+
+
+  .videoSlider__arrow {
+    @include bp(600px) {
+      display: none;
+    }
+  }
+
+  .swiper-slide {
+    @include bp(600px) {
+      display: none;
+
+      &:nth-child(-n+3) {
+        display: block;
+      }
+    }
+  }
+
+  .videoSlider__footer .btn {
+    max-width: 100%;
+    border-radius: 6px;
+    background-color: rgba(0, 0, 176, 0.0627);
+    color: rgba(99, 98, 122, 1);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    justify-content: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    display: none;
+
+    @include bp(600px) {
+      display: flex;
+    }
+  }
+
+  .videoSlider__content {
+    max-width: 100%;
+  }
+
+  .videoSlider__cover {
+    border-radius: 16px;
+    max-height: 233px;
+  }
+
+  .swiper-button-prev, .swiper-button-next {
+    color: black;
+    max-width: 20px;
+    max-height: 20px;
+  }
+
+  .swiper-button-next:after, .swiper-button-prev:after {
+    font-size: 20px;
+  }
+  /*стили для колонки*/
+  .grid__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+
+    @include bp(850px) {
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @include bp(730px) {
+      grid-template-columns: 1fr;
+      gap: 5px;
+    }
+
+    .videoSlider__content {
+      margin-bottom: 12px;
+    }
+  }
+}
