@@ -70,7 +70,9 @@
                 {
                     var expert = (Person)item;
                     <div class="expert__blockWrap">
-                        <img src="@expert.Image.Url()" alt="" class="expert__image" />
+                        @if(expert.HasValue("image")){
+                            <img src="@(expert.Value<MediaWithCrops>("image")?.Url())" alt="" class="expert__image" />
+                        }
                         <div class="expert__wrapText">
                             <h5 class="expert__head">@expert.PersonName</h5>
                             <p class="expert__par">@expert.PersonSpecialty</p>
