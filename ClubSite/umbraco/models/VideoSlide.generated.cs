@@ -82,18 +82,19 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string MediaLink => this.Value<string>(_publishedValueFallback, "mediaLink");
 
 		///<summary>
-		/// Дата проекта
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
-		[ImplementPropertyType("projectDate")]
-		public virtual global::System.DateTime ProjectDate => this.Value<global::System.DateTime>(_publishedValueFallback, "projectDate");
-
-		///<summary>
 		/// Заголовок
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("title")]
 		public virtual string Title => this.Value<string>(_publishedValueFallback, "title");
+
+		///<summary>
+		/// Код для вставки с ВК: Код для вставки с ВК
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.10+d8df405")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("vkCode")]
+		public virtual string VkCode => this.Value<string>(_publishedValueFallback, "vkCode");
 	}
 }
